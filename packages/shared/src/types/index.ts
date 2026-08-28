@@ -28,6 +28,13 @@ import {
   storySnippetSchema,
   dashboardMetaSchema,
 } from "../schemas";
+import {
+  locationSchema,
+  locationSuggestionSchema,
+  locationSearchResponseSchema,
+  locationSearchQuerySchema,
+  locationIndexEntrySchema,
+} from "../schemas/location";
 
 export type ApiError = z.infer<typeof apiErrorSchema>;
 export type HealthResponse = z.infer<typeof healthResponseSchema>;
@@ -55,4 +62,9 @@ export type Event = z.infer<typeof eventSchema>;
 export type Experience = z.infer<typeof experienceSchema>;
 export type StorySnippet = z.infer<typeof storySnippetSchema>;
 export type DashboardMeta = z.infer<typeof dashboardMetaSchema>;
+export type Location = z.infer<typeof locationSchema>;
+export type LocationIndexEntry = z.infer<typeof locationIndexEntrySchema>;
+export type LocationSuggestion = z.infer<typeof locationSuggestionSchema>;
+export type LocationSearchResponse = z.infer<typeof locationSearchResponseSchema>;
+export type LocationSearchQuery = z.infer<typeof locationSearchQuerySchema>;
 export type { ModelPreset };

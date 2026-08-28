@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test lib/api-utils.test.ts lib/rate-limit.test.ts lib/errors.test.ts lib/location-utils.test.ts lib/planner-constants.test.ts lib/planner-session-storage.test.ts lib/dashboard-helpers.test.ts lib/local-lens-helpers.test.ts lib/story-speech.test.ts",
+    "test": "node --import tsx --test lib/api-utils.test.ts lib/rate-limit.test.ts lib/errors.test.ts lib/location-utils.test.ts lib/planner-constants.test.ts lib/planner-session-storage.test.ts lib/dashboard-helpers.test.ts lib/local-lens-helpers.test.ts lib/story-speech.test.ts lib/mock/compass-plan.test.ts lib/locations/location-index.test.ts lib/locations/location-search-query.test.ts lib/locations/search-api.test.ts",
     "clean": "rm -rf .next"
   },
   "dependencies": {

@@ -3,10 +3,12 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { MapPin, Search, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import type { Location } from "@culturecompass/shared";
 import { AnimatedGlobe } from "@/components/landing/animated-globe";
 import { FloatingCulturalIcons } from "@/components/landing/floating-cultural-icons";
 import { FeatureCards } from "@/components/landing/feature-cards";
+import { LocationSearch } from "@/components/location/location-search";
 
 const EXAMPLE_DESTINATIONS = ["Jaipur", "Kyoto", "Bali", "Rome", "Kerala"] as const;
 
@@ -21,16 +23,42 @@ const fadeUp = {
 
 export function LandingPage() {
   const router = useRouter();
-  const [destination, setDestination] = useState("");
-  const searchRef = useRef<HTMLInputElement>(null);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+  const [inputText, setInputText] = useState("");
+  const [tryChipKey, setTryChipKey] = useState(0);
+  const [tryChipText, setTryChipText] = useState("");
+  const pendingLocationRef = useRef<Location | null>(null);
 
   function handleStartExploring() {
+    const location = selectedLocation ?? pendingLocationRef.current;
     const params = new URLSearchParams();
-    if (destination.trim()) {
-      params.set("destination", destination.trim());
+
+    if (location) {
+      params.set("destination", location.displayLabel);
+      sessionStorage.setItem("plannerLocation", JSON.stringify(location));
+    } else if (inputText.trim()) {
+      params.set("destination", inputText.trim());
+      sessionStorage.removeItem("plannerLocation");
+    } else {
+      sessionStorage.removeItem("plannerLocation");
     }
+
     const query = params.toString();
     router.push(query ? `/plan?${query}` : "/plan");
+  }
+
+  function handleLocationChange(location: Location | null) {
+    setSelectedLocation(location);
+    pendingLocationRef.current = location;
+  }
+
+  function handleTryChip(place: string) {
+    setSelectedLocation(null);
+    pendingLocationRef.current = null;
+    setTryChipText(place);
+    setTryChipKey((key) => key + 1);
+    setInputText(place);
+    sessionStorage.removeItem("plannerLocation");
   }
 
   return (
@@ -81,32 +109,14 @@ export function LandingPage() {
             variants={fadeUp}
             className="mt-10 w-full"
           >
-            <label htmlFor="hero-destination" className="sr-only">
-              Search destination
-            </label>
-            <div className="glass-search group relative flex items-center gap-3 rounded-2xl px-4 py-2 sm:rounded-full sm:px-6 sm:py-3">
-              <Search
-                className="h-5 w-5 shrink-0 opacity-40 transition-opacity group-focus-within:opacity-70"
-                strokeWidth={1.75}
-                aria-hidden="true"
-              />
-              <input
-                ref={searchRef}
-                id="hero-destination"
-                type="search"
-                value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-                placeholder="Where does your curiosity lead?"
-                autoComplete="off"
-                className="min-w-0 flex-1 bg-transparent py-3 text-base outline-none placeholder:text-[var(--muted-foreground)] sm:text-lg"
-                style={{ color: "var(--foreground)" }}
-              />
-              <MapPin
-                className="hidden h-5 w-5 shrink-0 opacity-30 sm:block"
-                strokeWidth={1.75}
-                aria-hidden="true"
-              />
-            </div>
+            <LocationSearch
+              key={tryChipKey}
+              id="hero-destination"
+              variant="hero"
+              initialText={tryChipText}
+              onLocationChange={handleLocationChange}
+              onInputTextChange={setInputText}
+            />
 
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
               <span className="theme-text-subtle text-xs">Try:</span>
@@ -114,7 +124,7 @@ export function LandingPage() {
                 <button
                   key={place}
                   type="button"
-                  onClick={() => setDestination(place)}
+                  onClick={() => handleTryChip(place)}
                   className="theme-chip text-xs sm:text-sm"
                 >
                   {place}

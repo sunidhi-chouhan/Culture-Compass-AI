@@ -14,7 +14,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test src/schemas/schemas.test.ts src/constants/lens.test.ts",
+    "test": "node --import tsx --test src/schemas/schemas.test.ts src/constants/lens.test.ts src/locations/normalize.test.ts src/locations/search-locations.test.ts",
     "clean": "rm -rf dist"
   },
   "dependencies": {

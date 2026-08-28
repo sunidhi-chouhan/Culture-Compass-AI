@@ -10,6 +10,7 @@ import {
 
 const completeAnswers: PlannerAnswers = {
   destination: "Kyoto",
+  destinationLocation: null,
   interests: ["History", "Food"],
   companion: "Solo",
   budget: "moderate",

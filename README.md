@@ -131,8 +131,35 @@ The dashboard uses composite `/api/compass/plan` for one fast round-trip. Prompt
 pnpm install
 cp .env.example apps/web/.env.local
 # Add GEMINI_API_KEY from https://aistudio.google.com/apikey
+# Or enable offline demo mode (no API key needed):
+# USE_MOCK_AI=true
 pnpm dev:web
 ```
+
+### Demo without Gemini (save API quota)
+
+In `apps/web/.env` or `.env.local`:
+
+```bash
+USE_MOCK_AI=true
+# GEMINI_API_KEY=   # leave unset or commented out
+```
+
+Restart the dev server. **Generate Journey** and **Local Lens** toggles use rich mock data (Jaipur by default) — Story Mode, dashboard cards, and speech playback all work.
+
+### Location search (GeoNames)
+
+Global city/country autocomplete uses a **server-side GeoNames index** (free, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)). Data is **not** bundled into the browser.
+
+Regenerate the index:
+
+```bash
+node scripts/build-locations-index.mjs
+```
+
+For a lightweight mock index in tests/dev: `USE_MOCK_LOCATIONS=true` in `apps/web/.env.local`.
+
+See [packages/shared/data/README.md](packages/shared/data/README.md) for attribution.
 
 ### Scripts
 

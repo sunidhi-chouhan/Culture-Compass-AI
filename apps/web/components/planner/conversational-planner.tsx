@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Compass, Search, Sparkles, ArrowRight, Send } from "lucide-react";
+import { Compass, Sparkles, ArrowRight, Send } from "lucide-react";
+import type { Location } from "@culturecompass/shared";
 import {
   ASSISTANT_PROMPTS,
   BUDGET_OPTIONS,
@@ -15,7 +16,7 @@ import {
   type PlannerStep,
   formatUserAnswer,
 } from "@/lib/planner-constants";
-import { filterDestinationSuggestions } from "@/lib/location-utils";
+import { LocationSearch } from "@/components/location/location-search";
 
 interface ChatMessage {
   id: string;
@@ -25,20 +26,56 @@ interface ChatMessage {
 
 interface ConversationalPlannerProps {
   initialDestination?: string;
+  initialLocation?: Location | null;
   onGenerate: (answers: PlannerAnswers) => void;
   generating?: boolean;
 }
 
+function readStoredPlannerLocation(): Location | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem("plannerLocation");
+    if (!raw) return null;
+    return JSON.parse(raw) as Location;
+  } catch {
+    return null;
+  }
+}
+
+function resolveInitialDestinationState(
+  initialDestination: string,
+  initialLocation: Location | null,
+) {
+  const storedLocation = readStoredPlannerLocation();
+  const location =
+    initialLocation ??
+    (storedLocation &&
+    (!initialDestination || storedLocation.displayLabel === initialDestination)
+      ? storedLocation
+      : null);
+
+  return {
+    destination: location?.displayLabel ?? initialDestination,
+    location,
+  };
+}
+
 export function ConversationalPlanner({
   initialDestination = "",
+  initialLocation = null,
   onGenerate,
   generating = false,
 }: ConversationalPlannerProps) {
+  const [initialDestinationState] = useState(() =>
+    resolveInitialDestinationState(initialDestination, initialLocation),
+  );
+
   const [step, setStep] = useState<PlannerStep>("destination");
-  const [answers, setAnswers] = useState<PlannerAnswers>({
+  const [answers, setAnswers] = useState<PlannerAnswers>(() => ({
     ...INITIAL_PLANNER_ANSWERS,
-    destination: initialDestination,
-  });
+    destination: initialDestinationState.destination,
+    destinationLocation: initialDestinationState.location,
+  }));
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "welcome",
@@ -51,12 +88,14 @@ export function ConversationalPlanner({
       text: ASSISTANT_PROMPTS.destination,
     },
   ]);
-  const [destinationInput, setDestinationInput] = useState(initialDestination);
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [destinationInput, setDestinationInput] = useState(
+    () => initialDestinationState.destination,
+  );
+  const [destinationLocation, setDestinationLocation] = useState<Location | null>(
+    () => initialDestinationState.location,
+  );
   const scrollRef = useRef<HTMLDivElement>(null);
   const stepIndex = PLANNER_STEPS.indexOf(step);
-
-  const suggestions = filterDestinationSuggestions(destinationInput);
 
   const scrollToBottom = useCallback(() => {
     requestAnimationFrame(() => {
@@ -106,12 +145,25 @@ export function ConversationalPlanner({
 
   function handleDestinationContinue(override?: string) {
     const dest = override !== undefined ? override : destinationInput;
-    const updated = { ...answers, destination: dest };
+    const location =
+      override !== undefined ? null : destinationLocation;
+    const updated = {
+      ...answers,
+      destination: dest,
+      destinationLocation: location,
+    };
     setAnswers(updated);
     if (override !== undefined) {
       setDestinationInput(override);
+      setDestinationLocation(null);
     }
-    setShowSuggestions(false);
+    if (location) {
+      sessionStorage.setItem("plannerLocation", JSON.stringify(location));
+    } else if (dest.trim()) {
+      sessionStorage.removeItem("plannerLocation");
+    } else {
+      sessionStorage.removeItem("plannerLocation");
+    }
     advanceFrom("destination", updated);
   }
 
@@ -227,42 +279,15 @@ export function ConversationalPlanner({
                 exit={{ opacity: 0, y: -8 }}
                 className="space-y-3"
               >
-                <div className="glass-search relative flex items-center gap-2 rounded-2xl px-4 py-1">
-                  <Search className="h-4 w-4 shrink-0 opacity-40" aria-hidden="true" />
-                  <input
-                    type="search"
-                    value={destinationInput}
-                    onChange={(e) => {
-                      setDestinationInput(e.target.value);
-                      setShowSuggestions(true);
-                    }}
-                    onFocus={() => setShowSuggestions(true)}
-                    onKeyDown={(e) => e.key === "Enter" && handleDestinationContinue()}
-                    placeholder="Search a city or region…"
-                    className="min-w-0 flex-1 bg-transparent py-3 text-sm outline-none sm:text-base"
-                    style={{ color: "var(--foreground)" }}
-                    aria-label="Where do you want to explore?"
-                  />
-                </div>
-                {showSuggestions && suggestions.length > 0 && (
-                  <ul className="glass-card max-h-36 overflow-auto rounded-xl py-1">
-                    {suggestions.map((s) => (
-                      <li key={s}>
-                        <button
-                          type="button"
-                          className="theme-text-muted w-full px-4 py-2.5 text-left text-sm hover:bg-[var(--accent-muted)]"
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={() => {
-                            setDestinationInput(s);
-                            setShowSuggestions(false);
-                          }}
-                        >
-                          {s}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <LocationSearch
+                  variant="planner"
+                  placeholder="Search a city or region…"
+                  initialText={initialDestinationState.destination}
+                  initialLocation={initialDestinationState.location}
+                  onInputTextChange={setDestinationInput}
+                  onLocationChange={setDestinationLocation}
+                  onEnterPress={() => handleDestinationContinue()}
+                />
                 <div className="flex flex-wrap gap-2">
                   <button
                     type="button"

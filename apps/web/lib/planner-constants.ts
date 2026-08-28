@@ -1,4 +1,4 @@
-import type { CompassPlanRequest } from "@culturecompass/shared";
+import type { CompassPlanRequest, Location } from "@culturecompass/shared";
 import { DEFAULT_MODEL_PRESET, DEFAULT_LENS_MODE, type LensMode } from "@culturecompass/shared";
 
 export const PLANNER_INTERESTS = [
@@ -30,6 +30,8 @@ export type DurationOption = (typeof DURATION_OPTIONS)[number];
 
 export interface PlannerAnswers {
   destination: string;
+  /** Resolved GeoNames location when user picks from search; null for free text or surprise. */
+  destinationLocation: Location | null;
   interests: PlannerInterest[];
   companion: CompanionOption | null;
   budget: BudgetOption | null;
@@ -39,6 +41,7 @@ export interface PlannerAnswers {
 
 export const INITIAL_PLANNER_ANSWERS: PlannerAnswers = {
   destination: "",
+  destinationLocation: null,
   interests: [],
   companion: null,
   budget: null,

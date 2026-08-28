@@ -186,3 +186,5 @@ export const experiencesRequestSchema = z.object({
 export const experiencesResponseSchema = z.object({
   experiences: z.array(experienceSchema),
 });
+
+export * from "./location";

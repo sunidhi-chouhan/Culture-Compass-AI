@@ -2,9 +2,12 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
   buildCompassPlanRequest,
+  getNextPlannerStep,
+  getPreviousPlannerStep,
   mapBudgetToApiValue,
   mapCompanionToTravelStyle,
   mapDurationToApiValue,
+  trimMessagesToStep,
   type PlannerAnswers,
 } from "./planner-constants";
 
@@ -53,5 +56,30 @@ describe("planner mappings", () => {
       destination: "",
     });
     assert.equal(request.destination, undefined);
+  });
+});
+
+describe("planner step navigation helpers", () => {
+  it("resolves previous and next steps", () => {
+    assert.equal(getPreviousPlannerStep("companions"), "interests");
+    assert.equal(getNextPlannerStep("interests"), "companions");
+    assert.equal(getPreviousPlannerStep("destination"), null);
+    assert.equal(getNextPlannerStep("generate"), null);
+  });
+
+  it("trims chat messages to the revisited step without duplicates later", () => {
+    const messages = [
+      { id: "welcome" },
+      { id: "q-destination" },
+      { id: "user-destination-1" },
+      { id: "q-interests" },
+      { id: "user-interests-1" },
+      { id: "q-companions" },
+    ];
+    const trimmed = trimMessagesToStep(messages, "interests");
+    assert.deepEqual(
+      trimmed.map((m) => m.id),
+      ["welcome", "q-destination", "user-destination-1", "q-interests", "user-interests-1"],
+    );
   });
 });

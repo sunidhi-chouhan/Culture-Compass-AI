@@ -156,10 +156,94 @@ export const PLANNER_STEPS: PlannerStep[] = [
   "generate",
 ];
 
-export const ASSISTANT_PROMPTS: Record<Exclude<PlannerStep, "generate">, string> = {
-  destination: "Where do you want to explore?",
-  interests: "What interests you? Pick everything that calls to you.",
+export type EditablePlannerStep = Exclude<PlannerStep, "generate">;
+
+export const ASSISTANT_PROMPTS: Record<EditablePlannerStep, string> = {
+  destination: "Where is this journey headed?",
+  interests: "What should shape the trip? Pick everything that matters.",
   companions: "Who are you travelling with?",
-  budget: "What kind of budget feels right?",
-  duration: "How long do you have to wander?",
+  budget: "What budget feels right for this trip?",
+  duration: "How long do you have?",
 };
+
+export const EDIT_MODE_PROMPTS: Record<EditablePlannerStep, string> = {
+  destination: "Let's update your destination. Where would you like to explore?",
+  interests: "Let's update your interests. What would you like to explore?",
+  companions: "Let's update who you're travelling with. Who is joining you?",
+  budget: "Let's update your budget. What feels right for this trip?",
+  duration: "Let's update your duration. How long do you have to wander?",
+};
+
+export function getEditModePrompt(step: EditablePlannerStep): string {
+  return EDIT_MODE_PROMPTS[step];
+}
+
+export interface ReviewPreferenceItem {
+  step: EditablePlannerStep;
+  label: string;
+  value: string;
+}
+
+export function getPreviousPlannerStep(step: PlannerStep): PlannerStep | null {
+  const index = PLANNER_STEPS.indexOf(step);
+  if (index <= 0) return null;
+  return PLANNER_STEPS[index - 1];
+}
+
+export function getNextPlannerStep(step: PlannerStep): PlannerStep | null {
+  const index = PLANNER_STEPS.indexOf(step);
+  if (index < 0 || index >= PLANNER_STEPS.length - 1) return null;
+  return PLANNER_STEPS[index + 1];
+}
+
+/** Keep chat through the target step's question and answer; drop later steps to avoid duplicates. */
+export function trimMessagesToStep<T extends { id: string }>(
+  messages: T[],
+  targetStep: EditablePlannerStep,
+): T[] {
+  let cutIndex = -1;
+  for (let i = 0; i < messages.length; i++) {
+    const id = messages[i].id;
+    if (id === `q-${targetStep}` || id.startsWith(`user-${targetStep}`)) {
+      cutIndex = i;
+    }
+  }
+  if (cutIndex === -1) return messages;
+  return messages.slice(0, cutIndex + 1);
+}
+
+export function buildReviewPreferences(answers: PlannerAnswers): ReviewPreferenceItem[] {
+  const budgetOption = BUDGET_OPTIONS.find((option) => option.id === answers.budget);
+  const durationValue =
+    answers.duration === "Custom"
+      ? answers.customDuration.trim() || "Custom duration"
+      : (answers.duration ?? "");
+
+  return [
+    {
+      step: "destination",
+      label: "Destination",
+      value: answers.destination.trim() || "Surprise me — pick anywhere",
+    },
+    {
+      step: "interests",
+      label: "Interests",
+      value: answers.interests.join(", "),
+    },
+    {
+      step: "companions",
+      label: "Travelling with",
+      value: answers.companion ?? "",
+    },
+    {
+      step: "budget",
+      label: "Budget",
+      value: budgetOption?.description ?? "",
+    },
+    {
+      step: "duration",
+      label: "Duration",
+      value: durationValue,
+    },
+  ];
+}

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Loader2, MapPin, Search, X } from "lucide-react";
 import type { Location } from "@culturecompass/shared";
 import { useLocationSearch } from "@/hooks/use-location-search";
+import { computeDropdownPlacement, type DropdownPlacement } from "@/lib/dropdown-placement";
 
 export interface LocationSearchProps {
   id?: string;
@@ -13,6 +14,8 @@ export interface LocationSearchProps {
   inputClassName?: string;
   initialText?: string;
   initialLocation?: Location | null;
+  /** External selection (e.g. Try chips) — syncs without opening suggestions. */
+  selection?: Location | null;
   onLocationChange?: (location: Location | null) => void;
   onInputTextChange?: (text: string) => void;
   onEnterPress?: () => void;
@@ -26,6 +29,7 @@ export function LocationSearch({
   inputClassName = "",
   initialText = "",
   initialLocation = null,
+  selection = null,
   onLocationChange,
   onInputTextChange,
   onEnterPress,
@@ -34,10 +38,13 @@ export function LocationSearch({
   const listboxId = useId();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [dropdownPlacement, setDropdownPlacement] = useState<DropdownPlacement>("below");
 
   const {
     inputValue,
     setInputValue,
+    setInputValueSilent,
     results,
     loading,
     error,
@@ -53,15 +60,30 @@ export function LocationSearch({
   useEffect(() => {
     if (initialLocation) {
       setSelectedLocation(initialLocation);
-      setInputValue(initialLocation.displayLabel);
+      setInputValueSilent(initialLocation.displayLabel);
+      setIsEditing(false);
       onInputTextChange?.(initialLocation.displayLabel);
     } else if (initialText) {
-      setInputValue(initialText);
+      setInputValueSilent(initialText);
+      setIsEditing(false);
       onInputTextChange?.(initialText);
     }
     // Apply initial values once on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (!selection) return;
+    if (selectedLocation?.id === selection.id && inputValue === selection.displayLabel) {
+      return;
+    }
+
+    setSelectedLocation(selection);
+    setInputValueSilent(selection.displayLabel);
+    setIsEditing(false);
+    onInputTextChange?.(selection.displayLabel);
+    onLocationChange?.(selection);
+  }, [selection, selectedLocation?.id, inputValue, onInputTextChange, onLocationChange, setInputValueSilent]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -75,8 +97,10 @@ export function LocationSearch({
   }, [setIsOpen]);
 
   function handleInputChange(next: string) {
+    setIsEditing(true);
     setInputValue(next);
     onInputTextChange?.(next);
+
     if (selectedLocation && next !== selectedLocation.displayLabel) {
       setSelectedLocation(null);
       onLocationChange?.(null);
@@ -86,17 +110,23 @@ export function LocationSearch({
   function handleSelect(location: Location) {
     selectLocation(location);
     setSelectedLocation(location);
+    setIsEditing(false);
     onLocationChange?.(location);
   }
 
   function handleClear() {
     clearSelection();
     setSelectedLocation(null);
+    setIsEditing(false);
     onLocationChange?.(null);
     onInputTextChange?.("");
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (!isEditing && (event.key === "ArrowDown" || event.key === "ArrowUp")) {
+      setIsEditing(true);
+    }
+
     if (!isOpen && (event.key === "ArrowDown" || event.key === "ArrowUp")) {
       if (inputValue.trim().length >= 2) {
         setIsOpen(true);
@@ -137,10 +167,48 @@ export function LocationSearch({
       : { borderColor: "var(--border)", background: "var(--surface)" };
 
   const showDropdown =
-    isOpen && (loading || error || results.length > 0 || inputValue.trim().length >= 2);
+    isEditing &&
+    isOpen &&
+    (loading || error || results.length > 0 || inputValue.trim().length >= 2);
+
+  const showClearButton = inputValue.trim().length > 0;
+
+  useEffect(() => {
+    if (!showDropdown || !wrapperRef.current) {
+      return;
+    }
+
+    function updatePlacement() {
+      if (!wrapperRef.current) return;
+      // Planner search sits in the bottom dock — prefer opening upward over the chat.
+      if (variant === "planner") {
+        setDropdownPlacement("above");
+        return;
+      }
+      setDropdownPlacement(computeDropdownPlacement(wrapperRef.current.getBoundingClientRect()));
+    }
+
+    updatePlacement();
+
+    const observer = new ResizeObserver(updatePlacement);
+    observer.observe(wrapperRef.current);
+    window.addEventListener("resize", updatePlacement);
+    window.addEventListener("scroll", updatePlacement, true);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updatePlacement);
+      window.removeEventListener("scroll", updatePlacement, true);
+    };
+  }, [showDropdown, results.length, loading, error, variant]);
+
+  const dropdownPositionClass =
+    dropdownPlacement === "below" ? "top-full mt-2" : "bottom-full mb-2";
+
+  const dropdownMotionOffset = dropdownPlacement === "below" ? -4 : 4;
 
   return (
-    <div ref={wrapperRef} className={`relative ${className}`}>
+    <div ref={wrapperRef} className={`relative isolate z-40 ${className}`}>
       <label htmlFor={id ?? "location-search"} className="sr-only">
         Search destination
       </label>
@@ -154,7 +222,7 @@ export function LocationSearch({
         />
         <input
           id={id ?? "location-search"}
-          type="search"
+          type="text"
           role="combobox"
           aria-expanded={Boolean(showDropdown)}
           aria-controls={listboxId}
@@ -165,7 +233,16 @@ export function LocationSearch({
           value={inputValue}
           onChange={(e) => handleInputChange(e.target.value)}
           onFocus={() => {
-            if (inputValue.trim().length >= 2) setIsOpen(true);
+            if (
+              selectedLocation &&
+              !isEditing &&
+              inputValue === selectedLocation.displayLabel
+            ) {
+              return;
+            }
+            if (isEditing && inputValue.trim().length >= 2) {
+              setIsOpen(true);
+            }
           }}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
@@ -181,7 +258,7 @@ export function LocationSearch({
         {loading && (
           <Loader2 className="h-4 w-4 shrink-0 animate-spin opacity-60" aria-hidden="true" />
         )}
-        {(inputValue || selectedLocation) && (
+        {showClearButton && (
           <button
             type="button"
             onClick={handleClear}
@@ -213,10 +290,10 @@ export function LocationSearch({
           <motion.ul
             id={listboxId}
             role="listbox"
-            initial={{ opacity: 0, y: -4 }}
+            initial={{ opacity: 0, y: dropdownMotionOffset }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            className="theme-surface-elevated absolute z-30 mt-2 max-h-64 w-full overflow-auto rounded-2xl border py-1 shadow-xl"
+            exit={{ opacity: 0, y: dropdownMotionOffset }}
+            className={`theme-surface-elevated absolute left-0 right-0 z-50 max-h-64 w-full overflow-y-auto overscroll-contain rounded-2xl border py-1 shadow-xl ${dropdownPositionClass}`}
             style={{ borderColor: "var(--border)" }}
           >
             {loading && results.length === 0 && (

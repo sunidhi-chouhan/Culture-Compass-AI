@@ -7,6 +7,9 @@ import {
   heritageResponseSchema,
   eventsResponseSchema,
   experiencesResponseSchema,
+  itineraryResponseSchema,
+  tripMateResultSchema,
+  packingListSchema,
   type CompassPlanRequest,
   type CompassPlanResponse,
   type DestinationsRequest,
@@ -23,6 +26,12 @@ import {
   type EventsResponse,
   type ExperiencesRequest,
   type ExperiencesResponse,
+  type ItineraryRequest,
+  type ItineraryResponse,
+  type TripMateRequest,
+  type TripMateResult,
+  type PackingRequest,
+  type PackingResponse,
 } from "@culturecompass/shared";
 import { generateJson } from "../client";
 import { buildCompassPlanPrompt } from "../prompts/compassPlan";
@@ -33,6 +42,9 @@ import { buildStoryPrompt } from "../prompts/storytelling";
 import { buildHeritagePrompt } from "../prompts/heritage";
 import { buildEventsPrompt } from "../prompts/events";
 import { buildExperiencesPrompt } from "../prompts/experiences";
+import { buildItineraryPrompt } from "../prompts/itinerary";
+import { buildTripMatePrompt } from "../prompts/tripmate";
+import { buildPackingPrompt } from "../prompts/packing";
 
 export async function generateCompassPlan(
   input: CompassPlanRequest,
@@ -92,4 +104,29 @@ export async function generateExperiences(
   const { modelPreset, ...requestInput } = input;
   const prompt = buildExperiencesPrompt(requestInput);
   return generateJson(prompt, (raw) => experiencesResponseSchema.parse(raw), { modelPreset });
+}
+
+export async function generateItinerary(
+  input: ItineraryRequest,
+): Promise<ItineraryResponse> {
+  const { modelPreset, ...requestInput } = input;
+  const prompt = buildItineraryPrompt(requestInput);
+  return generateJson(prompt, (raw) => itineraryResponseSchema.parse(raw), { modelPreset });
+}
+
+export async function generateTripMate(input: TripMateRequest): Promise<TripMateResult> {
+  const { modelPreset, ...requestInput } = input;
+  const prompt = buildTripMatePrompt(requestInput);
+  return generateJson(prompt, (raw) => tripMateResultSchema.parse(raw), { modelPreset });
+}
+
+export async function generatePacking(input: PackingRequest): Promise<PackingResponse> {
+  const { modelPreset, ...requestInput } = input;
+  const prompt = buildPackingPrompt(requestInput);
+  const packing = await generateJson(
+    prompt,
+    (raw) => packingListSchema.parse(raw),
+    { modelPreset },
+  );
+  return { packing };
 }

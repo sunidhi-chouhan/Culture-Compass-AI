@@ -15,6 +15,12 @@ import type {
   EventsResponse,
   ExperiencesRequest,
   ExperiencesResponse,
+  ItineraryRequest,
+  ItineraryResponse,
+  TripMateRequest,
+  TripMateResult,
+  PackingRequest,
+  PackingResponse,
   ApiError,
 } from "@culturecompass/shared";
 import { ApiRequestError, resolveApiError } from "@/lib/errors";
@@ -55,6 +61,27 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
 
 export function createCompassPlan(payload: CompassPlanRequest): Promise<CompassPlanResponse> {
   return apiFetch("/api/compass/plan", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function createItinerary(payload: ItineraryRequest): Promise<ItineraryResponse> {
+  return apiFetch("/api/itinerary", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function runTripMate(payload: TripMateRequest): Promise<TripMateResult> {
+  return apiFetch("/api/tripmate", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function createPackingList(payload: PackingRequest): Promise<PackingResponse> {
+  return apiFetch("/api/packing", {
     method: "POST",
     body: JSON.stringify(payload),
   });

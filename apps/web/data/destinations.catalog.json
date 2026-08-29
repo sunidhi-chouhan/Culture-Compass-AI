@@ -1,0 +1,3806 @@
+[
+  {
+    "id": "dest:marrakech-ma",
+    "name": "Marrakech",
+    "country": "Morocco",
+    "countryCode": "MA",
+    "region": "Marrakech-Safi",
+    "continent": "Africa",
+    "latitude": 31.6295,
+    "longitude": -7.9811,
+    "popularity": 92,
+    "tags": [
+      "culture",
+      "markets"
+    ]
+  },
+  {
+    "id": "dest:cape-town-za",
+    "name": "Cape Town",
+    "country": "South Africa",
+    "countryCode": "ZA",
+    "region": "Western Cape",
+    "continent": "Africa",
+    "latitude": -33.9249,
+    "longitude": 18.4241,
+    "popularity": 95,
+    "tags": [
+      "nature",
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:cairo-eg",
+    "name": "Cairo",
+    "country": "Egypt",
+    "countryCode": "EG",
+    "region": "Cairo",
+    "continent": "Africa",
+    "latitude": 30.0444,
+    "longitude": 31.2357,
+    "popularity": 94,
+    "tags": [
+      "history",
+      "ancient"
+    ]
+  },
+  {
+    "id": "dest:zanzibar-city-tz",
+    "name": "Zanzibar City",
+    "country": "Tanzania",
+    "countryCode": "TZ",
+    "region": "Zanzibar",
+    "continent": "Africa",
+    "latitude": -6.1659,
+    "longitude": 39.2026,
+    "popularity": 88,
+    "tags": [
+      "beach",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:lalibela-et",
+    "name": "Lalibela",
+    "country": "Ethiopia",
+    "countryCode": "ET",
+    "region": "Amhara",
+    "continent": "Africa",
+    "latitude": 12.0319,
+    "longitude": 39.0473,
+    "popularity": 82,
+    "tags": [
+      "heritage",
+      "religion"
+    ]
+  },
+  {
+    "id": "dest:serengeti-tz",
+    "name": "Serengeti",
+    "country": "Tanzania",
+    "countryCode": "TZ",
+    "region": "Mara",
+    "continent": "Africa",
+    "latitude": -2.3333,
+    "longitude": 34.8333,
+    "popularity": 90,
+    "tags": [
+      "wildlife",
+      "nature"
+    ]
+  },
+  {
+    "id": "dest:victoria-falls-zw",
+    "name": "Victoria Falls",
+    "country": "Zimbabwe",
+    "countryCode": "ZW",
+    "region": "Matabeleland North",
+    "continent": "Africa",
+    "latitude": -17.9243,
+    "longitude": 25.8572,
+    "popularity": 87,
+    "tags": [
+      "nature",
+      "adventure"
+    ]
+  },
+  {
+    "id": "dest:accra-gh",
+    "name": "Accra",
+    "country": "Ghana",
+    "countryCode": "GH",
+    "region": "Greater Accra",
+    "continent": "Africa",
+    "latitude": 5.6037,
+    "longitude": -0.187,
+    "popularity": 78,
+    "tags": [
+      "culture",
+      "music"
+    ]
+  },
+  {
+    "id": "dest:fes-ma",
+    "name": "Fes",
+    "country": "Morocco",
+    "countryCode": "MA",
+    "region": "Fes-Meknes",
+    "continent": "Africa",
+    "latitude": 34.0181,
+    "longitude": -5.0078,
+    "popularity": 84,
+    "tags": [
+      "medina",
+      "crafts"
+    ]
+  },
+  {
+    "id": "dest:luxor-eg",
+    "name": "Luxor",
+    "country": "Egypt",
+    "countryCode": "EG",
+    "region": "Luxor",
+    "continent": "Africa",
+    "latitude": 25.6872,
+    "longitude": 32.6396,
+    "popularity": 86,
+    "tags": [
+      "temples",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:namib-desert-na",
+    "name": "Namib Desert",
+    "country": "Namibia",
+    "countryCode": "NA",
+    "region": "Erongo",
+    "continent": "Africa",
+    "latitude": -24.7633,
+    "longitude": 15.285,
+    "popularity": 80,
+    "tags": [
+      "desert",
+      "landscape"
+    ]
+  },
+  {
+    "id": "dest:kigali-rw",
+    "name": "Kigali",
+    "country": "Rwanda",
+    "countryCode": "RW",
+    "region": "Kigali",
+    "continent": "Africa",
+    "latitude": -1.9441,
+    "longitude": 30.0619,
+    "popularity": 76,
+    "tags": [
+      "culture",
+      "resilience"
+    ]
+  },
+  {
+    "id": "dest:dakar-sn",
+    "name": "Dakar",
+    "country": "Senegal",
+    "countryCode": "SN",
+    "region": "Dakar",
+    "continent": "Africa",
+    "latitude": 14.7167,
+    "longitude": -17.4677,
+    "popularity": 77,
+    "tags": [
+      "music",
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:stone-town-tz",
+    "name": "Stone Town",
+    "country": "Tanzania",
+    "countryCode": "TZ",
+    "region": "Zanzibar",
+    "continent": "Africa",
+    "latitude": -6.1629,
+    "longitude": 39.1989,
+    "popularity": 79,
+    "tags": [
+      "history",
+      "architecture"
+    ]
+  },
+  {
+    "id": "dest:sahara-dunes-ma",
+    "name": "Sahara Dunes",
+    "country": "Morocco",
+    "countryCode": "MA",
+    "region": "Drâa-Tafilalet",
+    "continent": "Africa",
+    "latitude": 31.0801,
+    "longitude": -4.0133,
+    "popularity": 85,
+    "tags": [
+      "desert",
+      "adventure"
+    ]
+  },
+  {
+    "id": "dest:kruger-region-za",
+    "name": "Kruger Region",
+    "country": "South Africa",
+    "countryCode": "ZA",
+    "region": "Mpumalanga",
+    "continent": "Africa",
+    "latitude": -24.011,
+    "longitude": 31.485,
+    "popularity": 83,
+    "tags": [
+      "safari",
+      "wildlife"
+    ]
+  },
+  {
+    "id": "dest:timbuktu-ml",
+    "name": "Timbuktu",
+    "country": "Mali",
+    "countryCode": "ML",
+    "region": "Tombouctou",
+    "continent": "Africa",
+    "latitude": 16.7666,
+    "longitude": -3.0026,
+    "popularity": 70,
+    "tags": [
+      "history",
+      "desert"
+    ]
+  },
+  {
+    "id": "dest:chefchaouen-ma",
+    "name": "Chefchaouen",
+    "country": "Morocco",
+    "countryCode": "MA",
+    "region": "Tanger-Tetouan-Al Hoceima",
+    "continent": "Africa",
+    "latitude": 35.1688,
+    "longitude": -5.2636,
+    "popularity": 81,
+    "tags": [
+      "photography",
+      "medina"
+    ]
+  },
+  {
+    "id": "dest:addis-ababa-et",
+    "name": "Addis Ababa",
+    "country": "Ethiopia",
+    "countryCode": "ET",
+    "region": "Addis Ababa",
+    "continent": "Africa",
+    "latitude": 9.032,
+    "longitude": 38.7469,
+    "popularity": 74,
+    "tags": [
+      "culture",
+      "coffee"
+    ]
+  },
+  {
+    "id": "dest:sossusvlei-na",
+    "name": "Sossusvlei",
+    "country": "Namibia",
+    "countryCode": "NA",
+    "region": "Hardap",
+    "continent": "Africa",
+    "latitude": -24.7275,
+    "longitude": 15.292,
+    "popularity": 78,
+    "tags": [
+      "desert",
+      "photography"
+    ]
+  },
+  {
+    "id": "dest:mauritius-coast-mu",
+    "name": "Mauritius Coast",
+    "country": "Mauritius",
+    "countryCode": "MU",
+    "region": "Black River",
+    "continent": "Africa",
+    "latitude": -20.3484,
+    "longitude": 57.5522,
+    "popularity": 82,
+    "tags": [
+      "beach",
+      "island"
+    ]
+  },
+  {
+    "id": "dest:giza-plateau-eg",
+    "name": "Giza Plateau",
+    "country": "Egypt",
+    "countryCode": "EG",
+    "region": "Giza",
+    "continent": "Africa",
+    "latitude": 29.9773,
+    "longitude": 31.1325,
+    "popularity": 93,
+    "tags": [
+      "pyramids",
+      "ancient"
+    ]
+  },
+  {
+    "id": "dest:essaouira-ma",
+    "name": "Essaouira",
+    "country": "Morocco",
+    "countryCode": "MA",
+    "region": "Marrakech-Safi",
+    "continent": "Africa",
+    "latitude": 31.5085,
+    "longitude": -9.7595,
+    "popularity": 80,
+    "tags": [
+      "coast",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:okavango-delta-bw",
+    "name": "Okavango Delta",
+    "country": "Botswana",
+    "countryCode": "BW",
+    "region": "North-West",
+    "continent": "Africa",
+    "latitude": -19.2,
+    "longitude": 23.2,
+    "popularity": 84,
+    "tags": [
+      "wildlife",
+      "nature"
+    ]
+  },
+  {
+    "id": "dest:atlas-mountains-ma",
+    "name": "Atlas Mountains",
+    "country": "Morocco",
+    "countryCode": "MA",
+    "region": "High Atlas",
+    "continent": "Africa",
+    "latitude": 31.0626,
+    "longitude": -7.9167,
+    "popularity": 79,
+    "tags": [
+      "hiking",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:kyoto-jp",
+    "name": "Kyoto",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Kyoto",
+    "continent": "Asia",
+    "latitude": 35.0116,
+    "longitude": 135.7681,
+    "popularity": 98,
+    "tags": [
+      "temples",
+      "tradition"
+    ]
+  },
+  {
+    "id": "dest:jaipur-in",
+    "name": "Jaipur",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Rajasthan",
+    "continent": "Asia",
+    "latitude": 26.9124,
+    "longitude": 75.7873,
+    "popularity": 96,
+    "tags": [
+      "palace",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:bali-id",
+    "name": "Bali",
+    "country": "Indonesia",
+    "countryCode": "ID",
+    "region": "Bali",
+    "continent": "Asia",
+    "latitude": -8.4095,
+    "longitude": 115.1889,
+    "popularity": 97,
+    "tags": [
+      "beach",
+      "spirituality"
+    ]
+  },
+  {
+    "id": "dest:kerala-in",
+    "name": "Kerala",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Kerala",
+    "continent": "Asia",
+    "latitude": 10.8505,
+    "longitude": 76.2711,
+    "popularity": 91,
+    "tags": [
+      "backwaters",
+      "nature"
+    ]
+  },
+  {
+    "id": "dest:bangkok-th",
+    "name": "Bangkok",
+    "country": "Thailand",
+    "countryCode": "TH",
+    "region": "Bangkok",
+    "continent": "Asia",
+    "latitude": 13.7563,
+    "longitude": 100.5018,
+    "popularity": 93,
+    "tags": [
+      "food",
+      "temples"
+    ]
+  },
+  {
+    "id": "dest:hanoi-vn",
+    "name": "Hanoi",
+    "country": "Vietnam",
+    "countryCode": "VN",
+    "region": "Hanoi",
+    "continent": "Asia",
+    "latitude": 21.0285,
+    "longitude": 105.8542,
+    "popularity": 90,
+    "tags": [
+      "street food",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:seoul-kr",
+    "name": "Seoul",
+    "country": "South Korea",
+    "countryCode": "KR",
+    "region": "Seoul",
+    "continent": "Asia",
+    "latitude": 37.5665,
+    "longitude": 126.978,
+    "popularity": 92,
+    "tags": [
+      "k-culture",
+      "food"
+    ]
+  },
+  {
+    "id": "dest:beijing-cn",
+    "name": "Beijing",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Beijing",
+    "continent": "Asia",
+    "latitude": 39.9042,
+    "longitude": 116.4074,
+    "popularity": 91,
+    "tags": [
+      "great wall",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:singapore-sg",
+    "name": "Singapore",
+    "country": "Singapore",
+    "countryCode": "SG",
+    "region": "Singapore",
+    "continent": "Asia",
+    "latitude": 1.3521,
+    "longitude": 103.8198,
+    "popularity": 94,
+    "tags": [
+      "food",
+      "modern"
+    ]
+  },
+  {
+    "id": "dest:petra-jo",
+    "name": "Petra",
+    "country": "Jordan",
+    "countryCode": "JO",
+    "region": "Ma'an",
+    "continent": "Asia",
+    "latitude": 30.3285,
+    "longitude": 35.4444,
+    "popularity": 95,
+    "tags": [
+      "ancient",
+      "desert"
+    ]
+  },
+  {
+    "id": "dest:varanasi-in",
+    "name": "Varanasi",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Uttar Pradesh",
+    "continent": "Asia",
+    "latitude": 25.3176,
+    "longitude": 82.9739,
+    "popularity": 89,
+    "tags": [
+      "spiritual",
+      "ganges"
+    ]
+  },
+  {
+    "id": "dest:luang-prabang-la",
+    "name": "Luang Prabang",
+    "country": "Laos",
+    "countryCode": "LA",
+    "region": "Luang Prabang",
+    "continent": "Asia",
+    "latitude": 19.886,
+    "longitude": 102.135,
+    "popularity": 86,
+    "tags": [
+      "temples",
+      "calm"
+    ]
+  },
+  {
+    "id": "dest:siem-reap-kh",
+    "name": "Siem Reap",
+    "country": "Cambodia",
+    "countryCode": "KH",
+    "region": "Siem Reap",
+    "continent": "Asia",
+    "latitude": 13.3633,
+    "longitude": 103.8564,
+    "popularity": 92,
+    "tags": [
+      "angkor",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:istanbul-tr",
+    "name": "Istanbul",
+    "country": "Turkey",
+    "countryCode": "TR",
+    "region": "Istanbul",
+    "continent": "Asia",
+    "latitude": 41.0082,
+    "longitude": 28.9784,
+    "popularity": 96,
+    "tags": [
+      "bazaar",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:dubai-ae",
+    "name": "Dubai",
+    "country": "United Arab Emirates",
+    "countryCode": "AE",
+    "region": "Dubai",
+    "continent": "Asia",
+    "latitude": 25.2048,
+    "longitude": 55.2708,
+    "popularity": 90,
+    "tags": [
+      "modern",
+      "desert"
+    ]
+  },
+  {
+    "id": "dest:kathmandu-np",
+    "name": "Kathmandu",
+    "country": "Nepal",
+    "countryCode": "NP",
+    "region": "Bagmati",
+    "continent": "Asia",
+    "latitude": 27.7172,
+    "longitude": 85.324,
+    "popularity": 85,
+    "tags": [
+      "himalaya",
+      "heritage"
+    ]
+  },
+  {
+    "id": "dest:goa-in",
+    "name": "Goa",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Goa",
+    "continent": "Asia",
+    "latitude": 15.2993,
+    "longitude": 74.124,
+    "popularity": 87,
+    "tags": [
+      "beach",
+      "colonial"
+    ]
+  },
+  {
+    "id": "dest:chiang-mai-th",
+    "name": "Chiang Mai",
+    "country": "Thailand",
+    "countryCode": "TH",
+    "region": "Chiang Mai",
+    "continent": "Asia",
+    "latitude": 18.7883,
+    "longitude": 98.9853,
+    "popularity": 88,
+    "tags": [
+      "temples",
+      "mountains"
+    ]
+  },
+  {
+    "id": "dest:hoi-an-vn",
+    "name": "Hoi An",
+    "country": "Vietnam",
+    "countryCode": "VN",
+    "region": "Quang Nam",
+    "continent": "Asia",
+    "latitude": 15.8801,
+    "longitude": 108.338,
+    "popularity": 89,
+    "tags": [
+      "lanterns",
+      "architecture"
+    ]
+  },
+  {
+    "id": "dest:tokyo-jp",
+    "name": "Tokyo",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Tokyo",
+    "continent": "Asia",
+    "latitude": 35.6762,
+    "longitude": 139.6503,
+    "popularity": 97,
+    "tags": [
+      "city",
+      "food"
+    ]
+  },
+  {
+    "id": "dest:bhutan-valleys-bt",
+    "name": "Bhutan Valleys",
+    "country": "Bhutan",
+    "countryCode": "BT",
+    "region": "Paro",
+    "continent": "Asia",
+    "latitude": 27.4305,
+    "longitude": 89.4139,
+    "popularity": 83,
+    "tags": [
+      "mountains",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:maldives-atolls-mv",
+    "name": "Maldives Atolls",
+    "country": "Maldives",
+    "countryCode": "MV",
+    "region": "Kaafu",
+    "continent": "Asia",
+    "latitude": 4.1755,
+    "longitude": 73.5093,
+    "popularity": 88,
+    "tags": [
+      "beach",
+      "luxury"
+    ]
+  },
+  {
+    "id": "dest:ladakh-in",
+    "name": "Ladakh",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Ladakh",
+    "continent": "Asia",
+    "latitude": 34.1526,
+    "longitude": 77.5771,
+    "popularity": 84,
+    "tags": [
+      "mountains",
+      "buddhism"
+    ]
+  },
+  {
+    "id": "dest:sri-lanka-hill-country-lk",
+    "name": "Sri Lanka Hill Country",
+    "country": "Sri Lanka",
+    "countryCode": "LK",
+    "region": "Central",
+    "continent": "Asia",
+    "latitude": 7.2906,
+    "longitude": 80.6337,
+    "popularity": 86,
+    "tags": [
+      "tea",
+      "nature"
+    ]
+  },
+  {
+    "id": "dest:uzbekistan-silk-road-uz",
+    "name": "Uzbekistan Silk Road",
+    "country": "Uzbekistan",
+    "countryCode": "UZ",
+    "region": "Samarkand",
+    "continent": "Asia",
+    "latitude": 39.6542,
+    "longitude": 66.9597,
+    "popularity": 82,
+    "tags": [
+      "silk road",
+      "architecture"
+    ]
+  },
+  {
+    "id": "dest:taipei-tw",
+    "name": "Taipei",
+    "country": "Taiwan",
+    "countryCode": "TW",
+    "region": "Taipei",
+    "continent": "Asia",
+    "latitude": 25.033,
+    "longitude": 121.5654,
+    "popularity": 85,
+    "tags": [
+      "night markets",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:hong-kong-cn",
+    "name": "Hong Kong",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Hong Kong",
+    "continent": "Asia",
+    "latitude": 22.3193,
+    "longitude": 114.1694,
+    "popularity": 88,
+    "tags": [
+      "skyline",
+      "food"
+    ]
+  },
+  {
+    "id": "dest:rajasthan-desert-in",
+    "name": "Rajasthan Desert",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Rajasthan",
+    "continent": "Asia",
+    "latitude": 26.9124,
+    "longitude": 70.9124,
+    "popularity": 83,
+    "tags": [
+      "desert",
+      "forts"
+    ]
+  },
+  {
+    "id": "dest:mount-fuji-region-jp",
+    "name": "Mount Fuji Region",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Shizuoka",
+    "continent": "Asia",
+    "latitude": 35.3606,
+    "longitude": 138.7274,
+    "popularity": 87,
+    "tags": [
+      "nature",
+      "iconic"
+    ]
+  },
+  {
+    "id": "dest:gyeongju-kr",
+    "name": "Gyeongju",
+    "country": "South Korea",
+    "countryCode": "KR",
+    "region": "North Gyeongsang",
+    "continent": "Asia",
+    "latitude": 35.8562,
+    "longitude": 129.2247,
+    "popularity": 80,
+    "tags": [
+      "history",
+      "temples"
+    ]
+  },
+  {
+    "id": "dest:penang-my",
+    "name": "Penang",
+    "country": "Malaysia",
+    "countryCode": "MY",
+    "region": "Penang",
+    "continent": "Asia",
+    "latitude": 5.4164,
+    "longitude": 100.3327,
+    "popularity": 84,
+    "tags": [
+      "food",
+      "heritage"
+    ]
+  },
+  {
+    "id": "dest:phuket-th",
+    "name": "Phuket",
+    "country": "Thailand",
+    "countryCode": "TH",
+    "region": "Phuket",
+    "continent": "Asia",
+    "latitude": 7.8804,
+    "longitude": 98.3923,
+    "popularity": 82,
+    "tags": [
+      "beach",
+      "island"
+    ]
+  },
+  {
+    "id": "dest:yogyakarta-id",
+    "name": "Yogyakarta",
+    "country": "Indonesia",
+    "countryCode": "ID",
+    "region": "Special Region of Yogyakarta",
+    "continent": "Asia",
+    "latitude": -7.7956,
+    "longitude": 110.3695,
+    "popularity": 83,
+    "tags": [
+      "borobudur",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:tbilisi-ge",
+    "name": "Tbilisi",
+    "country": "Georgia",
+    "countryCode": "GE",
+    "region": "Tbilisi",
+    "continent": "Asia",
+    "latitude": 41.7151,
+    "longitude": 44.8271,
+    "popularity": 81,
+    "tags": [
+      "wine",
+      "old town"
+    ]
+  },
+  {
+    "id": "dest:samarkand-uz",
+    "name": "Samarkand",
+    "country": "Uzbekistan",
+    "countryCode": "UZ",
+    "region": "Samarkand",
+    "continent": "Asia",
+    "latitude": 39.6542,
+    "longitude": 66.9597,
+    "popularity": 84,
+    "tags": [
+      "mosques",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:lhasa-cn",
+    "name": "Lhasa",
+    "country": "China",
+    "countryCode": "CN",
+    "region": "Tibet",
+    "continent": "Asia",
+    "latitude": 29.652,
+    "longitude": 91.172,
+    "popularity": 78,
+    "tags": [
+      "buddhism",
+      "plateau"
+    ]
+  },
+  {
+    "id": "dest:jeju-island-kr",
+    "name": "Jeju Island",
+    "country": "South Korea",
+    "countryCode": "KR",
+    "region": "Jeju",
+    "continent": "Asia",
+    "latitude": 33.4996,
+    "longitude": 126.5312,
+    "popularity": 82,
+    "tags": [
+      "volcano",
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:rishikesh-in",
+    "name": "Rishikesh",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Uttarakhand",
+    "continent": "Asia",
+    "latitude": 30.0869,
+    "longitude": 78.2676,
+    "popularity": 79,
+    "tags": [
+      "yoga",
+      "ganges"
+    ]
+  },
+  {
+    "id": "dest:bagan-mm",
+    "name": "Bagan",
+    "country": "Myanmar",
+    "countryCode": "MM",
+    "region": "Mandalay",
+    "continent": "Asia",
+    "latitude": 21.1717,
+    "longitude": 94.8585,
+    "popularity": 80,
+    "tags": [
+      "temples",
+      "sunrise"
+    ]
+  },
+  {
+    "id": "dest:rome-it",
+    "name": "Rome",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Lazio",
+    "continent": "Europe",
+    "latitude": 41.9028,
+    "longitude": 12.4964,
+    "popularity": 98,
+    "tags": [
+      "history",
+      "food"
+    ]
+  },
+  {
+    "id": "dest:paris-fr",
+    "name": "Paris",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Île-de-France",
+    "continent": "Europe",
+    "latitude": 48.8566,
+    "longitude": 2.3522,
+    "popularity": 99,
+    "tags": [
+      "art",
+      "romance"
+    ]
+  },
+  {
+    "id": "dest:barcelona-es",
+    "name": "Barcelona",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Catalonia",
+    "continent": "Europe",
+    "latitude": 41.3874,
+    "longitude": 2.1686,
+    "popularity": 95,
+    "tags": [
+      "gaudi",
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:amsterdam-nl",
+    "name": "Amsterdam",
+    "country": "Netherlands",
+    "countryCode": "NL",
+    "region": "North Holland",
+    "continent": "Europe",
+    "latitude": 52.3676,
+    "longitude": 4.9041,
+    "popularity": 90,
+    "tags": [
+      "canals",
+      "museums"
+    ]
+  },
+  {
+    "id": "dest:prague-cz",
+    "name": "Prague",
+    "country": "Czech Republic",
+    "countryCode": "CZ",
+    "region": "Prague",
+    "continent": "Europe",
+    "latitude": 50.0755,
+    "longitude": 14.4378,
+    "popularity": 91,
+    "tags": [
+      "architecture",
+      "beer"
+    ]
+  },
+  {
+    "id": "dest:lisbon-pt",
+    "name": "Lisbon",
+    "country": "Portugal",
+    "countryCode": "PT",
+    "region": "Lisbon",
+    "continent": "Europe",
+    "latitude": 38.7223,
+    "longitude": -9.1393,
+    "popularity": 92,
+    "tags": [
+      "tiles",
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:santorini-gr",
+    "name": "Santorini",
+    "country": "Greece",
+    "countryCode": "GR",
+    "region": "South Aegean",
+    "continent": "Europe",
+    "latitude": 36.3932,
+    "longitude": 25.4615,
+    "popularity": 94,
+    "tags": [
+      "island",
+      "sunset"
+    ]
+  },
+  {
+    "id": "dest:vienna-at",
+    "name": "Vienna",
+    "country": "Austria",
+    "countryCode": "AT",
+    "region": "Vienna",
+    "continent": "Europe",
+    "latitude": 48.2082,
+    "longitude": 16.3738,
+    "popularity": 89,
+    "tags": [
+      "classical",
+      "cafes"
+    ]
+  },
+  {
+    "id": "dest:edinburgh-gb",
+    "name": "Edinburgh",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "region": "Scotland",
+    "continent": "Europe",
+    "latitude": 55.9533,
+    "longitude": -3.1883,
+    "popularity": 87,
+    "tags": [
+      "castle",
+      "festivals"
+    ]
+  },
+  {
+    "id": "dest:reykjavik-is",
+    "name": "Reykjavik",
+    "country": "Iceland",
+    "countryCode": "IS",
+    "region": "Capital Region",
+    "continent": "Europe",
+    "latitude": 64.1466,
+    "longitude": -21.9426,
+    "popularity": 86,
+    "tags": [
+      "aurora",
+      "nature"
+    ]
+  },
+  {
+    "id": "dest:florence-it",
+    "name": "Florence",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Tuscany",
+    "continent": "Europe",
+    "latitude": 43.7696,
+    "longitude": 11.2558,
+    "popularity": 93,
+    "tags": [
+      "renaissance",
+      "art"
+    ]
+  },
+  {
+    "id": "dest:dubrovnik-hr",
+    "name": "Dubrovnik",
+    "country": "Croatia",
+    "countryCode": "HR",
+    "region": "Dubrovnik-Neretva",
+    "continent": "Europe",
+    "latitude": 42.6507,
+    "longitude": 18.0944,
+    "popularity": 88,
+    "tags": [
+      "coast",
+      "walls"
+    ]
+  },
+  {
+    "id": "dest:berlin-de",
+    "name": "Berlin",
+    "country": "Germany",
+    "countryCode": "DE",
+    "region": "Berlin",
+    "continent": "Europe",
+    "latitude": 52.52,
+    "longitude": 13.405,
+    "popularity": 90,
+    "tags": [
+      "history",
+      "nightlife"
+    ]
+  },
+  {
+    "id": "dest:venice-it",
+    "name": "Venice",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Veneto",
+    "continent": "Europe",
+    "latitude": 45.4408,
+    "longitude": 12.3155,
+    "popularity": 92,
+    "tags": [
+      "canals",
+      "romance"
+    ]
+  },
+  {
+    "id": "dest:athens-gr",
+    "name": "Athens",
+    "country": "Greece",
+    "countryCode": "GR",
+    "region": "Attica",
+    "continent": "Europe",
+    "latitude": 37.9838,
+    "longitude": 23.7275,
+    "popularity": 88,
+    "tags": [
+      "ancient",
+      "mythology"
+    ]
+  },
+  {
+    "id": "dest:budapest-hu",
+    "name": "Budapest",
+    "country": "Hungary",
+    "countryCode": "HU",
+    "region": "Budapest",
+    "continent": "Europe",
+    "latitude": 47.4979,
+    "longitude": 19.0402,
+    "popularity": 87,
+    "tags": [
+      "thermal baths",
+      "architecture"
+    ]
+  },
+  {
+    "id": "dest:cinque-terre-it",
+    "name": "Cinque Terre",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Liguria",
+    "continent": "Europe",
+    "latitude": 44.127,
+    "longitude": 9.7122,
+    "popularity": 85,
+    "tags": [
+      "coast",
+      "hiking"
+    ]
+  },
+  {
+    "id": "dest:swiss-alps-ch",
+    "name": "Swiss Alps",
+    "country": "Switzerland",
+    "countryCode": "CH",
+    "region": "Valais",
+    "continent": "Europe",
+    "latitude": 46.5197,
+    "longitude": 7.7491,
+    "popularity": 91,
+    "tags": [
+      "mountains",
+      "trains"
+    ]
+  },
+  {
+    "id": "dest:porto-pt",
+    "name": "Porto",
+    "country": "Portugal",
+    "countryCode": "PT",
+    "region": "Porto",
+    "continent": "Europe",
+    "latitude": 41.1579,
+    "longitude": -8.6291,
+    "popularity": 84,
+    "tags": [
+      "wine",
+      "riverside"
+    ]
+  },
+  {
+    "id": "dest:krakow-pl",
+    "name": "Krakow",
+    "country": "Poland",
+    "countryCode": "PL",
+    "region": "Lesser Poland",
+    "continent": "Europe",
+    "latitude": 50.0647,
+    "longitude": 19.945,
+    "popularity": 83,
+    "tags": [
+      "old town",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:seville-es",
+    "name": "Seville",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Andalusia",
+    "continent": "Europe",
+    "latitude": 37.3891,
+    "longitude": -5.9845,
+    "popularity": 86,
+    "tags": [
+      "flamenco",
+      "architecture"
+    ]
+  },
+  {
+    "id": "dest:norwegian-fjords-no",
+    "name": "Norwegian Fjords",
+    "country": "Norway",
+    "countryCode": "NO",
+    "region": "Vestland",
+    "continent": "Europe",
+    "latitude": 60.472,
+    "longitude": 5.3106,
+    "popularity": 88,
+    "tags": [
+      "nature",
+      "cruise"
+    ]
+  },
+  {
+    "id": "dest:tuscany-countryside-it",
+    "name": "Tuscany Countryside",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Tuscany",
+    "continent": "Europe",
+    "latitude": 43.7711,
+    "longitude": 11.2486,
+    "popularity": 87,
+    "tags": [
+      "wine",
+      "landscape"
+    ]
+  },
+  {
+    "id": "dest:bruges-be",
+    "name": "Bruges",
+    "country": "Belgium",
+    "countryCode": "BE",
+    "region": "West Flanders",
+    "continent": "Europe",
+    "latitude": 51.2093,
+    "longitude": 3.2247,
+    "popularity": 80,
+    "tags": [
+      "medieval",
+      "canals"
+    ]
+  },
+  {
+    "id": "dest:sarajevo-ba",
+    "name": "Sarajevo",
+    "country": "Bosnia and Herzegovina",
+    "countryCode": "BA",
+    "region": "Sarajevo",
+    "continent": "Europe",
+    "latitude": 43.8563,
+    "longitude": 18.4131,
+    "popularity": 76,
+    "tags": [
+      "history",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:scottish-highlands-gb",
+    "name": "Scottish Highlands",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "region": "Scotland",
+    "continent": "Europe",
+    "latitude": 57.4778,
+    "longitude": -4.2247,
+    "popularity": 84,
+    "tags": [
+      "nature",
+      "castles"
+    ]
+  },
+  {
+    "id": "dest:cappadocia-tr",
+    "name": "Cappadocia",
+    "country": "Turkey",
+    "countryCode": "TR",
+    "region": "Nevşehir",
+    "continent": "Europe",
+    "latitude": 38.6431,
+    "longitude": 34.8289,
+    "popularity": 89,
+    "tags": [
+      "balloons",
+      "landscape"
+    ]
+  },
+  {
+    "id": "dest:lake-bled-si",
+    "name": "Lake Bled",
+    "country": "Slovenia",
+    "countryCode": "SI",
+    "region": "Upper Carniola",
+    "continent": "Europe",
+    "latitude": 46.3639,
+    "longitude": 14.0946,
+    "popularity": 82,
+    "tags": [
+      "lake",
+      "chapel"
+    ]
+  },
+  {
+    "id": "dest:transylvania-ro",
+    "name": "Transylvania",
+    "country": "Romania",
+    "countryCode": "RO",
+    "region": "Brașov",
+    "continent": "Europe",
+    "latitude": 45.6427,
+    "longitude": 25.5887,
+    "popularity": 78,
+    "tags": [
+      "castles",
+      "mountains"
+    ]
+  },
+  {
+    "id": "dest:mykonos-gr",
+    "name": "Mykonos",
+    "country": "Greece",
+    "countryCode": "GR",
+    "region": "South Aegean",
+    "continent": "Europe",
+    "latitude": 37.4467,
+    "longitude": 25.3289,
+    "popularity": 83,
+    "tags": [
+      "island",
+      "nightlife"
+    ]
+  },
+  {
+    "id": "dest:stockholm-se",
+    "name": "Stockholm",
+    "country": "Sweden",
+    "countryCode": "SE",
+    "region": "Stockholm",
+    "continent": "Europe",
+    "latitude": 59.3293,
+    "longitude": 18.0686,
+    "popularity": 82,
+    "tags": [
+      "design",
+      "archipelago"
+    ]
+  },
+  {
+    "id": "dest:dublin-ie",
+    "name": "Dublin",
+    "country": "Ireland",
+    "countryCode": "IE",
+    "region": "Leinster",
+    "continent": "Europe",
+    "latitude": 53.3498,
+    "longitude": -6.2603,
+    "popularity": 81,
+    "tags": [
+      "pubs",
+      "literature"
+    ]
+  },
+  {
+    "id": "dest:copenhagen-dk",
+    "name": "Copenhagen",
+    "country": "Denmark",
+    "countryCode": "DK",
+    "region": "Capital Region",
+    "continent": "Europe",
+    "latitude": 55.6761,
+    "longitude": 12.5683,
+    "popularity": 83,
+    "tags": [
+      "hygge",
+      "design"
+    ]
+  },
+  {
+    "id": "dest:hallstatt-at",
+    "name": "Hallstatt",
+    "country": "Austria",
+    "countryCode": "AT",
+    "region": "Upper Austria",
+    "continent": "Europe",
+    "latitude": 47.5622,
+    "longitude": 13.6493,
+    "popularity": 80,
+    "tags": [
+      "alps",
+      "village"
+    ]
+  },
+  {
+    "id": "dest:meteora-gr",
+    "name": "Meteora",
+    "country": "Greece",
+    "countryCode": "GR",
+    "region": "Thessaly",
+    "continent": "Europe",
+    "latitude": 39.7217,
+    "longitude": 21.6306,
+    "popularity": 81,
+    "tags": [
+      "monasteries",
+      "cliffs"
+    ]
+  },
+  {
+    "id": "dest:valencia-es",
+    "name": "Valencia",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Valencia",
+    "continent": "Europe",
+    "latitude": 39.4699,
+    "longitude": -0.3763,
+    "popularity": 79,
+    "tags": [
+      "paella",
+      "architecture"
+    ]
+  },
+  {
+    "id": "dest:bologna-it",
+    "name": "Bologna",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Emilia-Romagna",
+    "continent": "Europe",
+    "latitude": 44.4949,
+    "longitude": 11.3426,
+    "popularity": 78,
+    "tags": [
+      "food",
+      "university"
+    ]
+  },
+  {
+    "id": "dest:tallinn-ee",
+    "name": "Tallinn",
+    "country": "Estonia",
+    "countryCode": "EE",
+    "region": "Harju",
+    "continent": "Europe",
+    "latitude": 59.437,
+    "longitude": 24.7536,
+    "popularity": 77,
+    "tags": [
+      "medieval",
+      "digital"
+    ]
+  },
+  {
+    "id": "dest:algarve-pt",
+    "name": "Algarve",
+    "country": "Portugal",
+    "countryCode": "PT",
+    "region": "Faro",
+    "continent": "Europe",
+    "latitude": 37.0179,
+    "longitude": -7.9304,
+    "popularity": 80,
+    "tags": [
+      "beach",
+      "cliffs"
+    ]
+  },
+  {
+    "id": "dest:new-york-city-us",
+    "name": "New York City",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "New York",
+    "continent": "North America",
+    "latitude": 40.7128,
+    "longitude": -74.006,
+    "popularity": 98,
+    "tags": [
+      "city",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:mexico-city-mx",
+    "name": "Mexico City",
+    "country": "Mexico",
+    "countryCode": "MX",
+    "region": "Mexico City",
+    "continent": "North America",
+    "latitude": 19.4326,
+    "longitude": -99.1332,
+    "popularity": 93,
+    "tags": [
+      "food",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:banff-ca",
+    "name": "Banff",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "Alberta",
+    "continent": "North America",
+    "latitude": 51.1784,
+    "longitude": -115.5708,
+    "popularity": 90,
+    "tags": [
+      "mountains",
+      "lakes"
+    ]
+  },
+  {
+    "id": "dest:san-francisco-us",
+    "name": "San Francisco",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "California",
+    "continent": "North America",
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "popularity": 91,
+    "tags": [
+      "tech",
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:havana-cu",
+    "name": "Havana",
+    "country": "Cuba",
+    "countryCode": "CU",
+    "region": "Havana",
+    "continent": "North America",
+    "latitude": 23.1136,
+    "longitude": -82.3666,
+    "popularity": 85,
+    "tags": [
+      "music",
+      "colonial"
+    ]
+  },
+  {
+    "id": "dest:new-orleans-us",
+    "name": "New Orleans",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Louisiana",
+    "continent": "North America",
+    "latitude": 29.9511,
+    "longitude": -90.0715,
+    "popularity": 88,
+    "tags": [
+      "jazz",
+      "food"
+    ]
+  },
+  {
+    "id": "dest:vancouver-ca",
+    "name": "Vancouver",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "British Columbia",
+    "continent": "North America",
+    "latitude": 49.2827,
+    "longitude": -123.1207,
+    "popularity": 86,
+    "tags": [
+      "nature",
+      "city"
+    ]
+  },
+  {
+    "id": "dest:grand-canyon-us",
+    "name": "Grand Canyon",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Arizona",
+    "continent": "North America",
+    "latitude": 36.1069,
+    "longitude": -112.1129,
+    "popularity": 92,
+    "tags": [
+      "nature",
+      "iconic"
+    ]
+  },
+  {
+    "id": "dest:quebec-city-ca",
+    "name": "Quebec City",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "Quebec",
+    "continent": "North America",
+    "latitude": 46.8139,
+    "longitude": -71.208,
+    "popularity": 84,
+    "tags": [
+      "french",
+      "old town"
+    ]
+  },
+  {
+    "id": "dest:los-angeles-us",
+    "name": "Los Angeles",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "California",
+    "continent": "North America",
+    "latitude": 34.0522,
+    "longitude": -118.2437,
+    "popularity": 90,
+    "tags": [
+      "entertainment",
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:costa-rica-cloud-forest-cr",
+    "name": "Costa Rica Cloud Forest",
+    "country": "Costa Rica",
+    "countryCode": "CR",
+    "region": "Puntarenas",
+    "continent": "North America",
+    "latitude": 10.3009,
+    "longitude": -84.8141,
+    "popularity": 87,
+    "tags": [
+      "wildlife",
+      "eco"
+    ]
+  },
+  {
+    "id": "dest:yellowstone-us",
+    "name": "Yellowstone",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Wyoming",
+    "continent": "North America",
+    "latitude": 44.428,
+    "longitude": -110.5885,
+    "popularity": 89,
+    "tags": [
+      "geysers",
+      "wildlife"
+    ]
+  },
+  {
+    "id": "dest:antigua-guatemala-gt",
+    "name": "Antigua Guatemala",
+    "country": "Guatemala",
+    "countryCode": "GT",
+    "region": "Sacatepéquez",
+    "continent": "North America",
+    "latitude": 14.5586,
+    "longitude": -90.7335,
+    "popularity": 80,
+    "tags": [
+      "colonial",
+      "volcanoes"
+    ]
+  },
+  {
+    "id": "dest:toronto-ca",
+    "name": "Toronto",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "Ontario",
+    "continent": "North America",
+    "latitude": 43.6532,
+    "longitude": -79.3832,
+    "popularity": 85,
+    "tags": [
+      "multicultural",
+      "city"
+    ]
+  },
+  {
+    "id": "dest:miami-us",
+    "name": "Miami",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Florida",
+    "continent": "North America",
+    "latitude": 25.7617,
+    "longitude": -80.1918,
+    "popularity": 84,
+    "tags": [
+      "beach",
+      "art deco"
+    ]
+  },
+  {
+    "id": "dest:oaxaca-mx",
+    "name": "Oaxaca",
+    "country": "Mexico",
+    "countryCode": "MX",
+    "region": "Oaxaca",
+    "continent": "North America",
+    "latitude": 17.0732,
+    "longitude": -96.7266,
+    "popularity": 86,
+    "tags": [
+      "food",
+      "crafts"
+    ]
+  },
+  {
+    "id": "dest:montreal-ca",
+    "name": "Montreal",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "Quebec",
+    "continent": "North America",
+    "latitude": 45.5017,
+    "longitude": -73.5673,
+    "popularity": 83,
+    "tags": [
+      "bilingual",
+      "festivals"
+    ]
+  },
+  {
+    "id": "dest:sedona-us",
+    "name": "Sedona",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Arizona",
+    "continent": "North America",
+    "latitude": 34.8697,
+    "longitude": -111.761,
+    "popularity": 81,
+    "tags": [
+      "red rocks",
+      "wellness"
+    ]
+  },
+  {
+    "id": "dest:panama-canal-region-pa",
+    "name": "Panama Canal Region",
+    "country": "Panama",
+    "countryCode": "PA",
+    "region": "Panama",
+    "continent": "North America",
+    "latitude": 8.9824,
+    "longitude": -79.5199,
+    "popularity": 78,
+    "tags": [
+      "engineering",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:tulum-mx",
+    "name": "Tulum",
+    "country": "Mexico",
+    "countryCode": "MX",
+    "region": "Quintana Roo",
+    "continent": "North America",
+    "latitude": 20.2114,
+    "longitude": -87.4654,
+    "popularity": 85,
+    "tags": [
+      "beach",
+      "ruins"
+    ]
+  },
+  {
+    "id": "dest:chicago-us",
+    "name": "Chicago",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Illinois",
+    "continent": "North America",
+    "latitude": 41.8781,
+    "longitude": -87.6298,
+    "popularity": 82,
+    "tags": [
+      "architecture",
+      "food"
+    ]
+  },
+  {
+    "id": "dest:charleston-us",
+    "name": "Charleston",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "South Carolina",
+    "continent": "North America",
+    "latitude": 32.7765,
+    "longitude": -79.9311,
+    "popularity": 80,
+    "tags": [
+      "history",
+      "southern"
+    ]
+  },
+  {
+    "id": "dest:niagara-falls-ca",
+    "name": "Niagara Falls",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "Ontario",
+    "continent": "North America",
+    "latitude": 43.0896,
+    "longitude": -79.0849,
+    "popularity": 81,
+    "tags": [
+      "waterfall",
+      "iconic"
+    ]
+  },
+  {
+    "id": "dest:cartagena-co",
+    "name": "Cartagena",
+    "country": "Colombia",
+    "countryCode": "CO",
+    "region": "Bolívar",
+    "continent": "North America",
+    "latitude": 10.391,
+    "longitude": -75.4794,
+    "popularity": 84,
+    "tags": [
+      "colonial",
+      "caribbean"
+    ]
+  },
+  {
+    "id": "dest:alaska-fjords-us",
+    "name": "Alaska Fjords",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Alaska",
+    "continent": "North America",
+    "latitude": 58.3019,
+    "longitude": -134.4197,
+    "popularity": 83,
+    "tags": [
+      "wilderness",
+      "cruise"
+    ]
+  },
+  {
+    "id": "dest:guanajuato-mx",
+    "name": "Guanajuato",
+    "country": "Mexico",
+    "countryCode": "MX",
+    "region": "Guanajuato",
+    "continent": "North America",
+    "latitude": 21.019,
+    "longitude": -101.2574,
+    "popularity": 79,
+    "tags": [
+      "colorful",
+      "mining"
+    ]
+  },
+  {
+    "id": "dest:nashville-us",
+    "name": "Nashville",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Tennessee",
+    "continent": "North America",
+    "latitude": 36.1627,
+    "longitude": -86.7816,
+    "popularity": 78,
+    "tags": [
+      "music",
+      "food"
+    ]
+  },
+  {
+    "id": "dest:puerto-rico-old-san-juan-us",
+    "name": "Puerto Rico Old San Juan",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Puerto Rico",
+    "continent": "North America",
+    "latitude": 18.4655,
+    "longitude": -66.1057,
+    "popularity": 80,
+    "tags": [
+      "caribbean",
+      "history"
+    ]
+  },
+  {
+    "id": "dest:yosemite-us",
+    "name": "Yosemite",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "California",
+    "continent": "North America",
+    "latitude": 37.8651,
+    "longitude": -119.5383,
+    "popularity": 87,
+    "tags": [
+      "national park",
+      "granite"
+    ]
+  },
+  {
+    "id": "dest:cancun-riviera-mx",
+    "name": "Cancun Riviera",
+    "country": "Mexico",
+    "countryCode": "MX",
+    "region": "Quintana Roo",
+    "continent": "North America",
+    "latitude": 21.1619,
+    "longitude": -86.8515,
+    "popularity": 82,
+    "tags": [
+      "beach",
+      "resort"
+    ]
+  },
+  {
+    "id": "dest:rio-de-janeiro-br",
+    "name": "Rio de Janeiro",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "region": "Rio de Janeiro",
+    "continent": "South America",
+    "latitude": -22.9068,
+    "longitude": -43.1729,
+    "popularity": 95,
+    "tags": [
+      "carnival",
+      "beach"
+    ]
+  },
+  {
+    "id": "dest:buenos-aires-ar",
+    "name": "Buenos Aires",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "region": "Buenos Aires",
+    "continent": "South America",
+    "latitude": -34.6037,
+    "longitude": -58.3816,
+    "popularity": 91,
+    "tags": [
+      "tango",
+      "steak"
+    ]
+  },
+  {
+    "id": "dest:machu-picchu-pe",
+    "name": "Machu Picchu",
+    "country": "Peru",
+    "countryCode": "PE",
+    "region": "Cusco",
+    "continent": "South America",
+    "latitude": -13.1631,
+    "longitude": -72.545,
+    "popularity": 97,
+    "tags": [
+      "inca",
+      "mountains"
+    ]
+  },
+  {
+    "id": "dest:cartagena-de-indias-co",
+    "name": "Cartagena de Indias",
+    "country": "Colombia",
+    "countryCode": "CO",
+    "region": "Bolívar",
+    "continent": "South America",
+    "latitude": 10.391,
+    "longitude": -75.4794,
+    "popularity": 86,
+    "tags": [
+      "colonial",
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:patagonia-ar",
+    "name": "Patagonia",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "region": "Santa Cruz",
+    "continent": "South America",
+    "latitude": -50.3428,
+    "longitude": -72.1311,
+    "popularity": 90,
+    "tags": [
+      "glaciers",
+      "hiking"
+    ]
+  },
+  {
+    "id": "dest:galapagos-islands-ec",
+    "name": "Galapagos Islands",
+    "country": "Ecuador",
+    "countryCode": "EC",
+    "region": "Galápagos",
+    "continent": "South America",
+    "latitude": -0.9538,
+    "longitude": -90.9656,
+    "popularity": 92,
+    "tags": [
+      "wildlife",
+      "islands"
+    ]
+  },
+  {
+    "id": "dest:salar-de-uyuni-bo",
+    "name": "Salar de Uyuni",
+    "country": "Bolivia",
+    "countryCode": "BO",
+    "region": "Potosí",
+    "continent": "South America",
+    "latitude": -20.1338,
+    "longitude": -67.4891,
+    "popularity": 88,
+    "tags": [
+      "salt flats",
+      "landscape"
+    ]
+  },
+  {
+    "id": "dest:salvador-br",
+    "name": "Salvador",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "region": "Bahia",
+    "continent": "South America",
+    "latitude": -12.9777,
+    "longitude": -38.5016,
+    "popularity": 82,
+    "tags": [
+      "afro-brazilian",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:atacama-desert-cl",
+    "name": "Atacama Desert",
+    "country": "Chile",
+    "countryCode": "CL",
+    "region": "Antofagasta",
+    "continent": "South America",
+    "latitude": -23.8634,
+    "longitude": -69.1328,
+    "popularity": 85,
+    "tags": [
+      "desert",
+      "astronomy"
+    ]
+  },
+  {
+    "id": "dest:medellin-co",
+    "name": "Medellin",
+    "country": "Colombia",
+    "countryCode": "CO",
+    "region": "Antioquia",
+    "continent": "South America",
+    "latitude": 6.2476,
+    "longitude": -75.5658,
+    "popularity": 83,
+    "tags": [
+      "innovation",
+      "mountains"
+    ]
+  },
+  {
+    "id": "dest:iguazu-falls-ar",
+    "name": "Iguazu Falls",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "region": "Misiones",
+    "continent": "South America",
+    "latitude": -25.6953,
+    "longitude": -54.4367,
+    "popularity": 89,
+    "tags": [
+      "waterfalls",
+      "nature"
+    ]
+  },
+  {
+    "id": "dest:quito-ec",
+    "name": "Quito",
+    "country": "Ecuador",
+    "countryCode": "EC",
+    "region": "Pichincha",
+    "continent": "South America",
+    "latitude": -0.1807,
+    "longitude": -78.4678,
+    "popularity": 80,
+    "tags": [
+      "andes",
+      "colonial"
+    ]
+  },
+  {
+    "id": "dest:amazon-rainforest-br",
+    "name": "Amazon Rainforest",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "region": "Amazonas",
+    "continent": "South America",
+    "latitude": -3.4653,
+    "longitude": -62.2159,
+    "popularity": 87,
+    "tags": [
+      "jungle",
+      "biodiversity"
+    ]
+  },
+  {
+    "id": "dest:valparaiso-cl",
+    "name": "Valparaiso",
+    "country": "Chile",
+    "countryCode": "CL",
+    "region": "Valparaíso",
+    "continent": "South America",
+    "latitude": -33.0472,
+    "longitude": -71.6127,
+    "popularity": 79,
+    "tags": [
+      "street art",
+      "hills"
+    ]
+  },
+  {
+    "id": "dest:cusco-pe",
+    "name": "Cusco",
+    "country": "Peru",
+    "countryCode": "PE",
+    "region": "Cusco",
+    "continent": "South America",
+    "latitude": -13.5319,
+    "longitude": -71.9675,
+    "popularity": 88,
+    "tags": [
+      "inca",
+      "highlands"
+    ]
+  },
+  {
+    "id": "dest:lake-titicaca-pe",
+    "name": "Lake Titicaca",
+    "country": "Peru",
+    "countryCode": "PE",
+    "region": "Puno",
+    "continent": "South America",
+    "latitude": -15.9254,
+    "longitude": -69.3354,
+    "popularity": 81,
+    "tags": [
+      "lake",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:montevideo-uy",
+    "name": "Montevideo",
+    "country": "Uruguay",
+    "countryCode": "UY",
+    "region": "Montevideo",
+    "continent": "South America",
+    "latitude": -34.9011,
+    "longitude": -56.1645,
+    "popularity": 74,
+    "tags": [
+      "coast",
+      "relaxed"
+    ]
+  },
+  {
+    "id": "dest:punta-del-este-uy",
+    "name": "Punta del Este",
+    "country": "Uruguay",
+    "countryCode": "UY",
+    "region": "Maldonado",
+    "continent": "South America",
+    "latitude": -34.9667,
+    "longitude": -54.95,
+    "popularity": 76,
+    "tags": [
+      "beach",
+      "resort"
+    ]
+  },
+  {
+    "id": "dest:angel-falls-region-ve",
+    "name": "Angel Falls Region",
+    "country": "Venezuela",
+    "countryCode": "VE",
+    "region": "Bolívar",
+    "continent": "South America",
+    "latitude": 5.9703,
+    "longitude": -62.5362,
+    "popularity": 77,
+    "tags": [
+      "waterfall",
+      "jungle"
+    ]
+  },
+  {
+    "id": "dest:colonia-del-sacramento-uy",
+    "name": "Colonia del Sacramento",
+    "country": "Uruguay",
+    "countryCode": "UY",
+    "region": "Colonia",
+    "continent": "South America",
+    "latitude": -34.4716,
+    "longitude": -57.844,
+    "popularity": 75,
+    "tags": [
+      "history",
+      "river"
+    ]
+  },
+  {
+    "id": "dest:sao-paulo-br",
+    "name": "Sao Paulo",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "region": "São Paulo",
+    "continent": "South America",
+    "latitude": -23.5505,
+    "longitude": -46.6333,
+    "popularity": 84,
+    "tags": [
+      "food",
+      "art"
+    ]
+  },
+  {
+    "id": "dest:la-paz-bo",
+    "name": "La Paz",
+    "country": "Bolivia",
+    "countryCode": "BO",
+    "region": "La Paz",
+    "continent": "South America",
+    "latitude": -16.4897,
+    "longitude": -68.1193,
+    "popularity": 78,
+    "tags": [
+      "altitude",
+      "markets"
+    ]
+  },
+  {
+    "id": "dest:torres-del-paine-cl",
+    "name": "Torres del Paine",
+    "country": "Chile",
+    "countryCode": "CL",
+    "region": "Magallanes",
+    "continent": "South America",
+    "latitude": -51.253,
+    "longitude": -72.331,
+    "popularity": 86,
+    "tags": [
+      "trekking",
+      "patagonia"
+    ]
+  },
+  {
+    "id": "dest:manaus-br",
+    "name": "Manaus",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "region": "Amazonas",
+    "continent": "South America",
+    "latitude": -3.119,
+    "longitude": -60.0217,
+    "popularity": 74,
+    "tags": [
+      "amazon",
+      "river"
+    ]
+  },
+  {
+    "id": "dest:bariloche-ar",
+    "name": "Bariloche",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "region": "Río Negro",
+    "continent": "South America",
+    "latitude": -41.1335,
+    "longitude": -71.3103,
+    "popularity": 80,
+    "tags": [
+      "lakes",
+      "chocolate"
+    ]
+  },
+  {
+    "id": "dest:cartagena-coffee-region-co",
+    "name": "Cartagena Coffee Region",
+    "country": "Colombia",
+    "countryCode": "CO",
+    "region": "Quindío",
+    "continent": "South America",
+    "latitude": 4.711,
+    "longitude": -75.693,
+    "popularity": 79,
+    "tags": [
+      "coffee",
+      "mountains"
+    ]
+  },
+  {
+    "id": "dest:easter-island-cl",
+    "name": "Easter Island",
+    "country": "Chile",
+    "countryCode": "CL",
+    "region": "Valparaíso",
+    "continent": "South America",
+    "latitude": -27.1127,
+    "longitude": -109.3497,
+    "popularity": 82,
+    "tags": [
+      "moai",
+      "remote"
+    ]
+  },
+  {
+    "id": "dest:pantanal-br",
+    "name": "Pantanal",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "region": "Mato Grosso do Sul",
+    "continent": "South America",
+    "latitude": -19,
+    "longitude": -57,
+    "popularity": 81,
+    "tags": [
+      "wetlands",
+      "wildlife"
+    ]
+  },
+  {
+    "id": "dest:arequipa-pe",
+    "name": "Arequipa",
+    "country": "Peru",
+    "countryCode": "PE",
+    "region": "Arequipa",
+    "continent": "South America",
+    "latitude": -16.409,
+    "longitude": -71.5375,
+    "popularity": 77,
+    "tags": [
+      "volcano",
+      "colonial"
+    ]
+  },
+  {
+    "id": "dest:sydney-au",
+    "name": "Sydney",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "New South Wales",
+    "continent": "Oceania",
+    "latitude": -33.8688,
+    "longitude": 151.2093,
+    "popularity": 94,
+    "tags": [
+      "harbour",
+      "beach"
+    ]
+  },
+  {
+    "id": "dest:queenstown-nz",
+    "name": "Queenstown",
+    "country": "New Zealand",
+    "countryCode": "NZ",
+    "region": "Otago",
+    "continent": "Oceania",
+    "latitude": -45.0312,
+    "longitude": 168.6626,
+    "popularity": 90,
+    "tags": [
+      "adventure",
+      "mountains"
+    ]
+  },
+  {
+    "id": "dest:great-barrier-reef-au",
+    "name": "Great Barrier Reef",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Queensland",
+    "continent": "Oceania",
+    "latitude": -18.2871,
+    "longitude": 147.6992,
+    "popularity": 93,
+    "tags": [
+      "reef",
+      "snorkeling"
+    ]
+  },
+  {
+    "id": "dest:bora-bora-pf",
+    "name": "Bora Bora",
+    "country": "French Polynesia",
+    "countryCode": "PF",
+    "region": "Leeward Islands",
+    "continent": "Oceania",
+    "latitude": -16.5004,
+    "longitude": -151.7415,
+    "popularity": 88,
+    "tags": [
+      "lagoon",
+      "luxury"
+    ]
+  },
+  {
+    "id": "dest:melbourne-au",
+    "name": "Melbourne",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Victoria",
+    "continent": "Oceania",
+    "latitude": -37.8136,
+    "longitude": 144.9631,
+    "popularity": 89,
+    "tags": [
+      "coffee",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:fiji-islands-fj",
+    "name": "Fiji Islands",
+    "country": "Fiji",
+    "countryCode": "FJ",
+    "region": "Western",
+    "continent": "Oceania",
+    "latitude": -17.7134,
+    "longitude": 178.065,
+    "popularity": 84,
+    "tags": [
+      "island",
+      "diving"
+    ]
+  },
+  {
+    "id": "dest:uluru-region-au",
+    "name": "Uluru Region",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Northern Territory",
+    "continent": "Oceania",
+    "latitude": -25.3444,
+    "longitude": 131.0369,
+    "popularity": 87,
+    "tags": [
+      "outback",
+      "sacred"
+    ]
+  },
+  {
+    "id": "dest:rotorua-nz",
+    "name": "Rotorua",
+    "country": "New Zealand",
+    "countryCode": "NZ",
+    "region": "Bay of Plenty",
+    "continent": "Oceania",
+    "latitude": -38.1368,
+    "longitude": 176.2497,
+    "popularity": 81,
+    "tags": [
+      "geothermal",
+      "maori"
+    ]
+  },
+  {
+    "id": "dest:tasmania-au",
+    "name": "Tasmania",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Tasmania",
+    "continent": "Oceania",
+    "latitude": -42.8821,
+    "longitude": 147.3272,
+    "popularity": 82,
+    "tags": [
+      "wilderness",
+      "food"
+    ]
+  },
+  {
+    "id": "dest:auckland-nz",
+    "name": "Auckland",
+    "country": "New Zealand",
+    "countryCode": "NZ",
+    "region": "Auckland",
+    "continent": "Oceania",
+    "latitude": -36.8485,
+    "longitude": 174.7633,
+    "popularity": 83,
+    "tags": [
+      "harbour",
+      "volcanoes"
+    ]
+  },
+  {
+    "id": "dest:rarotonga-ck",
+    "name": "Rarotonga",
+    "country": "Cook Islands",
+    "countryCode": "CK",
+    "region": "Rarotonga",
+    "continent": "Oceania",
+    "latitude": -21.229,
+    "longitude": -159.776,
+    "popularity": 76,
+    "tags": [
+      "island",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:tahiti-pf",
+    "name": "Tahiti",
+    "country": "French Polynesia",
+    "countryCode": "PF",
+    "region": "Windward Islands",
+    "continent": "Oceania",
+    "latitude": -17.6509,
+    "longitude": -149.426,
+    "popularity": 80,
+    "tags": [
+      "island",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:kakadu-au",
+    "name": "Kakadu",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Northern Territory",
+    "continent": "Oceania",
+    "latitude": -12.7333,
+    "longitude": 132.5,
+    "popularity": 79,
+    "tags": [
+      "wetlands",
+      "rock art"
+    ]
+  },
+  {
+    "id": "dest:wellington-nz",
+    "name": "Wellington",
+    "country": "New Zealand",
+    "countryCode": "NZ",
+    "region": "Wellington",
+    "continent": "Oceania",
+    "latitude": -41.2865,
+    "longitude": 174.7762,
+    "popularity": 78,
+    "tags": [
+      "creative",
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:great-ocean-road-au",
+    "name": "Great Ocean Road",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Victoria",
+    "continent": "Oceania",
+    "latitude": -38.6806,
+    "longitude": 143.102,
+    "popularity": 81,
+    "tags": [
+      "coast",
+      "drive"
+    ]
+  },
+  {
+    "id": "dest:samoa-islands-ws",
+    "name": "Samoa Islands",
+    "country": "Samoa",
+    "countryCode": "WS",
+    "region": "Tuamasaga",
+    "continent": "Oceania",
+    "latitude": -13.759,
+    "longitude": -172.1046,
+    "popularity": 74,
+    "tags": [
+      "polynesian",
+      "beach"
+    ]
+  },
+  {
+    "id": "dest:blue-mountains-au",
+    "name": "Blue Mountains",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "New South Wales",
+    "continent": "Oceania",
+    "latitude": -33.7122,
+    "longitude": 150.3119,
+    "popularity": 77,
+    "tags": [
+      "hiking",
+      "eucalyptus"
+    ]
+  },
+  {
+    "id": "dest:milford-sound-nz",
+    "name": "Milford Sound",
+    "country": "New Zealand",
+    "countryCode": "NZ",
+    "region": "Southland",
+    "continent": "Oceania",
+    "latitude": -44.6414,
+    "longitude": 167.8974,
+    "popularity": 86,
+    "tags": [
+      "fjord",
+      "cruise"
+    ]
+  },
+  {
+    "id": "dest:byron-bay-au",
+    "name": "Byron Bay",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "New South Wales",
+    "continent": "Oceania",
+    "latitude": -28.6434,
+    "longitude": 153.612,
+    "popularity": 79,
+    "tags": [
+      "surf",
+      "wellness"
+    ]
+  },
+  {
+    "id": "dest:vanuatu-vu",
+    "name": "Vanuatu",
+    "country": "Vanuatu",
+    "countryCode": "VU",
+    "region": "Shefa",
+    "continent": "Oceania",
+    "latitude": -17.7333,
+    "longitude": 168.3273,
+    "popularity": 72,
+    "tags": [
+      "volcano",
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:lord-howe-island-au",
+    "name": "Lord Howe Island",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "New South Wales",
+    "continent": "Oceania",
+    "latitude": -31.555,
+    "longitude": 159.082,
+    "popularity": 73,
+    "tags": [
+      "island",
+      "nature"
+    ]
+  },
+  {
+    "id": "dest:christchurch-nz",
+    "name": "Christchurch",
+    "country": "New Zealand",
+    "countryCode": "NZ",
+    "region": "Canterbury",
+    "continent": "Oceania",
+    "latitude": -43.5321,
+    "longitude": 172.6362,
+    "popularity": 75,
+    "tags": [
+      "gardens",
+      "recovery"
+    ]
+  },
+  {
+    "id": "dest:whitsunday-islands-au",
+    "name": "Whitsunday Islands",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Queensland",
+    "continent": "Oceania",
+    "latitude": -20.262,
+    "longitude": 148.9507,
+    "popularity": 82,
+    "tags": [
+      "sailing",
+      "reef"
+    ]
+  },
+  {
+    "id": "dest:tonga-to",
+    "name": "Tonga",
+    "country": "Tonga",
+    "countryCode": "TO",
+    "region": "Tongatapu",
+    "continent": "Oceania",
+    "latitude": -21.1789,
+    "longitude": -175.1982,
+    "popularity": 71,
+    "tags": [
+      "culture",
+      "island"
+    ]
+  },
+  {
+    "id": "dest:kangaroo-island-au",
+    "name": "Kangaroo Island",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "South Australia",
+    "continent": "Oceania",
+    "latitude": -35.801,
+    "longitude": 137.227,
+    "popularity": 76,
+    "tags": [
+      "wildlife",
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:abel-tasman-nz",
+    "name": "Abel Tasman",
+    "country": "New Zealand",
+    "countryCode": "NZ",
+    "region": "Tasman",
+    "continent": "Oceania",
+    "latitude": -40.8333,
+    "longitude": 172.8333,
+    "popularity": 78,
+    "tags": [
+      "coastal hike",
+      "beach"
+    ]
+  },
+  {
+    "id": "dest:port-douglas-au",
+    "name": "Port Douglas",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Queensland",
+    "continent": "Oceania",
+    "latitude": -16.4836,
+    "longitude": 145.4652,
+    "popularity": 77,
+    "tags": [
+      "reef gateway",
+      "tropical"
+    ]
+  },
+  {
+    "id": "dest:norfolk-island-au",
+    "name": "Norfolk Island",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Norfolk Island",
+    "continent": "Oceania",
+    "latitude": -29.0408,
+    "longitude": 167.9547,
+    "popularity": 68,
+    "tags": [
+      "history",
+      "island"
+    ]
+  },
+  {
+    "id": "dest:bay-of-islands-nz",
+    "name": "Bay of Islands",
+    "country": "New Zealand",
+    "countryCode": "NZ",
+    "region": "Northland",
+    "continent": "Oceania",
+    "latitude": -35.2167,
+    "longitude": 174.2,
+    "popularity": 76,
+    "tags": [
+      "history",
+      "boating"
+    ]
+  },
+  {
+    "id": "dest:fraser-island-au",
+    "name": "Fraser Island",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Queensland",
+    "continent": "Oceania",
+    "latitude": -25.239,
+    "longitude": 153.133,
+    "popularity": 75,
+    "tags": [
+      "sand island",
+      "4wd"
+    ]
+  },
+  {
+    "id": "dest:pushkar-in",
+    "name": "Pushkar",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Rajasthan",
+    "continent": "Asia",
+    "latitude": 26.4899,
+    "longitude": 74.5511,
+    "popularity": 76,
+    "tags": [
+      "festival"
+    ]
+  },
+  {
+    "id": "dest:amritsar-in",
+    "name": "Amritsar",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Punjab",
+    "continent": "Asia",
+    "latitude": 31.634,
+    "longitude": 74.8723,
+    "popularity": 80,
+    "tags": [
+      "temple"
+    ]
+  },
+  {
+    "id": "dest:udaipur-in",
+    "name": "Udaipur",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Rajasthan",
+    "continent": "Asia",
+    "latitude": 24.5854,
+    "longitude": 73.7125,
+    "popularity": 85,
+    "tags": [
+      "palace"
+    ]
+  },
+  {
+    "id": "dest:agra-in",
+    "name": "Agra",
+    "country": "India",
+    "countryCode": "IN",
+    "region": "Uttar Pradesh",
+    "continent": "Asia",
+    "latitude": 27.1767,
+    "longitude": 78.0081,
+    "popularity": 88,
+    "tags": [
+      "taj mahal"
+    ]
+  },
+  {
+    "id": "dest:osaka-jp",
+    "name": "Osaka",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Osaka",
+    "continent": "Asia",
+    "latitude": 34.6937,
+    "longitude": 135.5023,
+    "popularity": 86,
+    "tags": [
+      "food"
+    ]
+  },
+  {
+    "id": "dest:nara-jp",
+    "name": "Nara",
+    "country": "Japan",
+    "countryCode": "JP",
+    "region": "Nara",
+    "continent": "Asia",
+    "latitude": 34.6851,
+    "longitude": 135.8048,
+    "popularity": 79,
+    "tags": [
+      "temples"
+    ]
+  },
+  {
+    "id": "dest:busan-kr",
+    "name": "Busan",
+    "country": "South Korea",
+    "countryCode": "KR",
+    "region": "Busan",
+    "continent": "Asia",
+    "latitude": 35.1796,
+    "longitude": 129.0756,
+    "popularity": 80,
+    "tags": [
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:bukhara-uz",
+    "name": "Bukhara",
+    "country": "Uzbekistan",
+    "countryCode": "UZ",
+    "region": "Bukhara",
+    "continent": "Asia",
+    "latitude": 39.7681,
+    "longitude": 64.4556,
+    "popularity": 78,
+    "tags": [
+      "silk road"
+    ]
+  },
+  {
+    "id": "dest:jerusalem-old-city-il",
+    "name": "Jerusalem Old City",
+    "country": "Israel",
+    "countryCode": "IL",
+    "region": "Jerusalem",
+    "continent": "Asia",
+    "latitude": 31.7683,
+    "longitude": 35.2137,
+    "popularity": 90,
+    "tags": [
+      "faith"
+    ]
+  },
+  {
+    "id": "dest:matera-it",
+    "name": "Matera",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Basilicata",
+    "continent": "Europe",
+    "latitude": 40.6664,
+    "longitude": 16.6043,
+    "popularity": 81,
+    "tags": [
+      "caves"
+    ]
+  },
+  {
+    "id": "dest:pompeii-it",
+    "name": "Pompeii",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Campania",
+    "continent": "Europe",
+    "latitude": 40.7489,
+    "longitude": 14.4893,
+    "popularity": 85,
+    "tags": [
+      "archaeology"
+    ]
+  },
+  {
+    "id": "dest:nice-fr",
+    "name": "Nice",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Provence",
+    "continent": "Europe",
+    "latitude": 43.7102,
+    "longitude": 7.262,
+    "popularity": 80,
+    "tags": [
+      "riviera"
+    ]
+  },
+  {
+    "id": "dest:munich-de",
+    "name": "Munich",
+    "country": "Germany",
+    "countryCode": "DE",
+    "region": "Bavaria",
+    "continent": "Europe",
+    "latitude": 48.1351,
+    "longitude": 11.582,
+    "popularity": 82,
+    "tags": [
+      "beer"
+    ]
+  },
+  {
+    "id": "dest:salzburg-at",
+    "name": "Salzburg",
+    "country": "Austria",
+    "countryCode": "AT",
+    "region": "Salzburg",
+    "continent": "Europe",
+    "latitude": 47.8095,
+    "longitude": 13.055,
+    "popularity": 80,
+    "tags": [
+      "music"
+    ]
+  },
+  {
+    "id": "dest:split-hr",
+    "name": "Split",
+    "country": "Croatia",
+    "countryCode": "HR",
+    "region": "Split-Dalmatia",
+    "continent": "Europe",
+    "latitude": 43.5081,
+    "longitude": 16.4402,
+    "popularity": 79,
+    "tags": [
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:kotor-me",
+    "name": "Kotor",
+    "country": "Montenegro",
+    "countryCode": "ME",
+    "region": "Kotor",
+    "continent": "Europe",
+    "latitude": 42.4247,
+    "longitude": 18.7712,
+    "popularity": 78,
+    "tags": [
+      "medieval"
+    ]
+  },
+  {
+    "id": "dest:warsaw-pl",
+    "name": "Warsaw",
+    "country": "Poland",
+    "countryCode": "PL",
+    "region": "Masovia",
+    "continent": "Europe",
+    "latitude": 52.2297,
+    "longitude": 21.0122,
+    "popularity": 76,
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "id": "dest:helsinki-fi",
+    "name": "Helsinki",
+    "country": "Finland",
+    "countryCode": "FI",
+    "region": "Uusimaa",
+    "continent": "Europe",
+    "latitude": 60.1699,
+    "longitude": 24.9384,
+    "popularity": 76,
+    "tags": [
+      "design"
+    ]
+  },
+  {
+    "id": "dest:bergen-no",
+    "name": "Bergen",
+    "country": "Norway",
+    "countryCode": "NO",
+    "region": "Vestland",
+    "continent": "Europe",
+    "latitude": 60.3913,
+    "longitude": 5.3221,
+    "popularity": 78,
+    "tags": [
+      "fjords"
+    ]
+  },
+  {
+    "id": "dest:lapland-fi",
+    "name": "Lapland",
+    "country": "Finland",
+    "countryCode": "FI",
+    "region": "Lapland",
+    "continent": "Europe",
+    "latitude": 66.5039,
+    "longitude": 25.7294,
+    "popularity": 80,
+    "tags": [
+      "aurora"
+    ]
+  },
+  {
+    "id": "dest:washington-dc-us",
+    "name": "Washington DC",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "District of Columbia",
+    "continent": "North America",
+    "latitude": 38.9072,
+    "longitude": -77.0369,
+    "popularity": 86,
+    "tags": [
+      "museums"
+    ]
+  },
+  {
+    "id": "dest:boston-us",
+    "name": "Boston",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Massachusetts",
+    "continent": "North America",
+    "latitude": 42.3601,
+    "longitude": -71.0589,
+    "popularity": 81,
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "id": "dest:seattle-us",
+    "name": "Seattle",
+    "country": "United States",
+    "countryCode": "US",
+    "region": "Washington",
+    "continent": "North America",
+    "latitude": 47.6062,
+    "longitude": -122.3321,
+    "popularity": 82,
+    "tags": [
+      "coffee"
+    ]
+  },
+  {
+    "id": "dest:whistler-ca",
+    "name": "Whistler",
+    "country": "Canada",
+    "countryCode": "CA",
+    "region": "British Columbia",
+    "continent": "North America",
+    "latitude": 50.1163,
+    "longitude": -122.9574,
+    "popularity": 80,
+    "tags": [
+      "ski"
+    ]
+  },
+  {
+    "id": "dest:belize-barrier-reef-bz",
+    "name": "Belize Barrier Reef",
+    "country": "Belize",
+    "countryCode": "BZ",
+    "region": "Belize",
+    "continent": "North America",
+    "latitude": 17.3158,
+    "longitude": -87.5346,
+    "popularity": 78,
+    "tags": [
+      "reef"
+    ]
+  },
+  {
+    "id": "dest:bogota-co",
+    "name": "Bogota",
+    "country": "Colombia",
+    "countryCode": "CO",
+    "region": "Bogotá",
+    "continent": "South America",
+    "latitude": 4.711,
+    "longitude": -74.0721,
+    "popularity": 80,
+    "tags": [
+      "street art"
+    ]
+  },
+  {
+    "id": "dest:lima-pe",
+    "name": "Lima",
+    "country": "Peru",
+    "countryCode": "PE",
+    "region": "Lima",
+    "continent": "South America",
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "popularity": 81,
+    "tags": [
+      "food"
+    ]
+  },
+  {
+    "id": "dest:ushuaia-ar",
+    "name": "Ushuaia",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "region": "Tierra del Fuego",
+    "continent": "South America",
+    "latitude": -54.8019,
+    "longitude": -68.303,
+    "popularity": 80,
+    "tags": [
+      "patagonia"
+    ]
+  },
+  {
+    "id": "dest:gold-coast-au",
+    "name": "Gold Coast",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Queensland",
+    "continent": "Oceania",
+    "latitude": -28.0167,
+    "longitude": 153.4,
+    "popularity": 80,
+    "tags": [
+      "surf"
+    ]
+  },
+  {
+    "id": "dest:perth-au",
+    "name": "Perth",
+    "country": "Australia",
+    "countryCode": "AU",
+    "region": "Western Australia",
+    "continent": "Oceania",
+    "latitude": -31.9505,
+    "longitude": 115.8605,
+    "popularity": 76,
+    "tags": [
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:dunedin-nz",
+    "name": "Dunedin",
+    "country": "New Zealand",
+    "countryCode": "NZ",
+    "region": "Otago",
+    "continent": "Oceania",
+    "latitude": -45.8788,
+    "longitude": 170.502,
+    "popularity": 73,
+    "tags": [
+      "wildlife"
+    ]
+  },
+  {
+    "id": "dest:marrakesh-medina-ma",
+    "name": "Marrakesh Medina",
+    "country": "Morocco",
+    "countryCode": "MA",
+    "region": "Marrakech-Safi",
+    "continent": "Africa",
+    "latitude": 31.6295,
+    "longitude": -7.9811,
+    "popularity": 90,
+    "tags": [
+      "medina"
+    ]
+  },
+  {
+    "id": "dest:table-mountain-za",
+    "name": "Table Mountain",
+    "country": "South Africa",
+    "countryCode": "ZA",
+    "region": "Western Cape",
+    "continent": "Africa",
+    "latitude": -33.9628,
+    "longitude": 18.4098,
+    "popularity": 84,
+    "tags": [
+      "hiking"
+    ]
+  },
+  {
+    "id": "dest:aswan-eg",
+    "name": "Aswan",
+    "country": "Egypt",
+    "countryCode": "EG",
+    "region": "Aswan",
+    "continent": "Africa",
+    "latitude": 24.0889,
+    "longitude": 32.8998,
+    "popularity": 79,
+    "tags": [
+      "nile"
+    ]
+  },
+  {
+    "id": "dest:windhoek-na",
+    "name": "Windhoek",
+    "country": "Namibia",
+    "countryCode": "NA",
+    "region": "Khomas",
+    "continent": "Africa",
+    "latitude": -22.5609,
+    "longitude": 17.0658,
+    "popularity": 72,
+    "tags": [
+      "desert gateway"
+    ]
+  },
+  {
+    "id": "dest:antananarivo-mg",
+    "name": "Antananarivo",
+    "country": "Madagascar",
+    "countryCode": "MG",
+    "region": "Analamanga",
+    "continent": "Africa",
+    "latitude": -18.8792,
+    "longitude": 47.5079,
+    "popularity": 73,
+    "tags": [
+      "wildlife gateway"
+    ]
+  },
+  {
+    "id": "dest:lamu-old-town-ke",
+    "name": "Lamu Old Town",
+    "country": "Kenya",
+    "countryCode": "KE",
+    "region": "Lamu",
+    "continent": "Africa",
+    "latitude": -2.2719,
+    "longitude": 40.902,
+    "popularity": 74,
+    "tags": [
+      "swahili"
+    ]
+  },
+  {
+    "id": "dest:sousse-medina-tn",
+    "name": "Sousse Medina",
+    "country": "Tunisia",
+    "countryCode": "TN",
+    "region": "Sousse",
+    "continent": "Africa",
+    "latitude": 35.8256,
+    "longitude": 10.63699,
+    "popularity": 73,
+    "tags": [
+      "medina"
+    ]
+  },
+  {
+    "id": "dest:harare-zw",
+    "name": "Harare",
+    "country": "Zimbabwe",
+    "countryCode": "ZW",
+    "region": "Harare",
+    "continent": "Africa",
+    "latitude": -17.8252,
+    "longitude": 31.0335,
+    "popularity": 68,
+    "tags": [
+      "culture"
+    ]
+  },
+  {
+    "id": "dest:kigali-genocide-memorial-region-rw",
+    "name": "Kigali Genocide Memorial Region",
+    "country": "Rwanda",
+    "countryCode": "RW",
+    "region": "Kigali",
+    "continent": "Africa",
+    "latitude": -1.9441,
+    "longitude": 30.0619,
+    "popularity": 75,
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "id": "dest:swakopmund-na",
+    "name": "Swakopmund",
+    "country": "Namibia",
+    "countryCode": "NA",
+    "region": "Erongo",
+    "continent": "Africa",
+    "latitude": -22.6783,
+    "longitude": 14.5266,
+    "popularity": 76,
+    "tags": [
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:malaga-es",
+    "name": "Malaga",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Andalusia",
+    "continent": "Europe",
+    "latitude": 36.7213,
+    "longitude": -4.4214,
+    "popularity": 78,
+    "tags": [
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:granada-es",
+    "name": "Granada",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Andalusia",
+    "continent": "Europe",
+    "latitude": 37.1773,
+    "longitude": -3.5986,
+    "popularity": 84,
+    "tags": [
+      "alhambra"
+    ]
+  },
+  {
+    "id": "dest:toledo-es",
+    "name": "Toledo",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Castile-La Mancha",
+    "continent": "Europe",
+    "latitude": 39.8628,
+    "longitude": -4.0273,
+    "popularity": 79,
+    "tags": [
+      "medieval"
+    ]
+  },
+  {
+    "id": "dest:basque-country-es",
+    "name": "Basque Country",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Basque Country",
+    "continent": "Europe",
+    "latitude": 43.263,
+    "longitude": -2.935,
+    "popularity": 81,
+    "tags": [
+      "food"
+    ]
+  },
+  {
+    "id": "dest:lyon-fr",
+    "name": "Lyon",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Auvergne-Rhône-Alpes",
+    "continent": "Europe",
+    "latitude": 45.764,
+    "longitude": 4.8357,
+    "popularity": 80,
+    "tags": [
+      "gastronomy"
+    ]
+  },
+  {
+    "id": "dest:bordeaux-fr",
+    "name": "Bordeaux",
+    "country": "France",
+    "countryCode": "FR",
+    "region": "Nouvelle-Aquitaine",
+    "continent": "Europe",
+    "latitude": 44.8378,
+    "longitude": -0.5792,
+    "popularity": 79,
+    "tags": [
+      "wine"
+    ]
+  },
+  {
+    "id": "dest:brussels-be",
+    "name": "Brussels",
+    "country": "Belgium",
+    "countryCode": "BE",
+    "region": "Brussels",
+    "continent": "Europe",
+    "latitude": 50.8503,
+    "longitude": 4.3517,
+    "popularity": 78,
+    "tags": [
+      "chocolate"
+    ]
+  },
+  {
+    "id": "dest:luxembourg-city-lu",
+    "name": "Luxembourg City",
+    "country": "Luxembourg",
+    "countryCode": "LU",
+    "region": "Luxembourg",
+    "continent": "Europe",
+    "latitude": 49.6116,
+    "longitude": 6.1319,
+    "popularity": 72,
+    "tags": [
+      "old town"
+    ]
+  },
+  {
+    "id": "dest:riga-lv",
+    "name": "Riga",
+    "country": "Latvia",
+    "countryCode": "LV",
+    "region": "Riga",
+    "continent": "Europe",
+    "latitude": 56.9496,
+    "longitude": 24.1052,
+    "popularity": 74,
+    "tags": [
+      "art nouveau"
+    ]
+  },
+  {
+    "id": "dest:vilnius-lt",
+    "name": "Vilnius",
+    "country": "Lithuania",
+    "countryCode": "LT",
+    "region": "Vilnius",
+    "continent": "Europe",
+    "latitude": 54.6872,
+    "longitude": 25.2797,
+    "popularity": 73,
+    "tags": [
+      "baroque"
+    ]
+  },
+  {
+    "id": "dest:kyiv-old-town-ua",
+    "name": "Kyiv Old Town",
+    "country": "Ukraine",
+    "countryCode": "UA",
+    "region": "Kyiv",
+    "continent": "Europe",
+    "latitude": 50.4501,
+    "longitude": 30.5234,
+    "popularity": 76,
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "id": "dest:sibiu-ro",
+    "name": "Sibiu",
+    "country": "Romania",
+    "countryCode": "RO",
+    "region": "Sibiu",
+    "continent": "Europe",
+    "latitude": 45.7983,
+    "longitude": 24.1253,
+    "popularity": 74,
+    "tags": [
+      "medieval"
+    ]
+  },
+  {
+    "id": "dest:ohrid-mk",
+    "name": "Ohrid",
+    "country": "North Macedonia",
+    "countryCode": "MK",
+    "region": "Ohrid",
+    "continent": "Europe",
+    "latitude": 41.1231,
+    "longitude": 20.8016,
+    "popularity": 73,
+    "tags": [
+      "lake"
+    ]
+  },
+  {
+    "id": "dest:santander-es",
+    "name": "Santander",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Cantabria",
+    "continent": "Europe",
+    "latitude": 43.4623,
+    "longitude": -3.8099,
+    "popularity": 72,
+    "tags": [
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:palermo-it",
+    "name": "Palermo",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Sicily",
+    "continent": "Europe",
+    "latitude": 38.1157,
+    "longitude": 13.3615,
+    "popularity": 78,
+    "tags": [
+      "street food"
+    ]
+  },
+  {
+    "id": "dest:sicily-etna-region-it",
+    "name": "Sicily Etna Region",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Sicily",
+    "continent": "Europe",
+    "latitude": 37.751,
+    "longitude": 14.9934,
+    "popularity": 80,
+    "tags": [
+      "volcano"
+    ]
+  },
+  {
+    "id": "dest:amalfi-coast-it",
+    "name": "Amalfi Coast",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Campania",
+    "continent": "Europe",
+    "latitude": 40.634,
+    "longitude": 14.6027,
+    "popularity": 87,
+    "tags": [
+      "coast"
+    ]
+  },
+  {
+    "id": "dest:siena-it",
+    "name": "Siena",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Tuscany",
+    "continent": "Europe",
+    "latitude": 43.3188,
+    "longitude": 11.3308,
+    "popularity": 79,
+    "tags": [
+      "medieval"
+    ]
+  },
+  {
+    "id": "dest:verona-it",
+    "name": "Verona",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Veneto",
+    "continent": "Europe",
+    "latitude": 45.4384,
+    "longitude": 10.9916,
+    "popularity": 77,
+    "tags": [
+      "romance"
+    ]
+  },
+  {
+    "id": "dest:lake-como-it",
+    "name": "Lake Como",
+    "country": "Italy",
+    "countryCode": "IT",
+    "region": "Lombardy",
+    "continent": "Europe",
+    "latitude": 46.016,
+    "longitude": 9.2572,
+    "popularity": 84,
+    "tags": [
+      "lake"
+    ]
+  },
+  {
+    "id": "dest:zermatt-ch",
+    "name": "Zermatt",
+    "country": "Switzerland",
+    "countryCode": "CH",
+    "region": "Valais",
+    "continent": "Europe",
+    "latitude": 46.0207,
+    "longitude": 7.7491,
+    "popularity": 83,
+    "tags": [
+      "matterhorn"
+    ]
+  },
+  {
+    "id": "dest:interlaken-ch",
+    "name": "Interlaken",
+    "country": "Switzerland",
+    "countryCode": "CH",
+    "region": "Bern",
+    "continent": "Europe",
+    "latitude": 46.6863,
+    "longitude": 7.8632,
+    "popularity": 81,
+    "tags": [
+      "adventure"
+    ]
+  },
+  {
+    "id": "dest:sintra-pt",
+    "name": "Sintra",
+    "country": "Portugal",
+    "countryCode": "PT",
+    "region": "Lisbon",
+    "continent": "Europe",
+    "latitude": 38.8029,
+    "longitude": -9.3817,
+    "popularity": 82,
+    "tags": [
+      "palaces"
+    ]
+  },
+  {
+    "id": "dest:madeira-pt",
+    "name": "Madeira",
+    "country": "Portugal",
+    "countryCode": "PT",
+    "region": "Madeira",
+    "continent": "Europe",
+    "latitude": 32.7607,
+    "longitude": -16.9595,
+    "popularity": 80,
+    "tags": [
+      "island"
+    ]
+  },
+  {
+    "id": "dest:canary-islands-es",
+    "name": "Canary Islands",
+    "country": "Spain",
+    "countryCode": "ES",
+    "region": "Canary Islands",
+    "continent": "Europe",
+    "latitude": 28.2916,
+    "longitude": -16.6291,
+    "popularity": 81,
+    "tags": [
+      "volcano"
+    ]
+  }
+]

@@ -4,11 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Loader2 } from "lucide-react";
 import type { LensMode } from "@culturecompass/shared";
 import { LENS_MODE_LABELS } from "@culturecompass/shared";
+import { PlaceLink } from "@/components/place/place-link";
 import { type LensSpot } from "@/lib/local-lens-helpers";
 
 interface LocalLensShowcaseProps {
   spots: LensSpot[];
   mode: LensMode;
+  destinationContext?: string;
   loading?: boolean;
 }
 
@@ -25,7 +27,12 @@ const itemVariants = {
   show: { opacity: 1, x: 0, transition: { duration: 0.35, ease: "easeOut" as const } },
 };
 
-export function LocalLensShowcase({ spots, mode, loading }: LocalLensShowcaseProps) {
+export function LocalLensShowcase({
+  spots,
+  mode,
+  destinationContext,
+  loading,
+}: LocalLensShowcaseProps) {
   return (
     <section aria-label={`${LENS_MODE_LABELS[mode]} recommendations`} className="mt-6">
       <div className="mb-4 flex items-center justify-between">
@@ -68,7 +75,13 @@ export function LocalLensShowcase({ spots, mode, loading }: LocalLensShowcasePro
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
-                        <h4 className="theme-text font-semibold">{spot.name}</h4>
+                        <h4 className="theme-text font-semibold">
+                          <PlaceLink
+                            name={spot.name}
+                            destinationContext={destinationContext}
+                            className="font-semibold no-underline hover:underline"
+                          />
+                        </h4>
                         <span className="theme-badge text-[10px]">{spot.category}</span>
                       </div>
                       <p className="theme-text-muted mt-1 text-sm leading-relaxed">

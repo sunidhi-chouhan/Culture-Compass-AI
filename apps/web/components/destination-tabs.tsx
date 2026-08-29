@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { PlaceLink } from "@/components/place/place-link";
 
 type Tab = "attractions" | "hidden-gems" | "heritage" | "events" | "experiences";
 
@@ -88,7 +89,9 @@ export function DestinationTabs({
             {attractions.map((item) => (
               <div key={item.name} className="theme-card">
                 <span className="theme-badge text-[10px]">{item.category}</span>
-                <h4 className="theme-text mt-1 font-semibold">{item.name}</h4>
+                <h4 className="theme-text mt-1 font-semibold">
+                  <PlaceLink name={item.name} destinationContext={destinationName} className="font-semibold" />
+                </h4>
                 <p className="theme-text-muted mt-2 text-sm">{item.description}</p>
                 <p className="theme-text-subtle mt-2 text-xs">Tip: {item.tip}</p>
               </div>
@@ -100,7 +103,9 @@ export function DestinationTabs({
           <div className="grid gap-4 sm:grid-cols-2">
             {hiddenGems.map((item) => (
               <div key={item.name} className="theme-card">
-                <h4 className="theme-text font-semibold">{item.name}</h4>
+                <h4 className="theme-text font-semibold">
+                  <PlaceLink name={item.name} destinationContext={destinationName} className="font-semibold" />
+                </h4>
                 <p className="theme-text-muted mt-2 text-sm">{item.description}</p>
                 <p className="theme-text mt-2 text-sm font-medium">{item.whyVisit}</p>
                 <p className="theme-text-subtle mt-2 text-xs">Local tip: {item.localTip}</p>
@@ -139,11 +144,19 @@ export function DestinationTabs({
             {events.map((item) => (
               <div key={item.name} className="theme-card">
                 <div className="flex items-start justify-between gap-2">
-                  <h4 className="theme-text font-semibold">{item.name}</h4>
+                  <h4 className="theme-text font-semibold">
+                    <PlaceLink
+                      name={item.name}
+                      destinationContext={destinationName}
+                      className="font-semibold"
+                    />
+                  </h4>
                   <span className="theme-badge text-[10px]">{item.date}</span>
                 </div>
                 <p className="theme-text-muted mt-2 text-sm">{item.description}</p>
-                <p className="theme-text-subtle mt-2 text-xs">{item.location}</p>
+                <p className="theme-text-subtle mt-2 text-xs">
+                  <PlaceLink name={item.location} destinationContext={destinationName} />
+                </p>
               </div>
             ))}
           </div>
@@ -157,7 +170,9 @@ export function DestinationTabs({
                   <span className="theme-badge text-[10px]">{item.type}</span>
                   <span className="theme-text-subtle text-xs">{item.duration}</span>
                 </div>
-                <h4 className="theme-text mt-2 font-semibold">{item.name}</h4>
+                <h4 className="theme-text mt-2 font-semibold">
+                  <PlaceLink name={item.name} destinationContext={destinationName} className="font-semibold" />
+                </h4>
                 <p className="theme-text-muted mt-2 text-sm">{item.description}</p>
                 <p className="theme-text-subtle mt-2 text-xs italic">{item.authenticityNote}</p>
               </div>

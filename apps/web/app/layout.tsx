@@ -21,7 +21,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_APP_NAME || "CultureCompass AI",
+  title: process.env.NEXT_PUBLIC_APP_NAME || "JourneyMind",
   description:
     "GenAI-powered platform for destination discovery and authentic cultural experiences.",
 };

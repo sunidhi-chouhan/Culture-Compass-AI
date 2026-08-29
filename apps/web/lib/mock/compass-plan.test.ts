@@ -36,4 +36,11 @@ describe("getMockCompassPlan", () => {
     const plan = getMockCompassPlan(baseInput);
     assert.equal(plan.featuredDestination.id, "jaipur");
   });
+
+  it("includes a day-wise itinerary for Explore", () => {
+    const plan = getMockCompassPlan({ ...baseInput, destination: "Kyoto", duration: "3 days" });
+    assert.ok(plan.itinerary);
+    assert.ok((plan.itinerary?.days.length ?? 0) >= 1);
+    assert.ok((plan.itinerary?.days[0]?.slots.length ?? 0) >= 1);
+  });
 });

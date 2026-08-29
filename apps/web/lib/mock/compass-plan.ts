@@ -1,4 +1,5 @@
 import type { CompassPlanRequest, CompassPlanResponse } from "@culturecompass/shared";
+import { getMockItinerary } from "@/lib/mock/itinerary";
 
 const DESTINATION_PRESETS: Record<
   string,
@@ -375,5 +376,21 @@ export function isMockAiEnabled(): boolean {
 
 export function getMockCompassPlan(input: CompassPlanRequest): CompassPlanResponse {
   const dest = resolveDestination(input);
-  return input.lensMode === "local" ? buildLocalPlan(dest) : buildTouristPlan(dest);
+  const plan =
+    input.lensMode === "local" ? buildLocalPlan(dest) : buildTouristPlan(dest);
+
+  const interests = input.interests.length > 0 ? input.interests : ["culture"];
+  const itinerary = getMockItinerary(
+    {
+      destination: dest.name,
+      interests,
+      duration: input.duration || "3 days",
+      travelStyle: input.travelStyle,
+      budget: input.budget,
+      culturalContext: [dest.tagline, ...plan.attractions.slice(0, 3).map((a) => a.name)].join(" · "),
+    },
+    plan,
+  );
+
+  return { ...plan, itinerary };
 }

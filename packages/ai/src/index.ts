@@ -10,4 +10,7 @@ export {
   generateHeritage,
   generateEvents,
   generateExperiences,
+  generateItinerary,
+  generateTripMate,
+  generatePacking,
 } from "./services";

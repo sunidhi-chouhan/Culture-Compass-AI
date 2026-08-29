@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test lib/api-utils.test.ts lib/rate-limit.test.ts lib/errors.test.ts lib/location-utils.test.ts lib/planner-constants.test.ts lib/planner-session-storage.test.ts lib/dashboard-helpers.test.ts lib/local-lens-helpers.test.ts lib/story-speech.test.ts lib/mock/compass-plan.test.ts lib/locations/location-index.test.ts lib/locations/location-search-query.test.ts lib/locations/search-api.test.ts",
+    "test": "node --import tsx --test lib/api-utils.test.ts lib/rate-limit.test.ts lib/errors.test.ts lib/location-utils.test.ts lib/planner-constants.test.ts lib/planner-session-storage.test.ts lib/planner-location.test.ts lib/initialize-planner-state.test.ts lib/dashboard-helpers.test.ts lib/local-lens-helpers.test.ts lib/story-speech.test.ts lib/mock/compass-plan.test.ts lib/mock/itinerary.test.ts lib/mock/tripmate.test.ts lib/mock/packing.test.ts lib/itinerary/parse-duration-days.test.ts lib/itinerary/format-schedule.test.ts lib/tripmate/trajectories.test.ts lib/tripmate/apply-suggestion.test.ts lib/journey-library-storage.test.ts lib/build-saved-journey.test.ts lib/open-saved-journey.test.ts lib/eval/schedule-quality-score.test.ts lib/eval/run-eval.test.ts lib/packing/build-trip-packing-context.test.ts lib/packing/merge-packed-state.test.ts lib/packing-session-storage.test.ts lib/security-headers.test.ts lib/place-search-url.test.ts lib/locations/location-index.test.ts lib/locations/location-search-query.test.ts lib/locations/search-api.test.ts lib/destinations/destination-catalog.test.ts hooks/use-location-search.test.ts lib/journey-stages.test.ts",
+    "eval:schedule": "tsx scripts/run-schedule-eval.ts",
     "clean": "rm -rf .next"
   },
   "dependencies": {

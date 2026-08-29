@@ -15,6 +15,7 @@ export interface UseLocationSearchOptions {
 export interface UseLocationSearchResult {
   inputValue: string;
   setInputValue: (value: string) => void;
+  setInputValueSilent: (value: string) => void;
   results: Location[];
   loading: boolean;
   error: string | null;
@@ -100,6 +101,19 @@ export function useLocationSearch(
     [debounceMs, runSearch],
   );
 
+  const setInputValueSilent = useCallback((value: string) => {
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    abortRef.current?.abort();
+    setInputValueState(value);
+    setResults([]);
+    setIsOpen(false);
+    setActiveIndex(-1);
+    setError(null);
+    setLoading(false);
+  }, []);
+
   const setInputValue = useCallback(
     (value: string) => {
       setInputValueState(value);
@@ -136,6 +150,7 @@ export function useLocationSearch(
   return {
     inputValue,
     setInputValue,
+    setInputValueSilent,
     results,
     loading,
     error,

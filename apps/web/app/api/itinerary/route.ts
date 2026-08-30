@@ -17,8 +17,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ itinerary: getMockItinerary(input) });
     }
 
-    const result = await generateItinerary(input);
-    return NextResponse.json(result);
+    try {
+      const result = await generateItinerary(input);
+      return NextResponse.json(result);
+    } catch (aiError) {
+      // Demo safety net: keep Explore usable if Gemini rejects this call.
+      console.error("[itinerary] Gemini failed; using mock itinerary", aiError);
+      return NextResponse.json({ itinerary: getMockItinerary(input) });
+    }
   } catch (error) {
     return handleRouteError(error);
   }

@@ -37,7 +37,7 @@ In Vercel → Project → Settings → Environment Variables, add:
 | Name | Value | Environments |
 |------|-------|--------------|
 | `GEMINI_API_KEY` | Your Google AI Studio API key | Production, Preview, Development |
-| `GEMINI_MODEL` | `gemini-2.0-flash` (optional; fastest on Hobby) | Production, Preview, Development |
+| `GEMINI_MODEL` | `gemini-2.5-flash` (optional override) | Production, Preview, Development |
 | `NEXT_PUBLIC_APP_NAME` | `JourneyMind` | Production, Preview, Development |
 
 **Important:** Never add `GEMINI_API_KEY` as a `NEXT_PUBLIC_*` variable.  
@@ -85,9 +85,11 @@ Add `GEMINI_API_KEY` in Vercel and redeploy.
 
 ### `/api/itinerary` or `/api/tripmate` returns 502
 
-These routes always use **`gemini-2.0-flash`** (Hobby-safe) even if the planner sent `balanced`. Only `GEMINI_API_KEY` is required.
+These routes use **`gemini-2.5-flash`** (same as compass). Only `GEMINI_API_KEY` is required.
 
-If it still 502s: check Function logs. Schema misses return `AI_ERROR` with “unexpected format”; platform kills look like timeouts.
+If Gemini still fails, the routes fall back to deterministic mock results so Explore / TripMate stay usable for demos.
+
+If it still 502s: check Function logs for validation errors before the AI call.
 
 ### `/api/compass/plan` times out
 

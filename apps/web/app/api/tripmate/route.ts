@@ -18,8 +18,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(getMockTripMateResult(input));
     }
 
-    const result = await generateTripMate(input);
-    return NextResponse.json(result);
+    try {
+      const result = await generateTripMate(input);
+      return NextResponse.json(result);
+    } catch (aiError) {
+      // Demo safety net: TripMate panel still gets actionable suggestions.
+      console.error("[tripmate] Gemini failed; using mock TripMate result", aiError);
+      return NextResponse.json(getMockTripMateResult(input));
+    }
   } catch (error) {
     return handleRouteError(error);
   }

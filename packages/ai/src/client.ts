@@ -49,6 +49,8 @@ async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 
 export interface GenerateJsonOptions {
   modelPreset?: ModelPreset;
+  /** Explicit Gemini model id; wins over modelPreset when set. */
+  modelName?: string;
   /** Default 2. Use 1 on Vercel Hobby for large itinerary/TripMate calls. */
   attempts?: number;
   timeoutMs?: number;
@@ -71,7 +73,7 @@ export async function generateJson<T>(
   const attempts = Math.max(1, options?.attempts ?? 2);
   const timeoutMs = options?.timeoutMs ?? GEMINI_TIMEOUT_MS;
   const model = genAI.getGenerativeModel({
-    model: resolveModelName(options?.modelPreset),
+    model: options?.modelName || resolveModelName(options?.modelPreset),
     generationConfig: {
       temperature: options?.temperature ?? 0.7,
       responseMimeType: "application/json",
@@ -84,6 +86,9 @@ export async function generateJson<T>(
     try {
       const result = await withTimeout(model.generateContent(prompt), timeoutMs);
       const text = result.response.text();
+      if (!text?.trim()) {
+        throw new AiGenerationError("AI returned an empty response. Please try again.");
+      }
       const json = extractJson(text);
 
       try {

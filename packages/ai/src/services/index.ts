@@ -46,12 +46,19 @@ import { buildItineraryPrompt } from "../prompts/itinerary";
 import { buildTripMatePrompt } from "../prompts/tripmate";
 import { buildPackingPrompt } from "../prompts/packing";
 
-/** Vercel Hobby ~10s. Ignore client `balanced`/`quality` on these heavy routes. */
-const HOBBY_SAFE_AI = {
-  modelPreset: "fast" as const,
+/** Same model that already succeeds for /api/compass/plan on this project. */
+const RELIABLE_AI = {
+  modelName: "gemini-2.5-flash",
   attempts: 1,
   temperature: 0.35,
-};
+} as const;
+
+async function generateJsonWithFallback<T>(
+  prompt: string,
+  parse: (raw: unknown) => T,
+): Promise<T> {
+  return generateJson(prompt, parse, RELIABLE_AI);
+}
 
 export async function generateCompassPlan(
   input: CompassPlanRequest,
@@ -117,12 +124,12 @@ export async function generateItinerary(
   input: ItineraryRequest,
 ): Promise<ItineraryResponse> {
   const prompt = buildItineraryPrompt(input);
-  return generateJson(prompt, parseItineraryResponse, HOBBY_SAFE_AI);
+  return generateJsonWithFallback(prompt, parseItineraryResponse);
 }
 
 export async function generateTripMate(input: TripMateRequest): Promise<TripMateResult> {
   const prompt = buildTripMatePrompt(input);
-  return generateJson(prompt, parseTripMateResult, HOBBY_SAFE_AI);
+  return generateJsonWithFallback(prompt, parseTripMateResult);
 }
 
 export async function generatePacking(input: PackingRequest): Promise<PackingResponse> {

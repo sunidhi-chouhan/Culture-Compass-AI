@@ -31,6 +31,6 @@ export function buildItineraryRequest(
     travelStyle: request.travelStyle,
     budget: request.budget,
     culturalContext: culturalContext.slice(0, 1200),
-    modelPreset: "fast" as const,
+    modelPreset: "balanced" as const,
   };
 }

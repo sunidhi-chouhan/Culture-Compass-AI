@@ -84,9 +84,9 @@ Multi-save on-device: Open, Continue latest, delete one, clear all (theme untouc
 
 | Option | Model | When |
 |---|---|---|
-| Fast | `gemini-2.0-flash` | Demos / Vercel Hobby |
-| Balanced | `gemini-2.5-flash` | Recommended when available |
-| Quality | `gemini-1.5-pro` | Richer narratives |
+| Fast | `gemini-2.5-flash` | Demos / Vercel Hobby |
+| Balanced | `gemini-2.5-flash` | Default (same reliable model) |
+| Quality | `gemini-2.5-flash` | Same reliable flash model |
 
 ---
 

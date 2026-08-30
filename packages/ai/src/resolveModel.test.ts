@@ -14,7 +14,7 @@ describe("resolveModelName", () => {
   });
 
   it("resolves fast preset", () => {
-    assert.equal(resolveModelName("fast"), "gemini-2.0-flash");
+    assert.equal(resolveModelName("fast"), "gemini-2.5-flash");
   });
 
   it("resolves balanced preset", () => {
@@ -22,7 +22,7 @@ describe("resolveModelName", () => {
   });
 
   it("resolves quality preset", () => {
-    assert.equal(resolveModelName("quality"), "gemini-1.5-pro");
+    assert.equal(resolveModelName("quality"), "gemini-2.5-flash");
   });
 
   it("falls back to default preset when undefined", () => {

@@ -1,9 +1,10 @@
-export const DEFAULT_GEMINI_MODEL = "gemini-2.0-flash";
+export const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
 
 export const MODEL_PRESETS = {
-  fast: "gemini-2.0-flash",
+  /** Same flash family as balanced — gemini-2.0-flash is unavailable on many keys. */
+  fast: "gemini-2.5-flash",
   balanced: "gemini-2.5-flash",
-  quality: "gemini-1.5-pro",
+  quality: "gemini-2.5-flash",
 } as const;
 
 export type ModelPreset = keyof typeof MODEL_PRESETS;

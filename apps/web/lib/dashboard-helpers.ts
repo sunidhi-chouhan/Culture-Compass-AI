@@ -11,11 +11,17 @@ export type DashboardCardId =
   | "shopping"
   | "etiquette";
 
+export interface DashboardBullet {
+  text: string;
+  placeName?: string;
+  locationName?: string;
+}
+
 export interface DashboardCardContent {
   id: DashboardCardId;
   title: string;
   summary: string;
-  bullets: string[];
+  bullets: DashboardBullet[];
   footer?: string;
 }
 
@@ -79,32 +85,42 @@ export function buildDashboardCards(plan: CompassPlanResponse): DashboardCardCon
       id: "hidden-gems",
       title: "Hidden Gems",
       summary: `${plan.hiddenGems.length} secret spots locals love`,
-      bullets: plan.hiddenGems.map((g) => `${g.name} — ${g.whyVisit}`),
+      bullets: plan.hiddenGems.map((g) => ({
+        placeName: g.name,
+        text: g.whyVisit,
+      })),
     },
     {
       id: "heritage",
       title: "Heritage",
       summary: dest.tagline,
-      bullets: plan.heritage.highlights,
+      bullets: plan.heritage.highlights.map((highlight) => ({ text: highlight })),
       footer: plan.heritage.culturalSignificance,
     },
     {
       id: "food",
       title: "Food",
       summary: "Taste the soul of the destination",
-      bullets: dashboard.foodHighlights,
+      bullets: dashboard.foodHighlights.map((name) => ({
+        placeName: name,
+        text: "A local favorite worth seeking out.",
+      })),
     },
     {
       id: "events",
       title: "Events",
       summary: `${plan.events.length} cultural happenings`,
-      bullets: plan.events.map((e) => `${e.name} (${e.date}) — ${e.location}`),
+      bullets: plan.events.map((e) => ({
+        placeName: e.name,
+        locationName: e.location,
+        text: `(${e.date}) — ${e.description}`,
+      })),
     },
     {
       id: "story",
       title: "Story",
       summary: plan.storySnippet.title,
-      bullets: [plan.storySnippet.preview],
+      bullets: [{ text: plan.storySnippet.preview }],
       footer: `${plan.storySnippet.tone} narrative`,
     },
     {
@@ -112,28 +128,31 @@ export function buildDashboardCards(plan: CompassPlanResponse): DashboardCardCon
       title: "Budget",
       summary: dest.estimatedBudget,
       bullets: [
-        `Estimated trip cost: ${dest.estimatedBudget}`,
-        `Best season: ${dest.bestTimeToVisit}`,
-        dest.rationale,
+        { text: `Estimated trip cost: ${dest.estimatedBudget}` },
+        { text: `Best season: ${dest.bestTimeToVisit}` },
+        { text: dest.rationale },
       ],
     },
     {
       id: "local-tips",
       title: "Local Tips",
-      summary: "Insider wisdom from CultureCompass",
-      bullets: dashboard.localTips,
+      summary: "Insider wisdom from JourneyMind",
+      bullets: dashboard.localTips.map((tip) => ({ text: tip })),
     },
     {
       id: "shopping",
       title: "Shopping",
       summary: "Markets & treasures to bring home",
-      bullets: dashboard.shoppingGuide,
+      bullets: dashboard.shoppingGuide.map((name) => ({
+        placeName: name,
+        text: "Where locals shop for quality and character.",
+      })),
     },
     {
       id: "etiquette",
       title: "Etiquette",
       summary: "Respect local customs",
-      bullets: plan.heritage.etiquetteTips,
+      bullets: plan.heritage.etiquetteTips.map((tip) => ({ text: tip })),
       footer: plan.heritage.traditions.length
         ? `Traditions: ${plan.heritage.traditions.join(" · ")}`
         : undefined,

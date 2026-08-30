@@ -27,7 +27,34 @@ import {
   experienceSchema,
   storySnippetSchema,
   dashboardMetaSchema,
+  itinerarySlotSchema,
+  dayItinerarySchema,
+  tripItinerarySchema,
+  tripMateSuggestionSchema,
+  tripMateSuggestionActionSchema,
+  tripMateResultSchema,
+  tripMateRequestSchema,
+  packingItemSchema,
+  packingItemSourceSchema,
+  packingPreferencesSchema,
+  packingInsightsSchema,
+  packingListSchema,
+  packingRequestSchema,
+  packingResponseSchema,
+  journeyPreferencesSchema,
+  savedJourneySchema,
+  journeyLibrarySchema,
+  activeJourneySessionSchema,
+  itineraryRequestSchema,
+  itineraryResponseSchema,
 } from "../schemas";
+import {
+  locationSchema,
+  locationSuggestionSchema,
+  locationSearchResponseSchema,
+  locationSearchQuerySchema,
+  locationIndexEntrySchema,
+} from "../schemas/location";
 
 export type ApiError = z.infer<typeof apiErrorSchema>;
 export type HealthResponse = z.infer<typeof healthResponseSchema>;
@@ -55,4 +82,29 @@ export type Event = z.infer<typeof eventSchema>;
 export type Experience = z.infer<typeof experienceSchema>;
 export type StorySnippet = z.infer<typeof storySnippetSchema>;
 export type DashboardMeta = z.infer<typeof dashboardMetaSchema>;
+export type ItinerarySlot = z.infer<typeof itinerarySlotSchema>;
+export type DayItinerary = z.infer<typeof dayItinerarySchema>;
+export type TripItinerary = z.infer<typeof tripItinerarySchema>;
+export type TripMateSuggestion = z.infer<typeof tripMateSuggestionSchema>;
+export type TripMateSuggestionAction = z.infer<typeof tripMateSuggestionActionSchema>;
+export type TripMateResult = z.infer<typeof tripMateResultSchema>;
+export type TripMateRequest = z.infer<typeof tripMateRequestSchema>;
+export type PackingItem = z.infer<typeof packingItemSchema>;
+export type PackingItemSource = z.infer<typeof packingItemSourceSchema>;
+export type PackingPreferences = z.infer<typeof packingPreferencesSchema>;
+export type PackingInsights = z.infer<typeof packingInsightsSchema>;
+export type PackingList = z.infer<typeof packingListSchema>;
+export type PackingRequest = z.infer<typeof packingRequestSchema>;
+export type PackingResponse = z.infer<typeof packingResponseSchema>;
+export type JourneyPreferences = z.infer<typeof journeyPreferencesSchema>;
+export type SavedJourney = z.infer<typeof savedJourneySchema>;
+export type JourneyLibrary = z.infer<typeof journeyLibrarySchema>;
+export type ActiveJourneySession = z.infer<typeof activeJourneySessionSchema>;
+export type ItineraryRequest = z.infer<typeof itineraryRequestSchema>;
+export type ItineraryResponse = z.infer<typeof itineraryResponseSchema>;
+export type Location = z.infer<typeof locationSchema>;
+export type LocationIndexEntry = z.infer<typeof locationIndexEntrySchema>;
+export type LocationSuggestion = z.infer<typeof locationSuggestionSchema>;
+export type LocationSearchResponse = z.infer<typeof locationSearchResponseSchema>;
+export type LocationSearchQuery = z.infer<typeof locationSearchQuerySchema>;
 export type { ModelPreset };

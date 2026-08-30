@@ -7,6 +7,7 @@ import {
   heritageResponseSchema,
   eventsResponseSchema,
   experiencesResponseSchema,
+  packingListSchema,
   type CompassPlanRequest,
   type CompassPlanResponse,
   type DestinationsRequest,
@@ -23,8 +24,17 @@ import {
   type EventsResponse,
   type ExperiencesRequest,
   type ExperiencesResponse,
+  type ItineraryRequest,
+  type ItineraryResponse,
+  type TripMateRequest,
+  type TripMateResult,
+  type PackingRequest,
+  type PackingResponse,
+  parseDurationToDayCount,
 } from "@culturecompass/shared";
 import { generateJson } from "../client";
+import { parseItineraryResponse } from "../parse-itinerary-response";
+import { parseTripMateResult } from "../parse-tripmate-result";
 import { buildCompassPlanPrompt } from "../prompts/compassPlan";
 import { buildDestinationsPrompt } from "../prompts/destinations";
 import { buildAttractionsPrompt } from "../prompts/attractions";
@@ -33,6 +43,23 @@ import { buildStoryPrompt } from "../prompts/storytelling";
 import { buildHeritagePrompt } from "../prompts/heritage";
 import { buildEventsPrompt } from "../prompts/events";
 import { buildExperiencesPrompt } from "../prompts/experiences";
+import { buildItineraryPrompt } from "../prompts/itinerary";
+import { buildTripMatePrompt } from "../prompts/tripmate";
+import { buildPackingPrompt } from "../prompts/packing";
+
+/** Same model that already succeeds for /api/compass/plan on this project. */
+const RELIABLE_AI = {
+  modelName: "gemini-2.5-flash",
+  attempts: 1,
+  temperature: 0.35,
+} as const;
+
+async function generateJsonWithFallback<T>(
+  prompt: string,
+  parse: (raw: unknown) => T,
+): Promise<T> {
+  return generateJson(prompt, parse, RELIABLE_AI);
+}
 
 export async function generateCompassPlan(
   input: CompassPlanRequest,
@@ -92,4 +119,30 @@ export async function generateExperiences(
   const { modelPreset, ...requestInput } = input;
   const prompt = buildExperiencesPrompt(requestInput);
   return generateJson(prompt, (raw) => experiencesResponseSchema.parse(raw), { modelPreset });
+}
+
+export async function generateItinerary(
+  input: ItineraryRequest,
+): Promise<ItineraryResponse> {
+  const dayCount = parseDurationToDayCount(input.duration);
+  const prompt = buildItineraryPrompt(input);
+  return generateJsonWithFallback(prompt, (raw) =>
+    parseItineraryResponse(raw, dayCount),
+  );
+}
+
+export async function generateTripMate(input: TripMateRequest): Promise<TripMateResult> {
+  const prompt = buildTripMatePrompt(input);
+  return generateJsonWithFallback(prompt, parseTripMateResult);
+}
+
+export async function generatePacking(input: PackingRequest): Promise<PackingResponse> {
+  const { modelPreset, ...requestInput } = input;
+  const prompt = buildPackingPrompt(requestInput);
+  const packing = await generateJson(
+    prompt,
+    (raw) => packingListSchema.parse(raw),
+    { modelPreset },
+  );
+  return { packing };
 }

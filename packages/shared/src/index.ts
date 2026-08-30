@@ -1,3 +1,6 @@
 export * from "./constants";
 export * from "./schemas";
 export * from "./types";
+export * from "./locations";
+export * from "./destinations";
+export * from "./duration";

@@ -1,123 +1,306 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Compass, Search, Sparkles, ArrowRight, Send } from "lucide-react";
+import { Compass, Sparkles, Send } from "lucide-react";
+import type { Location } from "@culturecompass/shared";
 import {
   ASSISTANT_PROMPTS,
   BUDGET_OPTIONS,
+  buildReviewPreferences,
   COMPANION_OPTIONS,
+  DURATION_DAY_HINTS,
   DURATION_OPTIONS,
-  INITIAL_PLANNER_ANSWERS,
+  isValidCustomDuration,
+  sanitizeCustomDurationInput,
+  getEditModePrompt,
+  getNextPlannerStep,
+  getPreviousPlannerStep,
   PLANNER_INTERESTS,
   PLANNER_STEPS,
+  trimMessagesToStep,
+  type EditablePlannerStep,
   type PlannerAnswers,
   type PlannerStep,
   formatUserAnswer,
 } from "@/lib/planner-constants";
-import { filterDestinationSuggestions } from "@/lib/location-utils";
-
-interface ChatMessage {
-  id: string;
-  role: "assistant" | "user";
-  text: string;
-}
+import { LocationSearch } from "@/components/location/location-search";
+import { PlannerEditModeBanner } from "@/components/planner/planner-edit-mode-banner";
+import { PlannerReviewSummary } from "@/components/planner/planner-review-summary";
+import { PlannerStepNavigation } from "@/components/planner/planner-step-navigation";
+import {
+  getPlannerStepIndex,
+  initializePlannerState,
+  type PlannerChatMessage,
+} from "@/lib/initialize-planner-state";
+import { writePlannerLocation } from "@/lib/planner-location";
+import { plannerStepToStage } from "@/lib/journey-stages";
+import { JourneyStageRail } from "@/components/journey/journey-stage-rail";
 
 interface ConversationalPlannerProps {
   initialDestination?: string;
+  initialLocation?: Location | null;
+  /** Landing entry: create (default) or improve-my-plan path. */
+  entryMode?: "create" | "improve";
   onGenerate: (answers: PlannerAnswers) => void;
   generating?: boolean;
 }
 
 export function ConversationalPlanner({
   initialDestination = "",
+  initialLocation = null,
+  entryMode = "create",
   onGenerate,
   generating = false,
 }: ConversationalPlannerProps) {
-  const [step, setStep] = useState<PlannerStep>("destination");
-  const [answers, setAnswers] = useState<PlannerAnswers>({
-    ...INITIAL_PLANNER_ANSWERS,
-    destination: initialDestination,
-  });
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: "welcome",
-      role: "assistant",
-      text: "Hi, I'm CultureCompass — your cultural companion. Let's find a place that speaks to your soul.",
-    },
-    {
-      id: "q-destination",
-      role: "assistant",
-      text: ASSISTANT_PROMPTS.destination,
-    },
-  ]);
-  const [destinationInput, setDestinationInput] = useState(initialDestination);
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [plannerInit] = useState(() =>
+    initializePlannerState({
+      initialDestination,
+      initialLocation,
+      entryMode,
+      storage: typeof window !== "undefined" ? sessionStorage : null,
+    }),
+  );
+
+  const [step, setStep] = useState<PlannerStep>(plannerInit.step);
+  const [answers, setAnswers] = useState<PlannerAnswers>(plannerInit.answers);
+  const [messages, setMessages] = useState<PlannerChatMessage[]>(plannerInit.messages);
+  const [destinationInput, setDestinationInput] = useState(plannerInit.destinationInput);
+  const [destinationLocation, setDestinationLocation] = useState<Location | null>(
+    plannerInit.destinationLocation,
+  );
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editSource, setEditSource] = useState<"review" | "back" | null>(null);
+  const [editSessionId, setEditSessionId] = useState(0);
+  const editSnapshotRef = useRef<PlannerAnswers | null>(null);
+  const destinationSnapshotRef = useRef<{
+    input: string;
+    location: Location | null;
+  } | null>(null);
+  const messagesSnapshotRef = useRef<PlannerChatMessage[] | null>(null);
+  const returnStepRef = useRef<PlannerStep | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const stepIndex = PLANNER_STEPS.indexOf(step);
+  const suppressAutoScrollRef = useRef(false);
+  const pendingScrollRestoreRef = useRef<number | null>(null);
+  const [entranceMessageIds, setEntranceMessageIds] = useState<ReadonlySet<string>>(
+    () => new Set(),
+  );
+  const stepIndex = getPlannerStepIndex(step);
+  const previousStep = getPreviousPlannerStep(step);
+  const reviewPreferences = buildReviewPreferences(answers);
+  const canGoBack =
+    previousStep !== null && (!isEditMode || editSource === "back");
+  const editableStep = step !== "generate" ? (step as EditablePlannerStep) : null;
 
-  const suggestions = filterDestinationSuggestions(destinationInput);
-
-  const scrollToBottom = useCallback(() => {
+  const scrollToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
     requestAnimationFrame(() => {
       scrollRef.current?.scrollTo({
         top: scrollRef.current.scrollHeight,
-        behavior: "smooth",
+        behavior,
       });
     });
   }, []);
 
+  useLayoutEffect(() => {
+    if (pendingScrollRestoreRef.current === null) return;
+    const top = pendingScrollRestoreRef.current;
+    pendingScrollRestoreRef.current = null;
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = top;
+    }
+  });
+
   useEffect(() => {
+    if (suppressAutoScrollRef.current) {
+      suppressAutoScrollRef.current = false;
+      return;
+    }
     scrollToBottom();
   }, [messages, step, scrollToBottom]);
 
-  function appendMessages(...msgs: ChatMessage[]) {
-    setMessages((prev) => [...prev, ...msgs]);
+  useEffect(() => {
+    if (entranceMessageIds.size === 0) return;
+    const timeoutId = window.setTimeout(() => {
+      setEntranceMessageIds(new Set());
+    }, 400);
+    return () => window.clearTimeout(timeoutId);
+  }, [entranceMessageIds]);
+
+  function withoutAutoScroll(update: () => void) {
+    pendingScrollRestoreRef.current = scrollRef.current?.scrollTop ?? 0;
+    suppressAutoScrollRef.current = true;
+    update();
   }
 
-  function advanceFrom(current: PlannerStep, updatedAnswers: PlannerAnswers) {
+  function commitStepAndNavigate(
+    current: PlannerStep,
+    updatedAnswers: PlannerAnswers,
+    navigateTo: PlannerStep,
+  ) {
     const answerText = formatUserAnswer(current, updatedAnswers);
-    const currentIdx = PLANNER_STEPS.indexOf(current);
-    const nextStep = PLANNER_STEPS[currentIdx + 1];
-
-    appendMessages({
-      id: `user-${current}-${Date.now()}`,
+    const userPrefix = `user-${current}`;
+    const userMessage: PlannerChatMessage = {
+      id: `${userPrefix}-${Date.now()}`,
       role: "user",
       text: answerText,
-    });
+    };
+    const followUpMessage: PlannerChatMessage =
+      navigateTo === "generate"
+        ? {
+            id: "ready",
+            role: "assistant",
+            text: "Wonderful. I have everything I need to shape your journey — review it below, then build when you're ready.",
+          }
+        : {
+            id: `q-${navigateTo}`,
+            role: "assistant",
+            text: ASSISTANT_PROMPTS[navigateTo as Exclude<PlannerStep, "generate">],
+          };
 
-    if (nextStep === "generate") {
-      setStep("generate");
-      appendMessages({
-        id: "ready",
-        role: "assistant",
-        text: "Wonderful. I have everything I need to craft your cultural journey.",
-      });
+    setEntranceMessageIds(new Set([userMessage.id, followUpMessage.id]));
+    setMessages((prev) => {
+      const existingUserIdx = prev.findIndex((message) => message.id.startsWith(userPrefix));
+      const base = existingUserIdx >= 0 ? prev.slice(0, existingUserIdx) : prev;
+      return [...base, userMessage, followUpMessage];
+    });
+    setStep(navigateTo);
+  }
+
+  function clearEditSnapshot() {
+    editSnapshotRef.current = null;
+    destinationSnapshotRef.current = null;
+    messagesSnapshotRef.current = null;
+    returnStepRef.current = null;
+  }
+
+  function snapshotForEdit(returnStep: PlannerStep) {
+    editSnapshotRef.current = {
+      ...answers,
+      interests: [...answers.interests],
+    };
+    destinationSnapshotRef.current = {
+      input: destinationInput,
+      location: destinationLocation,
+    };
+    messagesSnapshotRef.current = messages;
+    returnStepRef.current = returnStep;
+  }
+
+  function normalizeAnswersForStep(
+    current: PlannerStep,
+    updatedAnswers: PlannerAnswers,
+  ): PlannerAnswers {
+    if (current === "duration" && updatedAnswers.duration !== "Custom") {
+      return { ...updatedAnswers, customDuration: "" };
+    }
+    return updatedAnswers;
+  }
+
+  function completeStep(current: PlannerStep, updatedAnswers: PlannerAnswers) {
+    const nextAnswers = normalizeAnswersForStep(current, updatedAnswers);
+    setAnswers(nextAnswers);
+
+    if (isEditMode) {
+      const source = editSource;
+      setIsEditMode(false);
+      setEditSource(null);
+      clearEditSnapshot();
+
+      if (source === "review") {
+        commitStepAndNavigate(current, nextAnswers, "generate");
+        return;
+      }
+
+      const nextStep = getNextPlannerStep(current) ?? "generate";
+      commitStepAndNavigate(current, nextAnswers, nextStep);
       return;
     }
 
-    setStep(nextStep);
-    appendMessages({
-      id: `q-${nextStep}`,
-      role: "assistant",
-      text: ASSISTANT_PROMPTS[nextStep as Exclude<PlannerStep, "generate">],
+    const currentIdx = getPlannerStepIndex(current);
+    const nextStep = PLANNER_STEPS[currentIdx + 1];
+    const navigateTo = !nextStep || nextStep === "generate" ? "generate" : nextStep;
+    commitStepAndNavigate(current, nextAnswers, navigateTo);
+  }
+
+  function cancelEdit() {
+    withoutAutoScroll(() => {
+      if (editSnapshotRef.current) {
+        setAnswers(editSnapshotRef.current);
+      }
+      if (destinationSnapshotRef.current) {
+        setDestinationInput(destinationSnapshotRef.current.input);
+        setDestinationLocation(destinationSnapshotRef.current.location);
+      }
+      if (messagesSnapshotRef.current) {
+        setMessages(messagesSnapshotRef.current);
+      }
+
+      const returnTo =
+        editSource === "back" ? (returnStepRef.current ?? "generate") : "generate";
+
+      setIsEditMode(false);
+      setEditSource(null);
+      clearEditSnapshot();
+      setEditSessionId((id) => id + 1);
+      setStep(returnTo);
+    });
+  }
+
+  function goBack() {
+    const prev = getPreviousPlannerStep(step);
+    if (!prev || prev === "generate") return;
+    if (isEditMode && editSource !== "back") return;
+
+    const target = prev as EditablePlannerStep;
+
+    withoutAutoScroll(() => {
+      if (!isEditMode) {
+        snapshotForEdit(step);
+        setEditSource("back");
+        setIsEditMode(true);
+      }
+
+      setMessages((prevMessages) => trimMessagesToStep(prevMessages, target));
+      setStep(target);
+      setEditSessionId((id) => id + 1);
+    });
+  }
+
+  function startEditFromReview(target: EditablePlannerStep) {
+    withoutAutoScroll(() => {
+      snapshotForEdit("generate");
+      setEditSource("review");
+      setIsEditMode(true);
+      setMessages((prevMessages) => trimMessagesToStep(prevMessages, target));
+      setStep(target);
+      setEditSessionId((id) => id + 1);
     });
   }
 
   function handleDestinationContinue(override?: string) {
     const dest = override !== undefined ? override : destinationInput;
-    const updated = { ...answers, destination: dest };
-    setAnswers(updated);
+    const location = override !== undefined ? null : destinationLocation;
+    const updated = {
+      ...answers,
+      destination: dest,
+      destinationLocation: location,
+    };
+
     if (override !== undefined) {
       setDestinationInput(override);
+      setDestinationLocation(null);
     }
-    setShowSuggestions(false);
-    advanceFrom("destination", updated);
+
+    if (typeof window !== "undefined") {
+      writePlannerLocation(sessionStorage, location, dest);
+    }
+
+    completeStep("destination", updated);
   }
 
   function handleInterestsContinue() {
     if (answers.interests.length === 0) return;
-    advanceFrom("interests", answers);
+    completeStep("interests", answers);
   }
 
   function toggleInterest(interest: (typeof PLANNER_INTERESTS)[number]) {
@@ -130,60 +313,79 @@ export function ConversationalPlanner({
   }
 
   function selectCompanion(companion: (typeof COMPANION_OPTIONS)[number]) {
-    const updated = { ...answers, companion };
-    setAnswers(updated);
-    setTimeout(() => advanceFrom("companions", updated), 280);
+    setAnswers((prev) => ({ ...prev, companion }));
+  }
+
+  function handleCompanionsContinue() {
+    if (!answers.companion) return;
+    completeStep("companions", answers);
   }
 
   function selectBudget(budget: (typeof BUDGET_OPTIONS)[number]["id"]) {
-    const updated = { ...answers, budget };
-    setAnswers(updated);
-    setTimeout(() => advanceFrom("budget", updated), 280);
+    setAnswers((prev) => ({ ...prev, budget }));
+  }
+
+  function handleBudgetContinue() {
+    if (!answers.budget) return;
+    completeStep("budget", answers);
   }
 
   function selectDuration(duration: (typeof DURATION_OPTIONS)[number]) {
-    const updated = { ...answers, duration };
-    setAnswers(updated);
-    if (duration !== "Custom") {
-      setTimeout(() => advanceFrom("duration", updated), 280);
-    }
+    setAnswers((prev) => ({
+      ...prev,
+      duration,
+      customDuration: duration === "Custom" ? prev.customDuration : "",
+    }));
   }
 
-  function handleCustomDurationContinue() {
+  function handleDurationContinue() {
     if (!answers.duration) return;
-    advanceFrom("duration", answers);
+    if (answers.duration === "Custom" && !isValidCustomDuration(answers.customDuration)) return;
+    completeStep("duration", answers);
   }
+
+  const stage = plannerStepToStage(step, { generating });
 
   return (
     <div className="flex h-[calc(100dvh-4.5rem)] flex-col">
-      <div className="theme-divider flex items-center justify-between border-b px-4 py-3 sm:px-6">
-        <div className="flex items-center gap-2">
-          <div className="glass-icon flex h-9 w-9 items-center justify-center rounded-full">
-            <Compass className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
-          </div>
-          <div>
-            <p className="theme-text text-sm font-semibold">CultureCompass</p>
-            <p className="theme-text-subtle text-xs">Cultural companion</p>
+      <div className="theme-divider border-b px-4 py-3 sm:px-6">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center gap-2">
+            <div className="glass-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
+              <Compass className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+            </div>
+            <div className="min-w-0">
+              <p className="theme-text text-sm font-semibold">JourneyMind</p>
+              <p className="theme-text-subtle text-xs" aria-live="polite">
+                {isEditMode
+                  ? "Updating your journey"
+                  : step === "generate"
+                    ? generating
+                      ? "Generate · building your journey"
+                      : "Review your trip context"
+                    : `Create · Step ${Math.min(stepIndex + 1, 5)} of 5`}
+              </p>
+            </div>
           </div>
         </div>
-        <p className="theme-text-subtle text-xs" aria-live="polite">
-          {step === "generate" ? "Ready" : `Step ${Math.min(stepIndex + 1, 5)} of 5`}
-        </p>
+        <JourneyStageRail current={stage} compact className="mt-3" />
       </div>
 
       <div
         ref={scrollRef}
         className="flex-1 overflow-y-auto px-4 py-6 sm:px-6"
         role="log"
-        aria-label="Conversation with CultureCompass"
+        aria-label="Conversation with JourneyMind"
         aria-live="polite"
       >
         <div className="mx-auto flex max-w-2xl flex-col gap-4">
           <AnimatePresence initial={false}>
-            {messages.map((msg) => (
+            {messages.map((msg) => {
+              const shouldAnimate = entranceMessageIds.has(msg.id);
+              return (
               <motion.div
                 key={msg.id}
-                initial={{ opacity: 0, y: 12 }}
+                initial={shouldAnimate ? { opacity: 0, y: 12 } : false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
@@ -211,87 +413,54 @@ export function ConversationalPlanner({
                   {msg.text}
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </AnimatePresence>
         </div>
       </div>
 
-      <div className="theme-divider border-t px-4 py-4 sm:px-6">
-        <div className="mx-auto max-w-2xl">
-          <AnimatePresence mode="wait">
-            {step === "destination" && (
-              <motion.div
-                key="destination"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                className="space-y-3"
-              >
-                <div className="glass-search relative flex items-center gap-2 rounded-2xl px-4 py-1">
-                  <Search className="h-4 w-4 shrink-0 opacity-40" aria-hidden="true" />
-                  <input
-                    type="search"
-                    value={destinationInput}
-                    onChange={(e) => {
-                      setDestinationInput(e.target.value);
-                      setShowSuggestions(true);
-                    }}
-                    onFocus={() => setShowSuggestions(true)}
-                    onKeyDown={(e) => e.key === "Enter" && handleDestinationContinue()}
-                    placeholder="Search a city or region…"
-                    className="min-w-0 flex-1 bg-transparent py-3 text-sm outline-none sm:text-base"
-                    style={{ color: "var(--foreground)" }}
-                    aria-label="Where do you want to explore?"
-                  />
-                </div>
-                {showSuggestions && suggestions.length > 0 && (
-                  <ul className="glass-card max-h-36 overflow-auto rounded-xl py-1">
-                    {suggestions.map((s) => (
-                      <li key={s}>
-                        <button
-                          type="button"
-                          className="theme-text-muted w-full px-4 py-2.5 text-left text-sm hover:bg-[var(--accent-muted)]"
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={() => {
-                            setDestinationInput(s);
-                            setShowSuggestions(false);
-                          }}
-                        >
-                          {s}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={() => handleDestinationContinue("")}
-                    className="theme-chip text-sm"
-                  >
-                    <Sparkles className="mr-1.5 inline h-3.5 w-3.5" aria-hidden="true" />
-                    Surprise me
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleDestinationContinue()}
-                    className="cta-glow ml-auto inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold"
-                  >
-                    Continue
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </button>
-                </div>
-              </motion.div>
+      <div className="theme-divider relative overflow-visible border-t px-4 py-4 sm:px-6">
+        <div className="mx-auto max-w-2xl overflow-visible">
+          {isEditMode && editableStep && (
+            <div className="pointer-events-none absolute inset-x-4 bottom-full z-10 pb-3 sm:inset-x-6">
+              <div className="pointer-events-auto mx-auto max-w-2xl">
+                <PlannerEditModeBanner prompt={getEditModePrompt(editableStep)} />
+              </div>
+            </div>
+          )}
+          {step === "destination" && (
+              <div className="space-y-3 overflow-visible">
+                <LocationSearch
+                  key={`destination-search-${editSessionId}`}
+                  variant="planner"
+                  placeholder="Search a city or region…"
+                  initialText={destinationInput}
+                  initialLocation={destinationLocation}
+                  onInputTextChange={setDestinationInput}
+                  onLocationChange={setDestinationLocation}
+                  onEnterPress={() => handleDestinationContinue()}
+                />
+                <button
+                  type="button"
+                  onClick={() => handleDestinationContinue("")}
+                  className="theme-chip text-sm"
+                >
+                  <Sparkles className="mr-1.5 inline h-3.5 w-3.5" aria-hidden="true" />
+                  Surprise me
+                </button>
+                <PlannerStepNavigation
+                  isEditMode={isEditMode}
+                  allowBackWhileEditing={editSource === "back"}
+                  showBack={canGoBack}
+                  onBack={goBack}
+                  onCancel={cancelEdit}
+                  onContinue={() => handleDestinationContinue()}
+                />
+              </div>
             )}
 
             {step === "interests" && (
-              <motion.div
-                key="interests"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                className="space-y-3"
-              >
+              <div className="space-y-3">
                 <div className="flex flex-wrap gap-2" role="group" aria-label="Interests">
                   {PLANNER_INTERESTS.map((interest) => {
                     const selected = answers.interests.includes(interest);
@@ -308,75 +477,83 @@ export function ConversationalPlanner({
                     );
                   })}
                 </div>
-                <button
-                  type="button"
-                  disabled={answers.interests.length === 0}
-                  onClick={handleInterestsContinue}
-                  className="cta-glow flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold disabled:opacity-40"
-                >
-                  Continue
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </button>
-              </motion.div>
+                <PlannerStepNavigation
+                  isEditMode={isEditMode}
+                  allowBackWhileEditing={editSource === "back"}
+                  showBack={canGoBack}
+                  onBack={goBack}
+                  onCancel={cancelEdit}
+                  onContinue={handleInterestsContinue}
+                  continueDisabled={answers.interests.length === 0}
+                />
+              </div>
             )}
 
             {step === "companions" && (
-              <motion.div
-                key="companions"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                className="grid grid-cols-2 gap-2 sm:grid-cols-4"
-                role="group"
-                aria-label="Travel companions"
-              >
-                {COMPANION_OPTIONS.map((option) => (
-                  <motion.button
-                    key={option}
-                    type="button"
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => selectCompanion(option)}
-                    className="glass-card rounded-2xl px-4 py-4 text-sm font-medium transition-colors hover:border-[var(--accent)]"
-                  >
-                    {option}
-                  </motion.button>
-                ))}
-              </motion.div>
+              <div className="space-y-3">
+                <div
+                  className="grid grid-cols-2 gap-2 sm:grid-cols-4"
+                  role="group"
+                  aria-label="Travel companions"
+                >
+                  {COMPANION_OPTIONS.map((option) => (
+                    <motion.button
+                      key={option}
+                      type="button"
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => selectCompanion(option)}
+                      className={`glass-card rounded-2xl px-4 py-4 text-sm font-medium transition-colors hover:border-[var(--accent)] ${
+                        answers.companion === option ? "ring-2 ring-[var(--accent)]" : ""
+                      }`}
+                    >
+                      {option}
+                    </motion.button>
+                  ))}
+                </div>
+                <PlannerStepNavigation
+                  isEditMode={isEditMode}
+                  allowBackWhileEditing={editSource === "back"}
+                  showBack={canGoBack}
+                  onBack={goBack}
+                  onCancel={cancelEdit}
+                  onContinue={handleCompanionsContinue}
+                  continueDisabled={!answers.companion}
+                />
+              </div>
             )}
 
             {step === "budget" && (
-              <motion.div
-                key="budget"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                className="grid grid-cols-2 gap-2 sm:grid-cols-4"
-                role="group"
-                aria-label="Budget"
-              >
-                {BUDGET_OPTIONS.map((option) => (
-                  <motion.button
-                    key={option.id}
-                    type="button"
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => selectBudget(option.id)}
-                    className="glass-card flex flex-col items-center rounded-2xl px-3 py-4"
-                  >
-                    <span className="theme-text text-lg font-semibold">{option.label}</span>
-                    <span className="theme-text-subtle mt-1 text-xs">{option.description}</span>
-                  </motion.button>
-                ))}
-              </motion.div>
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4" role="group" aria-label="Budget">
+                  {BUDGET_OPTIONS.map((option) => (
+                    <motion.button
+                      key={option.id}
+                      type="button"
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => selectBudget(option.id)}
+                      className={`glass-card flex flex-col items-center rounded-2xl px-3 py-4 transition-colors hover:border-[var(--accent)] ${
+                        answers.budget === option.id ? "ring-2 ring-[var(--accent)]" : ""
+                      }`}
+                    >
+                      <span className="theme-text text-lg font-semibold">{option.label}</span>
+                      <span className="theme-text-subtle mt-1 text-xs">{option.description}</span>
+                    </motion.button>
+                  ))}
+                </div>
+                <PlannerStepNavigation
+                  isEditMode={isEditMode}
+                  allowBackWhileEditing={editSource === "back"}
+                  showBack={canGoBack}
+                  onBack={goBack}
+                  onCancel={cancelEdit}
+                  onContinue={handleBudgetContinue}
+                  continueDisabled={!answers.budget}
+                />
+              </div>
             )}
 
             {step === "duration" && (
-              <motion.div
-                key="duration"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                className="space-y-3"
-              >
+              <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-4" role="group" aria-label="Duration">
                   {DURATION_OPTIONS.map((option) => (
                     <motion.button
@@ -384,45 +561,71 @@ export function ConversationalPlanner({
                       type="button"
                       whileTap={{ scale: 0.97 }}
                       onClick={() => selectDuration(option)}
-                      className={`glass-card rounded-2xl px-3 py-4 text-sm font-medium ${
+                      className={`glass-card rounded-2xl px-3 py-3 text-sm font-medium transition-colors hover:border-[var(--accent)] ${
                         answers.duration === option ? "ring-2 ring-[var(--accent)]" : ""
                       }`}
                     >
-                      {option}
+                      <span className="block">{option}</span>
+                      <span className="theme-text-subtle mt-1 block text-[11px] font-normal">
+                        {DURATION_DAY_HINTS[option]}
+                      </span>
                     </motion.button>
                   ))}
                 </div>
                 {answers.duration === "Custom" && (
-                  <div className="flex gap-2">
+                  <div>
                     <input
                       type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={2}
                       value={answers.customDuration}
                       onChange={(e) =>
-                        setAnswers((a) => ({ ...a, customDuration: e.target.value }))
+                        setAnswers((a) => ({
+                          ...a,
+                          customDuration: sanitizeCustomDurationInput(e.target.value),
+                        }))
                       }
-                      placeholder="e.g. 10 days"
-                      className="theme-input flex-1"
-                      aria-label="Custom duration"
+                      placeholder="Number of days (1–30)"
+                      className="theme-input w-full"
+                      aria-label="Custom duration in days"
+                      aria-invalid={
+                        answers.customDuration.length > 0 &&
+                        !isValidCustomDuration(answers.customDuration)
+                      }
+                      aria-describedby="custom-duration-hint"
                     />
-                    <button
-                      type="button"
-                      onClick={handleCustomDurationContinue}
-                      className="cta-glow shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold"
-                    >
-                      Continue
-                    </button>
+                    <p id="custom-duration-hint" className="theme-text-subtle mt-2 text-xs">
+                      {answers.customDuration.length > 0 &&
+                      !isValidCustomDuration(answers.customDuration)
+                        ? "Enter a number from 1 to 30."
+                        : "Numbers only — 1 to 30 days."}
+                    </p>
                   </div>
                 )}
-              </motion.div>
+                <PlannerStepNavigation
+                  isEditMode={isEditMode}
+                  allowBackWhileEditing={editSource === "back"}
+                  showBack={canGoBack}
+                  onBack={goBack}
+                  onCancel={cancelEdit}
+                  onContinue={handleDurationContinue}
+                  continueDisabled={
+                    !answers.duration ||
+                    (answers.duration === "Custom" &&
+                      !isValidCustomDuration(answers.customDuration))
+                  }
+                />
+              </div>
             )}
 
             {step === "generate" && (
-              <motion.div
-                key="generate"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-              >
+              <div className="space-y-3">
+                <PlannerReviewSummary
+                  preferences={reviewPreferences}
+                  onEditStep={startEditFromReview}
+                />
+                <PlannerStepNavigation showBack={canGoBack} onBack={goBack} />
                 <motion.button
                   type="button"
                   disabled={generating}
@@ -433,17 +636,16 @@ export function ConversationalPlanner({
                   aria-busy={generating}
                 >
                   {generating ? (
-                    <>Charting your journey…</>
+                    <>Shaping your journey…</>
                   ) : (
                     <>
                       <Send className="h-5 w-5" aria-hidden="true" />
-                      Generate Journey
+                      Build my journey
                     </>
                   )}
                 </motion.button>
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
         </div>
       </div>
     </div>

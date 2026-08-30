@@ -1,4 +1,4 @@
-# Vercel Deployment Guide — CultureCompass AI
+# Vercel Deployment Guide — JourneyMind
 
 This project deploys as a **single Vercel project** (frontend + API routes).
 
@@ -12,7 +12,7 @@ This project deploys as a **single Vercel project** (frontend + API routes).
 
 ```bash
 git add .
-git commit -m "feat: CultureCompass AI monorepo"
+git commit -m "feat: JourneyMind agentic companion"
 git push origin main
 ```
 
@@ -37,60 +37,67 @@ In Vercel → Project → Settings → Environment Variables, add:
 | Name | Value | Environments |
 |------|-------|--------------|
 | `GEMINI_API_KEY` | Your Google AI Studio API key | Production, Preview, Development |
-| `GEMINI_MODEL` | `gemini-2.0-flash` (optional) | Production, Preview, Development |
-| `NEXT_PUBLIC_APP_NAME` | `CultureCompass AI` (optional) | Production, Preview, Development |
+| `GEMINI_MODEL` | `gemini-2.5-flash` (optional override) | Production, Preview, Development |
+| `NEXT_PUBLIC_APP_NAME` | `JourneyMind` | Production, Preview, Development |
 
-**Important:** Never add `GEMINI_API_KEY` as a `NEXT_PUBLIC_*` variable.
+**Important:** Never add `GEMINI_API_KEY` as a `NEXT_PUBLIC_*` variable.  
+**Do not** set `USE_MOCK_AI=true` on Production if you want live Gemini.
 
 ## Step 4: Deploy
 
-Click **Deploy**. Vercel will:
-
-1. Install dependencies from monorepo root via pnpm
-2. Build `@culturecompass/shared`, `@culturecompass/ai`, `@culturecompass/ui`
-3. Build and deploy `@culturecompass/web`
+Click **Deploy**. Vercel will install from the monorepo root via pnpm and build `@culturecompass/web`.
 
 ## Step 5: Verify Production
 
-Replace `YOUR_APP` with your Vercel domain:
-
 ```bash
-# Health check (no API key needed for this route to respond, but key needed for AI routes)
 curl https://YOUR_APP.vercel.app/api/health
-
-# Expected response:
-# {"status":"ok","timestamp":"2026-..."}
 ```
 
-Then open `https://YOUR_APP.vercel.app` in a browser:
+### Phase 9 smoke checklist (desktop + one mobile width)
 
-1. Fill out the discovery form on the home page
-2. Submit → redirects to `/discover`
-3. Wait for Gemini to generate your cultural plan
-4. Click a destination → view tabs
-5. Click "Read immersive story" → `/story/[id]`
+| # | Check | Pass? |
+|---|---|---|
+| 1 | Start Exploring opens fresh Create (no silent restore of old plan) | ☐ |
+| 2 | Create → Review → Build → Explore shows day-wise itinerary | ☐ |
+| 3 | TripMate Analyze → Apply updates a day; culture section still visible | ☐ |
+| 4 | Kill network / bad key: TripMate fails soft; Explore days remain | ☐ |
+| 5 | Prepare packing lists with reasons; tick items; refresh keeps ticks | ☐ |
+| 6 | Save → My journeys → Open restores Explore + packing | ☐ |
+| 7 | Delete one journey; Clear all empties library | ☐ |
+| 8 | Stage rail / companion jumps (Explore · Improve · Prepare) work | ☐ |
+| 9 | `prefers-reduced-motion: reduce` — no jarring motion | ☐ |
+
+Full judge path: [docs/reproduction-guide.md](docs/reproduction-guide.md).
+
+### Demo tip
+
+Prefer live Gemini on Production (`GEMINI_API_KEY` set, **no** `USE_MOCK_AI`). Keep a mock-local fallback for recording if the key is cold.
 
 ## Troubleshooting
 
 ### Build fails: "Cannot find module @culturecompass/*"
 
-Ensure Root Directory is `apps/web` and install command runs from monorepo root (`cd ../.. && pnpm install`).
+Ensure Root Directory is `apps/web` and install runs from monorepo root (`cd ../.. && pnpm install`).
 
 ### API returns 502 "Missing GEMINI_API_KEY"
 
-Add `GEMINI_API_KEY` in Vercel environment variables and redeploy.
+Add `GEMINI_API_KEY` in Vercel and redeploy.
+
+### `/api/itinerary` or `/api/tripmate` returns 502
+
+These routes use **`gemini-2.5-flash`** (same as compass). Only `GEMINI_API_KEY` is required.
+
+If Gemini still fails, the routes fall back to deterministic mock results so Explore / TripMate stay usable for demos.
+
+If it still 502s: check Function logs for validation errors before the AI call.
 
 ### `/api/compass/plan` times out
 
-Vercel Hobby plan has a 10s serverless timeout. Options:
+Vercel Hobby ~10s timeout. Use `gemini-2.0-flash`, upgrade to Pro, or use mock for demos.
 
-- Use `gemini-2.0-flash` (default, fastest)
-- Upgrade to Vercel Pro (60s timeout)
-- Simplify the compass plan prompt
+### pnpm not found
 
-### pnpm not found on Vercel
-
-The root `package.json` specifies `"packageManager": "pnpm@9.15.0"`. Vercel should auto-detect this. If not, set Install Command explicitly to `cd ../.. && corepack enable && pnpm install`.
+Root `package.json` specifies `"packageManager": "pnpm@9.15.0"`. If needed: `cd ../.. && corepack enable && pnpm install`.
 
 ## Local Production Preview
 
@@ -99,4 +106,4 @@ pnpm build
 cd apps/web && pnpm start
 ```
 
-Set `apps/web/.env.local` with your `GEMINI_API_KEY` before testing AI routes locally.
+Set `apps/web/.env.local` with `GEMINI_API_KEY` before testing AI routes locally.

@@ -1,127 +1,117 @@
-# CultureCompass AI
+# JourneyMind
 
-**CultureCompass AI** is a GenAI-powered travel platform for **Destination Discovery & Cultural Experiences**. It helps travelers discover destinations, uncover hidden gems, explore heritage, find local events, and connect with authentic cultural experiences.
+**JourneyMind** helps travellers turn fragmented trip context (preferences, rough plans, cultural intent) into a journey they can **explore, improve, and prepare for**.
 
-Built for the **Google Build with AI / PromptWars** hackathon.
+Built for the **micro1 Agentic Workflows** hackathon on the CultureCompass Next.js monorepo.
 
-**Live demo:** Deploy on Vercel with Root Directory `apps/web` and set `GEMINI_API_KEY`.
+**Story:** Cultural journey → day-wise itinerary → TripMate (analyze → propose → verify → apply) → journey-aware packing → multi-journey library.
+
+**Live demo:** Vercel Root Directory `apps/web` + `GEMINI_API_KEY` (or `USE_MOCK_AI=true` for offline). See [DEPLOYMENT.md](DEPLOYMENT.md) Phase 9 smoke checklist.
+
+**Demo video:** Record from [docs/video-script.md](docs/video-script.md) (≤5 min) — paste public URL in the script’s `VIDEO_URL=` field after upload.
 
 ---
 
 ## For judges — quick demo flow
 
-1. Open the **landing page** — immersive hero with example destinations (Jaipur, Kyoto, Bali, Rome, Kerala)
-2. Click **Start Exploring** or search a destination → conversational planner at `/plan`
-3. Answer one question at a time: destination → interests → companions → budget → duration
-4. Click **Generate Journey** — Gemini builds a full cultural plan
-5. Explore the **Journey Dashboard**: hero stats, **Story Mode** (parchment narrative + Play/Pause speech), **Local Lens** toggle (Tourist vs Local View), and nine insight cards
-6. Toggle **Local View** — recommendations refresh from a local resident's perspective
-7. Tap **Play Story** — browser speech synthesis reads the narrative with live word highlighting
-8. Toggle **dark/light theme** in the header
+1. **Discover** (`/`) — problem-led hero; **Start Exploring** (always fresh) or **Improve my plan** / **My journeys**
+2. **Create → Review** — destination → interests → companions → budget → duration → Review
+3. **Generate** — purposeful progress → Explore workspace
+4. **Explore** — **day-wise itinerary first**; cultural insight secondary; Local Lens + Story Mode
+5. **Improve** — TripMate Analyze → Apply a finding → watch the day timeline change
+6. **Prepare** — Pack for this trip (reasons cite itinerary / climate / duration)
+7. **Library** — Save → `/journeys` → Open / Delete / Clear all
+
+Evidence package:
+
+| Deliverable | Link |
+|---|---|
+| Improvement changelog | [docs/improvement-changelog.md](docs/improvement-changelog.md) |
+| Reproduction guide | [docs/reproduction-guide.md](docs/reproduction-guide.md) |
+| Schedule Quality Score table | [docs/eval/schedule-quality-results.md](docs/eval/schedule-quality-results.md) |
+| Agent trajectories | [docs/agent-trajectories.md](docs/agent-trajectories.md) |
+| Hot take | [docs/hot-take.md](docs/hot-take.md) |
+| Video script (≤5 min) | [docs/video-script.md](docs/video-script.md) |
+| Deploy | [DEPLOYMENT.md](DEPLOYMENT.md) |
+
+Reproduce eval: `cd apps/web && pnpm eval:schedule`
+
+---
 
 ### Problem statement alignment
 
-| Requirement | Implementation |
-|-------------|----------------|
-| Recommend attractions | Tourist View in Local Lens + Heritage & Attractions cards |
-| Uncover hidden gems | Local View surfaces hidden cafes, markets, street food, workshops |
-| Immersive storytelling | **Story Mode** — Gemini narrative on parchment card with TTS playback |
-| Promote heritage | Heritage card + traditions, etiquette, cultural significance |
-| Suggest local events | Events card + community festivals in Local View |
-| Authentic experiences | Experiences card + artisan workshops, local rituals |
-| GenAI-powered | All content generated server-side via Google Gemini |
+| Brief need | JourneyMind |
+|---|---|
+| Recommend attractions | Explore cards + Local Lens (Tourist) |
+| Hidden gems | Local Lens (Local) |
+| Immersive storytelling | Story Mode + TTS |
+| Heritage | Heritage card + etiquette / traditions |
+| Local events | Events card + festival packing cues |
+| Authentic experiences | Experiences card + itinerary culture stops |
+| **Agentic improvement** | **TripMate** on a real day-wise schedule |
+| **Measured improvement** | **Schedule Quality Score** E01–E10 baseline vs +TripMate |
+| Prepare the traveller | Journey-aware packing (reasons, quantities, itinerary block) |
 
-### AI evaluation criteria
+### AI evaluation criteria (micro1 / tooling)
 
 | Criterion | How we address it |
-|-----------|---------------------|
-| **Code quality** | Turborepo monorepo, strict TypeScript, layered packages (`shared` / `ai` / `web` / `ui`), consistent API error handling, ESLint + CI |
-| **Problem alignment** | Every feature maps to the hackathon brief; README demo flow matches the live app |
-| **Accessibility** | Semantic HTML, skip link, ARIA tabs/toggles/live regions, keyboard controls, `prefers-reduced-motion` |
-| **Testability** | **55+ unit tests** (Node.js test runner) across schemas, prompts, API utils, sanitization, rate limits, helpers; CI on every push |
-| **Efficiency** | Single composite `/api/compass/plan` call, Gemini JSON mode, client singleton, 55s timeout, bounded inputs |
-| **Security** | Server-only API key, Zod input limits, prompt sanitization + XML wrapping, rate limiting, security headers |
+|---|---|
+| **Code quality** | Turborepo (`shared` / `ai` / `web` / `ui`), strict TypeScript, Zod boundaries, extracted helpers (e.g. packing merge, security headers) |
+| **Security** | Server-only `GEMINI_API_KEY`, Zod limits, prompt sanitize + XML wrap, POST `/api/*` rate limit, site-wide security headers (`X-Frame-Options`, `nosniff`, Referrer-Policy, Permissions-Policy) |
+| **Efficiency** | Composite `/api/compass/plan`, Gemini JSON mode, singleton client, bounded inputs, mock path for demos without burning quota |
+| **Testing** | Broad Node test suite: schemas, sanitize, rate limit, TripMate apply, packing context/merge/session, SQS eval runner, library CRUD, security headers |
+| **Accessibility** | Skip link, labels, ARIA live regions (TripMate / packing progress), day nav, keyboard-friendly packing “why” disclosure, `prefers-reduced-motion` |
+| **Problem alignment** | Demo + docs follow Discover→Prepare; agent evidence + SQS Δ; changelog shows kept/revised/cut experiments |
 
 ---
 
 ## Features
 
 ### Conversational planner (`/plan`)
-Chat-style flow — one question at a time, then **Generate Journey**.
+Create → Review → Build — companion tone; Start Exploring never auto-restores.
 
-### Journey Dashboard
-- Hero image with destination stats (weather, season, cultural rating, AI match)
-- **Story Mode** — immersive second-person narrative in a parchment card; Play/Pause via Web Speech API with word highlighting
-- **Local Lens** — Tourist View (famous attractions) vs Local View (hidden gems, markets, street food, neighborhood temples, artisan workshops, community festivals); Gemini prompt adapts automatically
-- Nine staggered insight cards with detail sheets
+### Explore workspace
+- Day-wise itinerary (primary) with loading / error / retry  
+- TripMate Improve (non-blocking)  
+- Journey-aware packing (Prepare)  
+- Save to My journeys  
+- Cultural insight, Local Lens, Story Mode  
 
-### Landing page (`/`)
-Full-viewport hero, animated globe, floating cultural icons, destination search, feature cards.
+### My journeys (`/journeys`)
+Multi-save on-device: Open, Continue latest, delete one, clear all (theme untouched).
 
 ### AI model selection
 
-| Option | Model | When to use |
-|--------|-------|-------------|
-| Fast | `gemini-2.0-flash` | Quick demos |
-| **Balanced** | **`gemini-2.5-flash`** | **Recommended** |
-| Quality | `gemini-1.5-pro` | Richest narratives |
+| Option | Model | When |
+|---|---|---|
+| Fast | `gemini-2.5-flash` | Demos / Vercel Hobby |
+| Balanced | `gemini-2.5-flash` | Default (same reliable model) |
+| Quality | `gemini-2.5-flash` | Same reliable flash model |
 
 ---
 
 ## Tech stack
 
 | Layer | Technology |
-|-------|------------|
-| Frontend | Next.js 15, React, Tailwind CSS, Framer Motion |
-| Backend | Next.js Route Handlers (serverless API) |
-| AI | Google Gemini API (`@google/generative-ai`) |
+|---|---|
+| Frontend | Next.js 15, React, Tailwind, Framer Motion |
+| Backend | Next.js Route Handlers |
+| AI | Google Gemini (`@culturecompass/ai`) |
 | Validation | Zod (`@culturecompass/shared`) |
 | Monorepo | Turborepo + pnpm |
-| Deploy | Vercel (single deployment for FE + BE) |
+| Deploy | Vercel (`apps/web`) |
 
 ---
 
 ## Project structure
 
 ```
-├── apps/web/              # Next.js app (UI + /api routes)
-│   ├── components/
-│   │   ├── dashboard/     # Journey dashboard, Local Lens, cards
-│   │   ├── planner/       # Conversational planner session
-│   │   ├── story/         # Story Mode parchment + TTS
-│   │   └── landing/       # Immersive home page
-│   ├── hooks/             # use-story-speech
-│   └── lib/               # API client, helpers, tests
-├── packages/shared/       # Schemas, types, constants
-├── packages/ai/           # Gemini client, prompts, services
-└── packages/ui/           # Shared UI components
+├── apps/web/           # UI + /api routes
+├── packages/shared/    # Schemas, types, locations
+├── packages/ai/        # Gemini client + prompts
+├── packages/ui/        # Shared UI
+└── docs/               # Changelog, reproduction, eval, hot take, video, trajectories
 ```
-
----
-
-## Gen AI usage
-
-All AI runs **server-side** via `GEMINI_API_KEY` (never exposed to the browser).
-
-| Feature | API route | Gemini service |
-|---------|-----------|----------------|
-| Full cultural plan | `POST /api/compass/plan` | `generateCompassPlan()` |
-| Immersive story (deep dive) | `POST /api/culture/story` | `generateStory()` |
-| Destinations, attractions, gems, heritage, events, experiences | `/api/discover/*`, `/api/culture/*` | Granular services |
-
-The dashboard uses composite `/api/compass/plan` for one fast round-trip. Prompts live in `packages/ai/src/prompts/`. User input is sanitized and wrapped in XML delimiters. Responses are structured JSON validated with Zod. **Local Lens** and **Story Mode** fields are generated in the same call.
-
----
-
-## Quality, security & accessibility
-
-| Area | Approach |
-|------|----------|
-| **Code quality** | Monorepo layers, strict TS, ESLint (`next/core-web-vitals`), Prettier, CI pipeline |
-| **Testing** | Node.js test runner — schemas, lens constants, compass prompts, API utils, AI sanitization, rate limits, dashboard/story helpers |
-| **Security** | Server-only API key, Zod limits, prompt injection filtering, rate limiting on POST `/api/*`, security headers |
-| **Accessibility** | Skip link, form labels, ARIA tabs (`Local Lens`), `aria-live` regions (`Story Mode`), `aria-pressed` toggles, reduced-motion |
-| **Efficiency** | Single AI call per journey, JSON mode, singleton client, bounded input lengths |
 
 ---
 
@@ -130,26 +120,15 @@ The dashboard uses composite `/api/compass/plan` for one fast round-trip. Prompt
 ```bash
 pnpm install
 cp .env.example apps/web/.env.local
-# Add GEMINI_API_KEY from https://aistudio.google.com/apikey
+# Mock: USE_MOCK_AI=true
+# Live: GEMINI_API_KEY=... (do not set USE_MOCK_AI)
 pnpm dev:web
 ```
 
-### Scripts
-
 ```bash
-pnpm dev:web      # Start development server
-pnpm build        # Production build
-pnpm typecheck    # TypeScript check
-pnpm lint         # ESLint
-pnpm test         # Run all package tests
+pnpm test
+pnpm typecheck
+cd apps/web && pnpm eval:schedule
 ```
 
----
-
-## Deployment (Vercel)
-
-- **Root Directory:** `apps/web`
-- **Environment variable:** `GEMINI_API_KEY` (required)
-- Optional: `GEMINI_MODEL` to override default model
-
-See `DEPLOYMENT.md` for full steps.
+See [docs/reproduction-guide.md](docs/reproduction-guide.md) for the full judge path.

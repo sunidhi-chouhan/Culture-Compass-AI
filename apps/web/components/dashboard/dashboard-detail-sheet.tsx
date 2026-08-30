@@ -2,15 +2,50 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import type { DashboardCardContent } from "@/lib/dashboard-helpers";
+import { PlaceLink } from "@/components/place/place-link";
+import type { DashboardBullet, DashboardCardContent } from "@/lib/dashboard-helpers";
 
 interface DashboardDetailSheetProps {
   card: DashboardCardContent | null;
+  destinationContext?: string;
   storyHref?: string;
   onClose: () => void;
 }
 
-export function DashboardDetailSheet({ card, storyHref, onClose }: DashboardDetailSheetProps) {
+function renderBullet(bullet: DashboardBullet, destinationContext?: string) {
+  if (bullet.placeName) {
+    return (
+      <>
+        <PlaceLink
+          name={bullet.placeName}
+          destinationContext={destinationContext}
+          className="font-medium"
+        />
+        {bullet.locationName ? (
+          <>
+            {" "}
+            at{" "}
+            <PlaceLink
+              name={bullet.locationName}
+              destinationContext={destinationContext}
+              className="font-medium"
+            />
+          </>
+        ) : null}
+        {bullet.text ? ` — ${bullet.text}` : null}
+      </>
+    );
+  }
+
+  return bullet.text;
+}
+
+export function DashboardDetailSheet({
+  card,
+  destinationContext,
+  storyHref,
+  onClose,
+}: DashboardDetailSheetProps) {
   return (
     <AnimatePresence>
       {card && (
@@ -63,7 +98,7 @@ export function DashboardDetailSheet({ card, storyHref, onClose }: DashboardDeta
                       className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
                       style={{ background: "var(--accent)" }}
                     />
-                    {bullet}
+                    {renderBullet(bullet, destinationContext)}
                   </motion.li>
                 ))}
               </ul>

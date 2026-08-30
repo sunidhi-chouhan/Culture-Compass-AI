@@ -30,3 +30,6 @@ pnpm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# GeoNames build artifacts
+.tmp-geonames

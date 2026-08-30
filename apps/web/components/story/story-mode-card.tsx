@@ -2,23 +2,34 @@
 
 import { motion } from "framer-motion";
 import { BookOpen, Pause, Play, ScrollText } from "lucide-react";
-import type { StorySnippet } from "@culturecompass/shared";
+import type { CompassPlanResponse } from "@culturecompass/shared";
 import { useStorySpeech } from "@/hooks/use-story-speech";
-import { getStoryNarrative } from "@/lib/story-speech";
+import { buildJourneyNarration } from "@/lib/story-speech";
 
 interface StoryModeCardProps {
-  snippet: StorySnippet;
+  plan: CompassPlanResponse;
   destinationName: string;
 }
 
-export function StoryModeCard({ snippet, destinationName }: StoryModeCardProps) {
-  const narrative = getStoryNarrative(snippet);
-  const { tokens, status, activeWordIndex, readThroughIndex, supported, play, pause, resume } =
-    useStorySpeech(narrative);
+export function StoryModeCard({ plan, destinationName }: StoryModeCardProps) {
+  const narrative = buildJourneyNarration(plan);
+  const {
+    tokens,
+    status,
+    activeWordIndex,
+    readThroughIndex,
+    supported,
+    errorMessage,
+    play,
+    pause,
+    resume,
+  } = useStorySpeech(narrative);
   const isPlaying = status === "playing";
+  const isPaused = status === "paused";
+  const playLabel = isPaused ? "Resume Story" : "Play Story";
 
   function handlePlay() {
-    if (status === "paused") {
+    if (isPaused) {
       resume();
     } else {
       play();
@@ -51,29 +62,33 @@ export function StoryModeCard({ snippet, destinationName }: StoryModeCardProps) 
             type="button"
             onClick={handlePlay}
             disabled={!supported || isPlaying}
-            className="story-mode-control inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold disabled:opacity-50"
-            aria-label={status === "paused" ? "Resume story" : "Play story"}
+            className={`story-mode-control inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold disabled:opacity-50 ${
+              isPaused ? "ring-1 ring-[var(--border)]" : ""
+            }`}
+            aria-label={playLabel}
             aria-pressed={isPlaying}
           >
             <Play className="h-4 w-4" aria-hidden="true" />
-            Play Story
+            {playLabel}
           </button>
           <button
             type="button"
             onClick={pause}
-            disabled={!supported || status === "idle"}
-            className="story-mode-control-secondary inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold disabled:opacity-50"
+            disabled={!supported || !isPlaying}
+            className={`story-mode-control-secondary inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold disabled:opacity-50 ${
+              isPlaying ? "border-[var(--foreground)] text-[var(--foreground)]" : ""
+            }`}
             aria-label="Pause story"
-            aria-pressed={status === "paused"}
+            aria-pressed={isPaused}
           >
             <Pause className="h-4 w-4" aria-hidden="true" />
             Pause Story
           </button>
         </div>
         <p className="sr-only" role="status" aria-live="polite">
-          {status === "playing"
+          {isPlaying
             ? "Story is playing."
-            : status === "paused"
+            : isPaused
               ? "Story is paused."
               : "Story is ready to play."}
         </p>
@@ -91,7 +106,7 @@ export function StoryModeCard({ snippet, destinationName }: StoryModeCardProps) 
         <header className="relative mb-5 flex items-center gap-2 border-b border-[color-mix(in_srgb,var(--foreground)_12%,transparent)] pb-4">
           <BookOpen className="h-4 w-4 opacity-60" strokeWidth={1.75} aria-hidden="true" />
           <h3 className="font-serif text-lg font-semibold tracking-tight text-[var(--parchment-ink)] sm:text-xl">
-            {snippet.title}
+            {plan.storySnippet.title}
           </h3>
         </header>
 
@@ -121,11 +136,16 @@ export function StoryModeCard({ snippet, destinationName }: StoryModeCardProps) 
           })}
         </p>
 
-        <footer className="relative mt-6 flex items-center justify-between text-xs text-[color-mix(in_srgb,var(--parchment-ink)_65%,transparent)]">
-          <span className="capitalize">{snippet.tone} narrative</span>
+        <footer className="relative mt-6 flex flex-col gap-2 text-xs text-[color-mix(in_srgb,var(--parchment-ink)_65%,transparent)] sm:flex-row sm:items-center sm:justify-between">
+          <span className="capitalize">{plan.storySnippet.tone} narrative</span>
           {!supported && (
             <span className="text-amber-700 dark:text-amber-300">
-              Speech playback not supported in this browser
+              Speech playback not supported in this browser — you can still read the story.
+            </span>
+          )}
+          {errorMessage && (
+            <span className="text-amber-700 dark:text-amber-300" role="status">
+              {errorMessage}
             </span>
           )}
         </footer>

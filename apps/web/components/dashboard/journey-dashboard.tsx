@@ -34,8 +34,15 @@ import {
 import { LocalLensToggle } from "@/components/dashboard/local-lens-toggle";
 import { LocalLensShowcase } from "@/components/dashboard/local-lens-showcase";
 import { StoryModeCard } from "@/components/story/story-mode-card";
+import {
+  DayItineraryPanel,
+  type ItineraryPanelStatus,
+} from "@/components/itinerary/day-itinerary-panel";
+import { JourneyCompanionNav } from "@/components/journey/journey-companion-nav";
+import { JourneyStageRail } from "@/components/journey/journey-stage-rail";
 import { getLensSpots } from "@/lib/local-lens-helpers";
-import type { LensMode } from "@culturecompass/shared";
+import type { LensMode, TripItinerary } from "@culturecompass/shared";
+import type { ReactNode } from "react";
 
 const CARD_ICONS: Record<DashboardCardId, LucideIcon> = {
   "hidden-gems": Gem,
@@ -67,6 +74,22 @@ interface JourneyDashboardProps {
   lensMode: LensMode;
   lensLoading?: boolean;
   onLensModeChange: (mode: LensMode) => void;
+  itinerary?: TripItinerary | null;
+  itineraryStatus?: ItineraryPanelStatus;
+  itineraryError?: string | null;
+  itineraryStatusLine?: string;
+  itineraryRefreshing?: boolean;
+  onRetryItinerary?: () => void;
+  /** Improve stage — TripMate panel (non-blocking). */
+  improvePanel?: ReactNode;
+  /** Library — save current journey. */
+  libraryPanel?: ReactNode;
+  /** Prepare — packing checklist. */
+  packingPanel?: ReactNode;
+  /** Download PDF control shown on the cultural cards section. */
+  downloadAction?: ReactNode;
+  /** Day to focus after TripMate Apply. */
+  focusDayNumber?: number | null;
 }
 
 export function JourneyDashboard({
@@ -74,6 +97,17 @@ export function JourneyDashboard({
   lensMode,
   lensLoading,
   onLensModeChange,
+  itinerary = null,
+  itineraryStatus = "idle",
+  itineraryError = null,
+  itineraryStatusLine,
+  itineraryRefreshing = false,
+  onRetryItinerary,
+  improvePanel,
+  libraryPanel,
+  packingPanel,
+  downloadAction,
+  focusDayNumber = null,
 }: JourneyDashboardProps) {
   const [activeCard, setActiveCard] = useState<DashboardCardContent | null>(null);
   const dest = plan.featuredDestination;
@@ -82,11 +116,17 @@ export function JourneyDashboard({
   const lensSpots = getLensSpots(plan, lensMode);
   const heroUrl = getDestinationHeroUrl(dest.id);
   const storyHref = `/story/${dest.id}?name=${encodeURIComponent(dest.name)}`;
+  const destinationContext = `${dest.name}, ${dest.country}`;
 
   return (
     <div className="min-h-[calc(100dvh-4.5rem)] pb-16">
-      {/* Hero */}
-      <section className="relative h-[min(52vh,420px)] w-full overflow-hidden">
+      <div className="theme-divider border-b px-4 py-2.5 sm:px-6">
+        <JourneyStageRail current="Explore" compact />
+      </div>
+      <JourneyCompanionNav active="Explore" />
+
+      {/* Hero — compact so Explore days land near the first viewport */}
+      <section className="relative h-[min(36vh,280px)] w-full overflow-hidden sm:h-[min(40vh,320px)]">
         <Image
           src={heroUrl}
           alt={`${dest.name}, ${dest.country}`}
@@ -119,17 +159,25 @@ export function JourneyDashboard({
               </Link>
             </motion.div>
             <motion.p variants={heroItem} className="text-sm font-medium text-white/80">
-              {dest.country}
+              Explore · {dest.country}
             </motion.p>
             <motion.h1
               variants={heroItem}
-              className="font-serif text-4xl font-semibold tracking-tight text-white sm:text-5xl"
+              className="font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl"
             >
               {dest.name}
             </motion.h1>
             <motion.p variants={heroItem} className="mt-2 max-w-xl text-sm text-white/85 sm:text-base">
               {dest.tagline}
             </motion.p>
+            <motion.div variants={heroItem} className="mt-4">
+              <a
+                href="#explore-days"
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md hover:bg-white/25"
+              >
+                Jump to your days
+              </a>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -158,15 +206,54 @@ export function JourneyDashboard({
         </div>
       </motion.div>
 
-      {/* Story Mode */}
+      {/* Explore — day-wise itinerary leads */}
+      <div className="relative z-10 mt-8 sm:mt-10">
+        <DayItineraryPanel
+          status={itineraryStatus}
+          itinerary={itinerary ?? plan.itinerary ?? null}
+          destinationContext={destinationContext}
+          errorMessage={itineraryError}
+          statusLine={itineraryStatusLine}
+          isRefreshing={itineraryRefreshing}
+          onRetry={onRetryItinerary}
+          autoFocus
+          focusDayNumber={focusDayNumber}
+        />
+      </div>
+
+      {improvePanel ? (
+        <div className="relative z-10 mt-10 sm:mt-12">{improvePanel}</div>
+      ) : null}
+
+      {packingPanel ? (
+        <div className="relative z-10 mt-10 sm:mt-12">{packingPanel}</div>
+      ) : null}
+
+      {libraryPanel ? (
+        <div className="relative z-10 mt-10 sm:mt-12">{libraryPanel}</div>
+      ) : null}
+
+      {/* Cultural insight — secondary */}
       <div className="relative z-10 mx-auto mt-10 max-w-6xl px-4 sm:px-6">
-        <StoryModeCard snippet={plan.storySnippet} destinationName={dest.name} />
+        <p className="theme-badge text-[10px] tracking-[0.18em]">Explore · Cultural insight</p>
+        <h2 className="theme-text mt-2 font-serif text-2xl font-semibold tracking-tight">
+          Cultural texture
+        </h2>
+        <p className="theme-text-muted mt-1 mb-6 max-w-xl text-sm">
+          Stories, local lens, and places that give your days meaning.
+        </p>
+        <StoryModeCard plan={plan} destinationName={dest.name} />
       </div>
 
       {/* Local Lens — highly visible */}
       <div className="relative z-10 mx-auto mt-8 max-w-6xl px-4 sm:px-6">
         <LocalLensToggle mode={lensMode} loading={lensLoading} onChange={onLensModeChange} />
-        <LocalLensShowcase spots={lensSpots} mode={lensMode} loading={lensLoading} />
+        <LocalLensShowcase
+          spots={lensSpots}
+          mode={lensMode}
+          destinationContext={destinationContext}
+          loading={lensLoading}
+        />
       </div>
 
       {/* Cards grid */}
@@ -175,14 +262,17 @@ export function JourneyDashboard({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="mb-6"
+          className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
         >
-          <h2 className="theme-text font-serif text-2xl font-semibold tracking-tight">
-            Your cultural journey
-          </h2>
-          <p className="theme-text-muted mt-1 text-sm">
-            Tap a card to explore what CultureCompass discovered for you.
-          </p>
+          <div>
+            <h2 className="theme-text font-serif text-2xl font-semibold tracking-tight">
+              Your cultural journey
+            </h2>
+            <p className="theme-text-muted mt-1 text-sm">
+              Tap a card to explore what JourneyMind discovered for you.
+            </p>
+          </div>
+          {downloadAction ? <div className="shrink-0">{downloadAction}</div> : null}
         </motion.div>
 
         <motion.div
@@ -208,6 +298,7 @@ export function JourneyDashboard({
 
       <DashboardDetailSheet
         card={activeCard}
+        destinationContext={destinationContext}
         storyHref={storyHref}
         onClose={() => setActiveCard(null)}
       />

@@ -1,0 +1,32 @@
+import { NextRequest, NextResponse } from "next/server";
+import { generateTripMate } from "@culturecompass/ai";
+import { tripMateRequestSchema } from "@culturecompass/shared";
+import { handleRouteError, parseJsonBody } from "@/lib/api-utils";
+import { isMockAiEnabled } from "@/lib/mock/compass-plan";
+import { getMockTripMateResult } from "@/lib/mock/tripmate";
+
+/** Prefer longer runtime on Pro; Hobby still caps ~10s. */
+export const maxDuration = 60;
+
+export async function POST(request: NextRequest) {
+  try {
+    const input = await parseJsonBody(request, tripMateRequestSchema);
+
+    if (isMockAiEnabled()) {
+      // Simulate analyze → propose latency; client shows verifying separately.
+      await new Promise((resolve) => setTimeout(resolve, 900));
+      return NextResponse.json(getMockTripMateResult(input));
+    }
+
+    try {
+      const result = await generateTripMate(input);
+      return NextResponse.json(result);
+    } catch (aiError) {
+      // Demo safety net: TripMate panel still gets actionable suggestions.
+      console.error("[tripmate] Gemini failed; using mock TripMate result", aiError);
+      return NextResponse.json(getMockTripMateResult(input));
+    }
+  } catch (error) {
+    return handleRouteError(error);
+  }
+}

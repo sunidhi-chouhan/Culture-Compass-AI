@@ -14,7 +14,7 @@ function PlanPageContent() {
 
 export default function PlanPage() {
   return (
-    <Suspense fallback={<LoadingState message="Opening your cultural companion…" />}>
+    <Suspense fallback={<LoadingState message="Opening JourneyMind…" />}>
       <PlanPageContent />
     </Suspense>
   );

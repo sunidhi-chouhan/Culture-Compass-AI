@@ -1,5 +1,5 @@
 import type { ItineraryRequest } from "@culturecompass/shared";
-import { INPUT_LIMITS } from "@culturecompass/shared";
+import { INPUT_LIMITS, parseDurationToDayCount } from "@culturecompass/shared";
 import { sanitizePromptInput, wrapUserData } from "../sanitize";
 
 export function buildItineraryPrompt(input: ItineraryRequest): string {
@@ -8,6 +8,7 @@ export function buildItineraryPrompt(input: ItineraryRequest): string {
     .map((i) => sanitizePromptInput(i, INPUT_LIMITS.interestTagMax))
     .join(", ");
   const duration = sanitizePromptInput(input.duration, INPUT_LIMITS.duration);
+  const dayCount = parseDurationToDayCount(input.duration);
   const travelStyle = sanitizePromptInput(
     input.travelStyle || "balanced",
     INPUT_LIMITS.travelStyle,
@@ -53,7 +54,8 @@ Create a day-wise itinerary as ONLY valid JSON matching this exact shape:
 }
 
 Rules:
-- Match the trip length implied by duration (weekend ≈ 2–3 days, 1 week ≈ 7 days; never exceed 14 days).
+- Generate exactly ${dayCount} day${dayCount === 1 ? "" : "s"} (dayNumber 1 through ${dayCount}). Do not add extra days.
+- Match the trip length implied by duration (never exceed 30 days).
 - Each day usually has morning, afternoon, and evening slots with realistic pacing.
 - Titles should be place-led (e.g. "Oaxaca Central Market"), not "history morning at…".
 - Descriptions must be specific and concrete. NEVER use filler like "paced stop", "shaped around your interests", or "balanced day of discovery".

@@ -25,6 +25,7 @@ import { usePacking } from "@/hooks/use-packing";
 import { TripMateImprovePanel } from "@/components/tripmate/tripmate-improve-panel";
 import { PackingPreparePanel } from "@/components/packing/packing-prepare-panel";
 import { SaveJourneyPanel } from "@/components/library/save-journey-panel";
+import { DownloadJourneyButton } from "@/components/library/download-journey-button";
 
 type SessionPhase = "planner" | "loading" | "results" | "error";
 
@@ -219,6 +220,15 @@ export function PlannerSession({ initialDestination }: PlannerSessionProps) {
                 packing={packing.packing}
               />
             ) : null
+          }
+          downloadAction={
+            <DownloadJourneyButton
+              plan={plan}
+              request={lastRequest}
+              itinerary={itinerary}
+              packing={packing.packing}
+              variant="primary"
+            />
           }
           packingPanel={
             <PackingPreparePanel

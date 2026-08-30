@@ -6,7 +6,10 @@ import {
   getPreviousPlannerStep,
   mapBudgetToApiValue,
   mapCompanionToTravelStyle,
+  isValidCustomDuration,
   mapDurationToApiValue,
+  parseCustomDurationDays,
+  sanitizeCustomDurationInput,
   trimMessagesToStep,
   type PlannerAnswers,
 } from "./planner-constants";
@@ -32,8 +35,23 @@ describe("planner mappings", () => {
   });
 
   it("maps duration presets", () => {
-    assert.equal(mapDurationToApiValue("Weekend", ""), "Weekend (2–3 days)");
+    assert.equal(mapDurationToApiValue("Weekend", ""), "2 days");
+    assert.equal(mapDurationToApiValue("3 Days", ""), "3 days");
+    assert.equal(mapDurationToApiValue("1 Week", ""), "7 days");
+    assert.equal(mapDurationToApiValue("Custom", "10"), "10 days");
     assert.equal(mapDurationToApiValue("Custom", "10 days"), "10 days");
+  });
+
+  it("accepts numeric-only custom duration", () => {
+    assert.equal(sanitizeCustomDurationInput("12 days"), "12");
+    assert.equal(sanitizeCustomDurationInput("ab3c"), "3");
+    assert.equal(parseCustomDurationDays("8"), 8);
+    assert.equal(parseCustomDurationDays("0"), null);
+    assert.equal(parseCustomDurationDays("15"), 15);
+    assert.equal(parseCustomDurationDays("30"), 30);
+    assert.equal(parseCustomDurationDays("31"), null);
+    assert.equal(isValidCustomDuration("14"), true);
+    assert.equal(isValidCustomDuration(""), false);
   });
 
   it("builds a valid compass plan request", () => {
@@ -41,7 +59,7 @@ describe("planner mappings", () => {
     assert.equal(request.destination, "Kyoto");
     assert.deepEqual(request.interests, ["history", "food"]);
     assert.equal(request.travelStyle, "solo");
-    assert.equal(request.duration, "1 week");
+    assert.equal(request.duration, "7 days");
     assert.equal(request.lensMode, "tourist");
   });
 

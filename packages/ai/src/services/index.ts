@@ -30,6 +30,7 @@ import {
   type TripMateResult,
   type PackingRequest,
   type PackingResponse,
+  parseDurationToDayCount,
 } from "@culturecompass/shared";
 import { generateJson } from "../client";
 import { parseItineraryResponse } from "../parse-itinerary-response";
@@ -123,8 +124,11 @@ export async function generateExperiences(
 export async function generateItinerary(
   input: ItineraryRequest,
 ): Promise<ItineraryResponse> {
+  const dayCount = parseDurationToDayCount(input.duration);
   const prompt = buildItineraryPrompt(input);
-  return generateJsonWithFallback(prompt, parseItineraryResponse);
+  return generateJsonWithFallback(prompt, (raw) =>
+    parseItineraryResponse(raw, dayCount),
+  );
 }
 
 export async function generateTripMate(input: TripMateRequest): Promise<TripMateResult> {

@@ -17,6 +17,13 @@ describe("getMockItinerary", () => {
   });
 
   it("scales day count from duration", () => {
+    const weekend = getMockItinerary({
+      destination: "Lisbon",
+      interests: ["food"],
+      duration: "2 days",
+    });
+    assert.equal(weekend.days.length, 2);
+
     const week = getMockItinerary({
       destination: "Bali",
       interests: ["nature"],

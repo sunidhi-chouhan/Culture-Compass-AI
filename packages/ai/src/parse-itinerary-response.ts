@@ -4,9 +4,12 @@ import { itineraryResponseSchema, type ItineraryResponse } from "@culturecompass
  * Gemini often returns the itinerary object at the root (`{ days }`) while
  * the API contract is `{ itinerary: { days } }`. Accept both.
  */
-export function parseItineraryResponse(raw: unknown): ItineraryResponse {
+export function parseItineraryResponse(
+  raw: unknown,
+  expectedDayCount?: number,
+): ItineraryResponse {
   const wrapped = wrapItineraryPayload(raw);
-  const itinerary = sanitizeItineraryFields({ ...wrapped.itinerary });
+  const itinerary = sanitizeItineraryFields({ ...wrapped.itinerary }, expectedDayCount);
   return itineraryResponseSchema.parse({ itinerary });
 }
 
@@ -29,7 +32,10 @@ function wrapItineraryPayload(raw: unknown): { itinerary: Record<string, unknown
   return { itinerary: obj };
 }
 
-function sanitizeItineraryFields(itinerary: Record<string, unknown>): Record<string, unknown> {
+function sanitizeItineraryFields(
+  itinerary: Record<string, unknown>,
+  expectedDayCount?: number,
+): Record<string, unknown> {
   if (itinerary.generatedAt != null && typeof itinerary.generatedAt !== "string") {
     delete itinerary.generatedAt;
   } else if (typeof itinerary.generatedAt === "string") {
@@ -48,6 +54,16 @@ function sanitizeItineraryFields(itinerary: Record<string, unknown>): Record<str
       next.slots = next.slots.map((slot) => coerceSlot(slot));
       return next;
     });
+
+    if (expectedDayCount != null && expectedDayCount > 0) {
+      const days = itinerary.days as unknown[];
+      itinerary.days = days
+        .slice(0, expectedDayCount)
+        .map((day, index) => {
+          if (!day || typeof day !== "object") return day;
+          return { ...(day as Record<string, unknown>), dayNumber: index + 1 };
+        });
+    }
   }
 
   return itinerary;

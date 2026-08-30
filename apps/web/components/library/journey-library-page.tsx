@@ -14,6 +14,7 @@ import {
 import type { SavedJourney } from "@culturecompass/shared";
 import { useJourneyLibrary } from "@/hooks/use-journey-library";
 import { openSavedJourneyIntoSession } from "@/lib/open-saved-journey";
+import { DownloadJourneyButton } from "@/components/library/download-journey-button";
 
 function formatUpdatedAt(iso: string): string {
   try {
@@ -173,6 +174,13 @@ export function JourneyLibraryPage() {
                       <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
                       Open
                     </button>
+                    <DownloadJourneyButton
+                      plan={journey.culturalPlan}
+                      request={journey.compassRequest}
+                      itinerary={journey.itinerary}
+                      packing={journey.packing}
+                      title={journey.title}
+                    />
                     {pendingDeleteId === journey.id ? (
                       <div className="flex items-center gap-2 text-sm">
                         <button

@@ -86,6 +86,8 @@ interface JourneyDashboardProps {
   libraryPanel?: ReactNode;
   /** Prepare — packing checklist. */
   packingPanel?: ReactNode;
+  /** Download PDF control shown on the cultural cards section. */
+  downloadAction?: ReactNode;
   /** Day to focus after TripMate Apply. */
   focusDayNumber?: number | null;
 }
@@ -104,6 +106,7 @@ export function JourneyDashboard({
   improvePanel,
   libraryPanel,
   packingPanel,
+  downloadAction,
   focusDayNumber = null,
 }: JourneyDashboardProps) {
   const [activeCard, setActiveCard] = useState<DashboardCardContent | null>(null);
@@ -259,14 +262,17 @@ export function JourneyDashboard({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="mb-6"
+          className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
         >
-          <h2 className="theme-text font-serif text-2xl font-semibold tracking-tight">
-            Your cultural journey
-          </h2>
-          <p className="theme-text-muted mt-1 text-sm">
-            Tap a card to explore what JourneyMind discovered for you.
-          </p>
+          <div>
+            <h2 className="theme-text font-serif text-2xl font-semibold tracking-tight">
+              Your cultural journey
+            </h2>
+            <p className="theme-text-muted mt-1 text-sm">
+              Tap a card to explore what JourneyMind discovered for you.
+            </p>
+          </div>
+          {downloadAction ? <div className="shrink-0">{downloadAction}</div> : null}
         </motion.div>
 
         <motion.div

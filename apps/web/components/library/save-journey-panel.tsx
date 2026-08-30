@@ -12,6 +12,7 @@ import type {
   TripMateResult,
 } from "@culturecompass/shared";
 import { buildSavedJourney, defaultJourneyTitle } from "@/lib/build-saved-journey";
+import { DownloadJourneyButton } from "@/components/library/download-journey-button";
 import {
   getSavedJourney,
   readActiveJourneySession,
@@ -89,8 +90,8 @@ export function SaveJourneyPanel({
           Save this journey
         </h2>
         <p className="theme-text-muted mt-1 max-w-xl text-sm">
-          Keep days, culture, and TripMate notes on this device — open them anytime from My
-          journeys.
+          Keep days, culture, and TripMate notes on this device — or download a PDF with your
+          itinerary, packing list, and hidden gems.
         </p>
       </div>
 
@@ -98,7 +99,7 @@ export function SaveJourneyPanel({
         <label htmlFor="journey-title" className="theme-text-subtle text-xs font-medium">
           Title
         </label>
-        <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center">
           <input
             id="journey-title"
             type="text"
@@ -111,18 +112,27 @@ export function SaveJourneyPanel({
             }}
             className="theme-text w-full flex-1 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm outline-none focus:border-[var(--foreground)]"
           />
-          <button
-            type="button"
-            onClick={handleSave}
-            className="cta-glow inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold"
-          >
-            {status === "saved" ? (
-              <Check className="h-4 w-4" aria-hidden="true" />
-            ) : (
-              <BookmarkPlus className="h-4 w-4" aria-hidden="true" />
-            )}
-            {status === "saved" ? "Saved" : "Save journey"}
-          </button>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <button
+              type="button"
+              onClick={handleSave}
+              className="cta-glow inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold"
+            >
+              {status === "saved" ? (
+                <Check className="h-4 w-4" aria-hidden="true" />
+              ) : (
+                <BookmarkPlus className="h-4 w-4" aria-hidden="true" />
+              )}
+              {status === "saved" ? "Saved" : "Save journey"}
+            </button>
+            <DownloadJourneyButton
+              plan={plan}
+              request={request}
+              itinerary={itinerary}
+              packing={packing}
+              title={title}
+            />
+          </div>
         </div>
 
         {message ? (

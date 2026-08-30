@@ -63,11 +63,42 @@ const BUDGET_TO_LABEL: Record<BudgetOption, string> = {
   luxury: "Luxury",
 };
 
-const DURATION_TO_LABEL: Record<Exclude<DurationOption, "Custom">, string> = {
-  Weekend: "Weekend (2–3 days)",
+export const CUSTOM_DURATION_MIN = 1;
+export const CUSTOM_DURATION_MAX = 30;
+
+/** Exact day counts shown in Create and used for itinerary generation. */
+export const DURATION_DAY_HINTS: Record<DurationOption, string> = {
+  Weekend: "2 days",
   "3 Days": "3 days",
-  "1 Week": "1 week",
+  "1 Week": "7 days",
+  Custom: "1–30 days",
 };
+
+const DURATION_TO_LABEL: Record<Exclude<DurationOption, "Custom">, string> = {
+  Weekend: "2 days",
+  "3 Days": "3 days",
+  "1 Week": "7 days",
+};
+
+/** Keep Custom duration as digits only (1–2 characters while typing). */
+export function sanitizeCustomDurationInput(raw: string): string {
+  return raw.replace(/\D/g, "").slice(0, 2);
+}
+
+/** Parsed Custom day count, or null if empty / out of range. */
+export function parseCustomDurationDays(raw: string): number | null {
+  const digits = sanitizeCustomDurationInput(raw);
+  if (!digits) return null;
+  const n = Number(digits);
+  if (!Number.isInteger(n) || n < CUSTOM_DURATION_MIN || n > CUSTOM_DURATION_MAX) {
+    return null;
+  }
+  return n;
+}
+
+export function isValidCustomDuration(raw: string): boolean {
+  return parseCustomDurationDays(raw) != null;
+}
 
 export function mapCompanionToTravelStyle(companion: CompanionOption): string {
   return COMPANION_TO_STYLE[companion];
@@ -82,7 +113,8 @@ export function mapDurationToApiValue(
   customDuration: string,
 ): string {
   if (duration === "Custom") {
-    return customDuration.trim() || "5 days";
+    const days = parseCustomDurationDays(customDuration);
+    return days ? `${days} days` : `${CUSTOM_DURATION_MIN} days`;
   }
   return DURATION_TO_LABEL[duration];
 }
@@ -131,8 +163,12 @@ export function formatUserAnswer(step: PlannerStep, answers: PlannerAnswers): st
     }
     case "duration":
       if (answers.duration === "Custom") {
-        return answers.customDuration.trim() || "Custom duration";
+        const days = parseCustomDurationDays(answers.customDuration);
+        return days ? `${days} days` : "Custom duration";
       }
+      if (answers.duration === "Weekend") return "Weekend · 2 days";
+      if (answers.duration === "3 Days") return "3 days";
+      if (answers.duration === "1 Week") return "1 week · 7 days";
       return answers.duration ?? "";
     default:
       return "";

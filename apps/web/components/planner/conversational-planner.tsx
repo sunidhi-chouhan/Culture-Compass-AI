@@ -9,7 +9,10 @@ import {
   BUDGET_OPTIONS,
   buildReviewPreferences,
   COMPANION_OPTIONS,
+  DURATION_DAY_HINTS,
   DURATION_OPTIONS,
+  isValidCustomDuration,
+  sanitizeCustomDurationInput,
   getEditModePrompt,
   getNextPlannerStep,
   getPreviousPlannerStep,
@@ -328,12 +331,16 @@ export function ConversationalPlanner({
   }
 
   function selectDuration(duration: (typeof DURATION_OPTIONS)[number]) {
-    setAnswers((prev) => ({ ...prev, duration }));
+    setAnswers((prev) => ({
+      ...prev,
+      duration,
+      customDuration: duration === "Custom" ? prev.customDuration : "",
+    }));
   }
 
   function handleDurationContinue() {
     if (!answers.duration) return;
-    if (answers.duration === "Custom" && !answers.customDuration.trim()) return;
+    if (answers.duration === "Custom" && !isValidCustomDuration(answers.customDuration)) return;
     completeStep("duration", answers);
   }
 
@@ -554,25 +561,47 @@ export function ConversationalPlanner({
                       type="button"
                       whileTap={{ scale: 0.97 }}
                       onClick={() => selectDuration(option)}
-                      className={`glass-card rounded-2xl px-3 py-4 text-sm font-medium transition-colors hover:border-[var(--accent)] ${
+                      className={`glass-card rounded-2xl px-3 py-3 text-sm font-medium transition-colors hover:border-[var(--accent)] ${
                         answers.duration === option ? "ring-2 ring-[var(--accent)]" : ""
                       }`}
                     >
-                      {option}
+                      <span className="block">{option}</span>
+                      <span className="theme-text-subtle mt-1 block text-[11px] font-normal">
+                        {DURATION_DAY_HINTS[option]}
+                      </span>
                     </motion.button>
                   ))}
                 </div>
                 {answers.duration === "Custom" && (
-                  <input
-                    type="text"
-                    value={answers.customDuration}
-                    onChange={(e) =>
-                      setAnswers((a) => ({ ...a, customDuration: e.target.value }))
-                    }
-                    placeholder="e.g. 10 days"
-                    className="theme-input w-full"
-                    aria-label="Custom duration"
-                  />
+                  <div>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={2}
+                      value={answers.customDuration}
+                      onChange={(e) =>
+                        setAnswers((a) => ({
+                          ...a,
+                          customDuration: sanitizeCustomDurationInput(e.target.value),
+                        }))
+                      }
+                      placeholder="Number of days (1–30)"
+                      className="theme-input w-full"
+                      aria-label="Custom duration in days"
+                      aria-invalid={
+                        answers.customDuration.length > 0 &&
+                        !isValidCustomDuration(answers.customDuration)
+                      }
+                      aria-describedby="custom-duration-hint"
+                    />
+                    <p id="custom-duration-hint" className="theme-text-subtle mt-2 text-xs">
+                      {answers.customDuration.length > 0 &&
+                      !isValidCustomDuration(answers.customDuration)
+                        ? "Enter a number from 1 to 30."
+                        : "Numbers only — 1 to 30 days."}
+                    </p>
+                  </div>
                 )}
                 <PlannerStepNavigation
                   isEditMode={isEditMode}
@@ -583,7 +612,8 @@ export function ConversationalPlanner({
                   onContinue={handleDurationContinue}
                   continueDisabled={
                     !answers.duration ||
-                    (answers.duration === "Custom" && !answers.customDuration.trim())
+                    (answers.duration === "Custom" &&
+                      !isValidCustomDuration(answers.customDuration))
                   }
                 />
               </div>

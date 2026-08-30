@@ -35,4 +35,19 @@ describe("parseItineraryResponse", () => {
     });
     assert.equal(result.itinerary.generatedAt, undefined);
   });
+
+  it("trims extra days to the expected count", () => {
+    const result = parseItineraryResponse(
+      {
+        days: [
+          ...days,
+          { dayNumber: 2, title: "Day 2", slots: [{ id: "d2-a", title: "Temple" }] },
+          { dayNumber: 3, title: "Day 3", slots: [{ id: "d3-a", title: "Market" }] },
+        ],
+      },
+      2,
+    );
+    assert.equal(result.itinerary.days.length, 2);
+    assert.equal(result.itinerary.days[1].dayNumber, 2);
+  });
 });

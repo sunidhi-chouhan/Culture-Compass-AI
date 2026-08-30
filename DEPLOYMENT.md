@@ -83,6 +83,12 @@ Ensure Root Directory is `apps/web` and install runs from monorepo root (`cd ../
 
 Add `GEMINI_API_KEY` in Vercel and redeploy.
 
+### `/api/itinerary` or `/api/tripmate` returns 502
+
+These routes always use **`gemini-2.0-flash`** (Hobby-safe) even if the planner sent `balanced`. Only `GEMINI_API_KEY` is required.
+
+If it still 502s: check Function logs. Schema misses return `AI_ERROR` with “unexpected format”; platform kills look like timeouts.
+
 ### `/api/compass/plan` times out
 
 Vercel Hobby ~10s timeout. Use `gemini-2.0-flash`, upgrade to Pro, or use mock for demos.

@@ -30,7 +30,7 @@ export function buildItineraryRequest(
     duration: request.duration || "3 days",
     travelStyle: request.travelStyle,
     budget: request.budget,
-    culturalContext: culturalContext.slice(0, 4000),
-    modelPreset: request.modelPreset,
+    culturalContext: culturalContext.slice(0, 1200),
+    modelPreset: "fast" as const,
   };
 }

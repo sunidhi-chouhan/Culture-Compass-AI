@@ -141,7 +141,7 @@ export function useTripMate({
             plan.featuredDestination.tagline,
             ...plan.attractions.slice(0, 3).map((a) => a.name),
           ].join(" · "),
-          modelPreset: request.modelPreset,
+          modelPreset: "fast" as const,
         };
 
         const next = await runTripMate(payload);

@@ -7,8 +7,6 @@ import {
   heritageResponseSchema,
   eventsResponseSchema,
   experiencesResponseSchema,
-  itineraryResponseSchema,
-  tripMateResultSchema,
   packingListSchema,
   type CompassPlanRequest,
   type CompassPlanResponse,
@@ -34,6 +32,8 @@ import {
   type PackingResponse,
 } from "@culturecompass/shared";
 import { generateJson } from "../client";
+import { parseItineraryResponse } from "../parse-itinerary-response";
+import { parseTripMateResult } from "../parse-tripmate-result";
 import { buildCompassPlanPrompt } from "../prompts/compassPlan";
 import { buildDestinationsPrompt } from "../prompts/destinations";
 import { buildAttractionsPrompt } from "../prompts/attractions";
@@ -45,6 +45,13 @@ import { buildExperiencesPrompt } from "../prompts/experiences";
 import { buildItineraryPrompt } from "../prompts/itinerary";
 import { buildTripMatePrompt } from "../prompts/tripmate";
 import { buildPackingPrompt } from "../prompts/packing";
+
+/** Vercel Hobby ~10s. Ignore client `balanced`/`quality` on these heavy routes. */
+const HOBBY_SAFE_AI = {
+  modelPreset: "fast" as const,
+  attempts: 1,
+  temperature: 0.35,
+};
 
 export async function generateCompassPlan(
   input: CompassPlanRequest,
@@ -109,15 +116,13 @@ export async function generateExperiences(
 export async function generateItinerary(
   input: ItineraryRequest,
 ): Promise<ItineraryResponse> {
-  const { modelPreset, ...requestInput } = input;
-  const prompt = buildItineraryPrompt(requestInput);
-  return generateJson(prompt, (raw) => itineraryResponseSchema.parse(raw), { modelPreset });
+  const prompt = buildItineraryPrompt(input);
+  return generateJson(prompt, parseItineraryResponse, HOBBY_SAFE_AI);
 }
 
 export async function generateTripMate(input: TripMateRequest): Promise<TripMateResult> {
-  const { modelPreset, ...requestInput } = input;
-  const prompt = buildTripMatePrompt(requestInput);
-  return generateJson(prompt, (raw) => tripMateResultSchema.parse(raw), { modelPreset });
+  const prompt = buildTripMatePrompt(input);
+  return generateJson(prompt, parseTripMateResult, HOBBY_SAFE_AI);
 }
 
 export async function generatePacking(input: PackingRequest): Promise<PackingResponse> {

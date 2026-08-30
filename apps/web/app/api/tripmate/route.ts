@@ -5,6 +5,9 @@ import { handleRouteError, parseJsonBody } from "@/lib/api-utils";
 import { isMockAiEnabled } from "@/lib/mock/compass-plan";
 import { getMockTripMateResult } from "@/lib/mock/tripmate";
 
+/** Prefer longer runtime on Pro; Hobby still caps ~10s. */
+export const maxDuration = 60;
+
 export async function POST(request: NextRequest) {
   try {
     const input = await parseJsonBody(request, tripMateRequestSchema);

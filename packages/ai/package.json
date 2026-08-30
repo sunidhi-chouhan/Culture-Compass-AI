@@ -14,7 +14,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test src/sanitize.test.ts src/errors.test.ts src/resolveModel.test.ts src/prompts/compassPlan.test.ts",
+    "test": "node --import tsx --test src/sanitize.test.ts src/errors.test.ts src/resolveModel.test.ts src/prompts/compassPlan.test.ts src/parse-itinerary-response.test.ts src/parse-tripmate-result.test.ts",
     "clean": "rm -rf dist"
   },
   "dependencies": {

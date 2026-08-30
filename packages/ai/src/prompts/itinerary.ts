@@ -15,7 +15,7 @@ export function buildItineraryPrompt(input: ItineraryRequest): string {
   const budget = sanitizePromptInput(input.budget || "moderate", INPUT_LIMITS.budget);
   const culturalContext = sanitizePromptInput(
     input.culturalContext || "None provided",
-    4000,
+    1200,
   );
 
   return `You are JourneyMind, a travel companion that turns trip context into a realistic day-wise travel schedule.
@@ -62,6 +62,8 @@ Rules:
 - featured: true on at most ONE slot per day (prefer the morning highlight) for a small image.
 - Prefer real place names from cultural context when available.
 - Every slot id must be unique across the whole itinerary.
+- generatedAt must be ISO-8601 with timezone offset (example: 2026-08-29T18:02:00.724Z), or omit it.
+- You may wrap the object as { "itinerary": { ...same fields } }. Either shape is accepted.
 
 Traveler profile:
 - Destination: ${wrapUserData("destination", destination)}

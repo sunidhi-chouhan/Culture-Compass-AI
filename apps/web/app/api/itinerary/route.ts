@@ -5,6 +5,9 @@ import { handleRouteError, parseJsonBody } from "@/lib/api-utils";
 import { isMockAiEnabled } from "@/lib/mock/compass-plan";
 import { getMockItinerary } from "@/lib/mock/itinerary";
 
+/** Prefer longer runtime on Pro; Hobby still caps ~10s. */
+export const maxDuration = 60;
+
 export async function POST(request: NextRequest) {
   try {
     const input = await parseJsonBody(request, itineraryRequestSchema);
